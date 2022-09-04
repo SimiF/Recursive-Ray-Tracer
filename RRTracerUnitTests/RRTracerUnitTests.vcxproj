@@ -162,6 +162,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="RRT_Color_UnitTests.cpp" />
     <ClCompile Include="RRT_Tuple_UnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
