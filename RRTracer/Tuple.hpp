@@ -23,7 +23,8 @@ namespace RRT
 		Tuple operator*(const float& f) const;
 		Tuple operator/(const float& f) const;
 
-		inline float magnitude() const { if (IsVector()) { return sqrtf(x * x + y * y + z * z); } }
+		inline float magnitude() const;
+		Tuple normalize() const noexcept;
 
 		inline bool IsPoint() const noexcept { return RRTUtils::s_floats_equal(w, 1.0f); }
 		inline bool IsVector() const noexcept { return !IsPoint(); }
@@ -75,6 +76,27 @@ namespace RRT
 	Tuple Tuple::operator/(const float& f) const
 	{
 		return { x / f, y / f, z / f, w };
+	}
+
+	inline float Tuple::magnitude() const
+	{
+		if (IsVector())
+		{
+			return { sqrtf(x * x + y * y + z * z)};
+		}
+		else
+		{
+			return { 0.0 };
+		}
+	}
+
+	Tuple Tuple::normalize() const noexcept
+	{
+		float mag = magnitude();
+		float norm_x = x / mag;
+		float norm_y = y / mag;
+		float norm_z = z / mag;
+		return { norm_x, norm_y, norm_z, w };
 	}
 }
 

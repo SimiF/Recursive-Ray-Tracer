@@ -278,5 +278,26 @@ namespace RRT_Point_UnitTests
 
 			Assert::AreEqual(expected_magnitude, vector.magnitude());
 		}
+
+		TEST_METHOD(Normalizing_Vector_400_gives_100)
+		{
+			RRT::Tuple expected_vector = RRT::TupleFactory().Vector(1.0f, 0.0f, 0.0f);
+			RRT::Tuple vector = RRT::TupleFactory().Vector(4.0f, 0.0f, 0.0f);
+			
+			RRT::Tuple normalized_vector = vector.normalize();
+
+			Assert::AreEqual(expected_vector.X(), normalized_vector.X());
+			Assert::AreEqual(expected_vector.Y(), normalized_vector.Y());
+			Assert::AreEqual(expected_vector.Z(), normalized_vector.Z());
+		}
+
+		TEST_METHOD(Normalizing_Vector_has_1_mag)
+		{			
+			RRT::Tuple vector = RRT::TupleFactory().Vector(15.2f, -2.3f, 29.30f);
+
+			RRT::Tuple normalized_vector = vector.normalize();
+
+			Assert::AreEqual(1.0f, normalized_vector.magnitude());
+		}
 	};
 }
