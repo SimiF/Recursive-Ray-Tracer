@@ -13,11 +13,11 @@ namespace RRTTupleUnitTests
 
 		TEST_METHOD(TupleWithWeight1IsAPoint)
 		{
-			float x{ 4.3 };
-			float y{ -4.2 };
-			float z{ 3.1 };
-			float w{ 1.0 };
-			RRT::Tuple tuple = RRT::Tuple(4.3, -4.2, 3.1, 1.0);
+			float x{ 4.3f };
+			float y{ -4.2f };
+			float z{ 3.1f };
+			float w{ 1.0f };
+			RRT::Tuple tuple = RRT::Tuple(4.3f, -4.2f, 3.1f, 1.0f);
 
 			Assert::AreEqual(x, tuple.X());
 			Assert::AreEqual(y, tuple.Y());
@@ -27,11 +27,11 @@ namespace RRTTupleUnitTests
 
 		TEST_METHOD(TupleWithWeight0IsAVector)
 		{
-			float x{ 4.3 };
-			float y{ -4.2 };
-			float z{ 3.1 };
-			float w{ 0.0 };
-			RRT::Tuple tuple = RRT::Tuple(4.3, -4.2, 3.1, 0.0);
+			float x{ 4.3f };
+			float y{ -4.2f };
+			float z{ 3.1f };
+			float w{ 0.0f };
+			RRT::Tuple tuple = RRT::Tuple(4.3f, -4.2f, 3.1f, 0.0f);
 
 			Assert::AreEqual(x, tuple.X());
 			Assert::AreEqual(y, tuple.Y());
