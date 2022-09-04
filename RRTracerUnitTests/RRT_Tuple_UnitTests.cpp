@@ -301,5 +301,50 @@ namespace RRT_Point_UnitTests
 
 			Assert::AreEqual(1.0f, normalized_vector.magnitude());
 		}
+
+		TEST_METHOD(Dot_product_should_be_20)
+		{
+			float expected_dot = 20.0f;
+			RRT::Tuple vector_one = RRT::TupleFactory().Vector(1.0f, 2.0f, 3.0f);
+			RRT::Tuple vector_two = RRT::TupleFactory().Vector(2.0f, 3.0f, 4.0f);
+
+			float actual_dot = RRTTupleUtils::Dot(vector_one, vector_two);
+
+			Assert::AreEqual(expected_dot, actual_dot);
+		}
+
+		TEST_METHOD(Cross_product_should_equal_expected_one)
+		{
+			float x{ -1.0f };
+			float y{ 2.0f };
+			float z{ -1.0f };
+
+			RRT::Tuple vector_one = RRT::TupleFactory().Vector(1.0f, 2.0f, 3.0f);
+			RRT::Tuple vector_two = RRT::TupleFactory().Vector(2.0f, 3.0f, 4.0f);
+
+			RRT::Tuple cross_vector = RRTTupleUtils::Cross(vector_one, vector_two);
+
+			Assert::AreEqual(x, cross_vector.X());
+			Assert::AreEqual(y, cross_vector.Y());
+			Assert::AreEqual(z, cross_vector.Z());
+			Assert::IsTrue(cross_vector.IsVector());
+		}
+
+		TEST_METHOD(Cross_product_should_equal_expected_two)
+		{
+			float x{ 1.0f };
+			float y{ -2.0f };
+			float z{ 1.0f };
+
+			RRT::Tuple vector_one = RRT::TupleFactory().Vector(1.0f, 2.0f, 3.0f);
+			RRT::Tuple vector_two = RRT::TupleFactory().Vector(2.0f, 3.0f, 4.0f);
+
+			RRT::Tuple cross_vector = RRTTupleUtils::Cross(vector_two, vector_one);
+
+			Assert::AreEqual(x, cross_vector.X());
+			Assert::AreEqual(y, cross_vector.Y());
+			Assert::AreEqual(z, cross_vector.Z());
+			Assert::IsTrue(cross_vector.IsVector());
+		}
 	};
 }
