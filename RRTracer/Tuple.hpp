@@ -1,7 +1,9 @@
-#ifndef POINT
-#define POINT
+#ifndef TUPLE
+#define TUPLE
 
 #include <initializer_list>
+
+#include "Utilities.hpp"
 
 namespace RRT
 {
@@ -11,6 +13,12 @@ namespace RRT
 		Tuple() = delete;
 		Tuple(float x, float y, float z, float w) : x{ x }, y{ y }, z{ z }, w{ w } {}
 		Tuple(const std::initializer_list<float>& list);
+
+		Tuple operator+(const Tuple& tuple) const;
+		Tuple operator-(const Tuple& tuple) const;
+
+		inline bool IsPoint() const noexcept { return RRTUtils::s_floats_equal(w, 1.0f); }
+		inline bool IsVector() const noexcept { return !IsPoint(); }
 
 		float X() const noexcept { return x; }
 		float Y() const noexcept { return y; }
@@ -35,6 +43,8 @@ namespace RRT
 			w = it[3];
 		}
 	}
+
+	
 }
 
-#endif // !POINT
+#endif // !TUPLE
