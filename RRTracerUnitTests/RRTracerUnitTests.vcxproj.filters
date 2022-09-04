@@ -18,9 +18,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RRTTupleUnitTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RRTVectorUnitTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
