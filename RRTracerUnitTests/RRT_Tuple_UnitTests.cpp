@@ -178,5 +178,20 @@ namespace RRT_Point_UnitTests
 			Assert::AreEqual(z, resulting_vector.Z());
 			Assert::IsTrue(resulting_vector.IsVector());
 		}
+
+		TEST_METHOD(Negation_of_tuple)
+		{
+			float x{ -2.0f };
+			float y{ -4.0f };
+			float z{ -6.0f };
+
+			RRT::Tuple tuple_one{ 2.0f, 4.0f, 6.0f, 0.0f };
+			RRT::Tuple tuple_two = -tuple_one;
+
+			Assert::AreEqual(x, tuple_two.X());
+			Assert::AreEqual(y, tuple_two.Y());
+			Assert::AreEqual(z, tuple_two.Z());
+			Assert::IsTrue(tuple_two.IsVector());
+		}
 	};
 }

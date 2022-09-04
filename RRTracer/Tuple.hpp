@@ -17,6 +17,8 @@ namespace RRT
 		Tuple operator+(const Tuple& tuple) const;
 		Tuple operator-(const Tuple& tuple) const;
 
+		Tuple operator-() const;
+
 		inline bool IsPoint() const noexcept { return RRTUtils::s_floats_equal(w, 1.0f); }
 		inline bool IsVector() const noexcept { return !IsPoint(); }
 
@@ -52,6 +54,11 @@ namespace RRT
 	Tuple Tuple::operator-(const Tuple& tuple) const
 	{
 		return { x - tuple.X(), y - tuple.Y(), z - tuple.Z(), w - tuple.W() };
+	}
+
+	Tuple Tuple::operator-() const
+	{
+		return { -x, -y, -z, w };
 	}
 }
 
