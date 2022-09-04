@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Tuple.hpp" />
     <ClInclude Include="TupleFactory.hpp" />
+    <ClInclude Include="TupleUtilities.hpp" />
     <ClInclude Include="Utilities.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

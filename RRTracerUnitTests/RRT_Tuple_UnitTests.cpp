@@ -4,6 +4,8 @@
 #include "../RRTracer/TupleFactory.hpp"
 #include "../RRTracer/Tuple.hpp"
 
+#include "../RRTracer/TupleUtilities.hpp"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace RRT_Point_UnitTests
@@ -284,7 +286,7 @@ namespace RRT_Point_UnitTests
 			RRT::Tuple expected_vector = RRT::TupleFactory().Vector(1.0f, 0.0f, 0.0f);
 			RRT::Tuple vector = RRT::TupleFactory().Vector(4.0f, 0.0f, 0.0f);
 			
-			RRT::Tuple normalized_vector = vector.normalize();
+			RRT::Tuple normalized_vector = RRTTupleUtils::Normalize(vector);
 
 			Assert::AreEqual(expected_vector.X(), normalized_vector.X());
 			Assert::AreEqual(expected_vector.Y(), normalized_vector.Y());
@@ -295,7 +297,7 @@ namespace RRT_Point_UnitTests
 		{			
 			RRT::Tuple vector = RRT::TupleFactory().Vector(15.2f, -2.3f, 29.30f);
 
-			RRT::Tuple normalized_vector = vector.normalize();
+			RRT::Tuple normalized_vector = RRTTupleUtils::Normalize(vector);
 
 			Assert::AreEqual(1.0f, normalized_vector.magnitude());
 		}
