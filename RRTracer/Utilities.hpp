@@ -8,7 +8,7 @@ namespace RRTUtils
 		constexpr float EPSILON = 0.00001;
 		bool ret = false;
 
-		if (abs(a, b) < EPSILON)
+		if (s_abs(a, b) < EPSILON)
 		{
 			ret = true;
 		}
@@ -16,7 +16,7 @@ namespace RRTUtils
 		return ret;
 	}
 
-	static float abs(float a, float b)
+	static float s_abs(float a, float b)
 	{
 		return (a-b) > 0 ? a-b : b-a ;
 	}

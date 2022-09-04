@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vector.hpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Point.hpp">
+    <ClInclude Include="Tuple.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Utilities.hpp">
