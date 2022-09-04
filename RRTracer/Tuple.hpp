@@ -2,6 +2,7 @@
 #define TUPLE
 
 #include <initializer_list>
+#include <cmath>
 
 #include "Utilities.hpp"
 
@@ -21,6 +22,8 @@ namespace RRT
 
 		Tuple operator*(const float& f) const;
 		Tuple operator/(const float& f) const;
+
+		inline float magnitude() const { if (IsVector()) { return sqrtf(x * x + y * y + z * z); } }
 
 		inline bool IsPoint() const noexcept { return RRTUtils::s_floats_equal(w, 1.0f); }
 		inline bool IsVector() const noexcept { return !IsPoint(); }

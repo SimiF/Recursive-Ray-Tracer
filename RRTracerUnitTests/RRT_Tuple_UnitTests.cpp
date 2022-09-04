@@ -238,5 +238,45 @@ namespace RRT_Point_UnitTests
 			Assert::AreEqual(z, vector_two.Z());
 			Assert::IsTrue(vector_two.IsVector());
 		}
+
+		TEST_METHOD(Magnitude_Of_100_Vector_Should_be_1)
+		{
+			float expected_magnitude{ 1.0f };
+			RRT::Tuple vector = RRT::TupleFactory().Vector(1.0f, 0.0f, 0.0f);
+
+			Assert::AreEqual(expected_magnitude, vector.magnitude());
+		}
+
+		TEST_METHOD(Magnitude_Of_010_Vector_Should_be_1)
+		{
+			float expected_magnitude{ 1.0f };
+			RRT::Tuple vector = RRT::TupleFactory().Vector(0.0f, 1.0f, 0.0f);
+
+			Assert::AreEqual(expected_magnitude, vector.magnitude());
+		}
+
+		TEST_METHOD(Magnitude_Of_001_Vector_Should_be_1)
+		{
+			float expected_magnitude{ 1.0f };
+			RRT::Tuple vector = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
+
+			Assert::AreEqual(expected_magnitude, vector.magnitude());
+		}
+
+		TEST_METHOD(Magnitude_Of_123_Vector_Should_be_sqrt14)
+		{
+			float expected_magnitude{ sqrtf(14.0f)};
+			RRT::Tuple vector = RRT::TupleFactory().Vector(1.0f, 2.0f, 3.0f);
+
+			Assert::AreEqual(expected_magnitude, vector.magnitude());
+		}	
+
+		TEST_METHOD(Magnitude_Of_neg123_Vector_Should_be_sqrt14)
+		{
+			float expected_magnitude{ sqrtf(14.0f) };
+			RRT::Tuple vector = RRT::TupleFactory().Vector(-1.0f, -2.0f, -3.0f);
+
+			Assert::AreEqual(expected_magnitude, vector.magnitude());
+		}
 	};
 }
