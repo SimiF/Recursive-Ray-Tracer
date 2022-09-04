@@ -22,7 +22,21 @@ namespace RRTTupleUnitTests
 			Assert::AreEqual(x, tuple.X());
 			Assert::AreEqual(y, tuple.Y());
 			Assert::AreEqual(z, tuple.Z());
-			Assert::AreEqual(w, tuple.W());			
+			Assert::AreEqual(w, tuple.W());		
 		}		
+
+		TEST_METHOD(TupleWithWeight0IsAVector)
+		{
+			float x{ 4.3 };
+			float y{ -4.2 };
+			float z{ 3.1 };
+			float w{ 0.0 };
+			RRT::Tuple tuple = RRT::Tuple(4.3, -4.2, 3.1, 0.0);
+
+			Assert::AreEqual(x, tuple.X());
+			Assert::AreEqual(y, tuple.Y());
+			Assert::AreEqual(z, tuple.Z());
+			Assert::AreEqual(w, tuple.W());
+		}
 	};
 }

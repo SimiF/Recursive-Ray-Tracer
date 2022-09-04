@@ -18,5 +18,11 @@
     <ClInclude Include="Tuple.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vector.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
