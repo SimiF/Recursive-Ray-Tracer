@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RRTracer", "RRTracer\RRTrac
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RRTracerUnitTests", "RRTracerUnitTests\RRTracerUnitTests.vcxproj", "{FF284059-3D92-446E-AE9D-A5182A9D8A4E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Projectile", "Projectile\Projectile.vcxproj", "{B420CD7E-FD97-43E1-9F92-EA656D92C007}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{FF284059-3D92-446E-AE9D-A5182A9D8A4E}.Release|x64.Build.0 = Release|x64
 		{FF284059-3D92-446E-AE9D-A5182A9D8A4E}.Release|x86.ActiveCfg = Release|Win32
 		{FF284059-3D92-446E-AE9D-A5182A9D8A4E}.Release|x86.Build.0 = Release|Win32
+		{B420CD7E-FD97-43E1-9F92-EA656D92C007}.Debug|x64.ActiveCfg = Debug|x64
+		{B420CD7E-FD97-43E1-9F92-EA656D92C007}.Debug|x64.Build.0 = Debug|x64
+		{B420CD7E-FD97-43E1-9F92-EA656D92C007}.Debug|x86.ActiveCfg = Debug|Win32
+		{B420CD7E-FD97-43E1-9F92-EA656D92C007}.Debug|x86.Build.0 = Debug|Win32
+		{B420CD7E-FD97-43E1-9F92-EA656D92C007}.Release|x64.ActiveCfg = Release|x64
+		{B420CD7E-FD97-43E1-9F92-EA656D92C007}.Release|x64.Build.0 = Release|x64
+		{B420CD7E-FD97-43E1-9F92-EA656D92C007}.Release|x86.ActiveCfg = Release|Win32
+		{B420CD7E-FD97-43E1-9F92-EA656D92C007}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
