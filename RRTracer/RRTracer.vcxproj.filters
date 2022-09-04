@@ -24,5 +24,8 @@
     <ClInclude Include="Point.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
