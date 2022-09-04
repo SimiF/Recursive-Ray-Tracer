@@ -18,6 +18,8 @@ namespace RRT
 		Color operator+(const Color& color) const;
 		Color operator-(const Color& color) const;
 
+		Color operator*(const Color& color) const;
+
 		Color operator*(const float& f) const;
 		Color operator/(const float& f) const;
 
@@ -50,6 +52,11 @@ namespace RRT
 	Color Color::operator-(const Color& color) const
 	{
 		return { red - color.Red(), green - color.Green(), blue - color.Blue() };
+	}
+
+	Color Color::operator*(const Color& color) const
+	{
+		return { red * color.Red(), green * color.Green(), blue * color.Blue() };
 	}
 
 	Color Color::operator*(const float& f) const
