@@ -193,5 +193,50 @@ namespace RRT_Point_UnitTests
 			Assert::AreEqual(z, tuple_two.Z());
 			Assert::IsTrue(tuple_two.IsVector());
 		}
+
+		TEST_METHOD(Scalar_multiplication_of_vector_should_result_In_vector)
+		{
+			float x{ -2.0f };
+			float y{ -4.0f };
+			float z{ -6.0f };
+
+			RRT::Tuple vector_one = RRT::TupleFactory().Vector(-1.0f, -2.0f, -3.0f);
+			RRT::Tuple vector_two = vector_one * 2;
+
+			Assert::AreEqual(x, vector_two.X());
+			Assert::AreEqual(y, vector_two.Y());
+			Assert::AreEqual(z, vector_two.Z());
+			Assert::IsTrue(vector_two.IsVector());
+		}
+
+		TEST_METHOD(Decimal_Scalar_multiplication_of_vector_should_result_In_vector)
+		{
+			float x{ -2.0f };
+			float y{ -4.0f };
+			float z{ -6.0f };
+
+			RRT::Tuple vector_one = RRT::TupleFactory().Vector(-4.0f, -8.0f, -12.0f);
+			RRT::Tuple vector_two = vector_one * 0.5;
+
+			Assert::AreEqual(x, vector_two.X());
+			Assert::AreEqual(y, vector_two.Y());
+			Assert::AreEqual(z, vector_two.Z());
+			Assert::IsTrue(vector_two.IsVector());
+		}
+
+		TEST_METHOD(Scalar_division_of_vector_should_result_In_vector)
+		{
+			float x{ -2.0f };
+			float y{ -4.0f };
+			float z{ -6.0f };
+
+			RRT::Tuple vector_one = RRT::TupleFactory().Vector(-4.0f, -8.0f, -12.0f);
+			RRT::Tuple vector_two = vector_one / 2;
+
+			Assert::AreEqual(x, vector_two.X());
+			Assert::AreEqual(y, vector_two.Y());
+			Assert::AreEqual(z, vector_two.Z());
+			Assert::IsTrue(vector_two.IsVector());
+		}
 	};
 }

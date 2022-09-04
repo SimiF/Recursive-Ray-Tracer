@@ -19,6 +19,9 @@ namespace RRT
 
 		Tuple operator-() const;
 
+		Tuple operator*(const float& f) const;
+		Tuple operator/(const float& f) const;
+
 		inline bool IsPoint() const noexcept { return RRTUtils::s_floats_equal(w, 1.0f); }
 		inline bool IsVector() const noexcept { return !IsPoint(); }
 
@@ -59,6 +62,16 @@ namespace RRT
 	Tuple Tuple::operator-() const
 	{
 		return { -x, -y, -z, w };
+	}
+
+	Tuple Tuple::operator*(const float& f) const
+	{
+		return { x * f, y * f, z * f, w };
+	}
+
+	Tuple Tuple::operator/(const float& f) const
+	{
+		return { x / f, y / f, z / f, w };
 	}
 }
 
