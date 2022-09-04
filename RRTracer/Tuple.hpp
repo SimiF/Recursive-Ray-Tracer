@@ -44,7 +44,15 @@ namespace RRT
 		}
 	}
 
-	
+	Tuple Tuple::operator+(const Tuple& tuple) const
+	{
+		return { x + tuple.X(), y + tuple.Y(), z + tuple.Z(), w + tuple.W() };
+	}
+
+	Tuple Tuple::operator-(const Tuple& tuple) const
+	{
+		return { x - tuple.X(), y - tuple.Y(), z - tuple.Z(), w - tuple.W() };
+	}
 }
 
 #endif // !TUPLE
