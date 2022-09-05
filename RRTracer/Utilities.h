@@ -1,14 +1,14 @@
-#ifndef UTILITIES
-#define UTILITIES
+#ifndef RRTUTILS_UTILITIES_HPP
+#define RRTUTILS_UTILITIES_HPP
 
 namespace RRTUtils
-{	
-	static float s_abs(float a, float b)
+{
+	inline float s_abs(float a, float b)
 	{
 		return (a - b) > 0 ? a - b : b - a;
 	}
 
-	static bool s_floats_equal(float a, float b)
+	inline bool s_floats_equal(float a, float b)
 	{
 		constexpr float EPSILON = 0.00001f;
 		bool ret = false;
@@ -22,4 +22,4 @@ namespace RRTUtils
 	}
 }
 
-#endif // !UTILITIES
+#endif // !RRTUTILS_UTILITIES_HPP

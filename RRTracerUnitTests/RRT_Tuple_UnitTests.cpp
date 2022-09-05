@@ -1,15 +1,17 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
-#include "../RRTracer/TupleFactory.hpp"
-#include "../RRTracer/Tuple.hpp"
+#include "../RRTracer/TupleFactory.h"
+#include "../RRTracer/Tuple.h"
 
-#include "../RRTracer/TupleUtilities.hpp"
+#include "../RRTracer/TupleUtilities.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace RRT_Point_UnitTests
+namespace RRT_Tuple_UnitTests
 {
+	constexpr float EPSILON = 0.0001f;
+
 	TEST_CLASS(RRT_Tuple_Constructor_Tests)
 	{
 	public:
@@ -22,9 +24,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple point = RRT::Tuple(4.3f, -4.2f, 3.1f, 1.0f);
 
-			Assert::AreEqual(x, point.X());
-			Assert::AreEqual(y, point.Y());
-			Assert::AreEqual(z, point.Z());
+			Assert::AreEqual(x, point.X(), EPSILON);
+			Assert::AreEqual(y, point.Y(), EPSILON);
+			Assert::AreEqual(z, point.Z(), EPSILON);
 			Assert::IsTrue(point.IsPoint());
 		}
 
@@ -37,9 +39,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple vector = RRT::Tuple(4.3f, -4.2f, 3.1f, 0.0f);			
 
-			Assert::AreEqual(x, vector.X());
-			Assert::AreEqual(y, vector.Y());
-			Assert::AreEqual(z, vector.Z());
+			Assert::AreEqual(x, vector.X(), EPSILON);
+			Assert::AreEqual(y, vector.Y(), EPSILON);
+			Assert::AreEqual(z, vector.Z(), EPSILON);
 			Assert::IsTrue(vector.IsVector());
 		}
 	};
@@ -55,9 +57,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple point = RRT::TupleFactory().Point(4.3f, -4.2f, 3.1f);
 
-			Assert::AreEqual(x, point.X());
-			Assert::AreEqual(y, point.Y());
-			Assert::AreEqual(z, point.Z());
+			Assert::AreEqual(x, point.X(), EPSILON);
+			Assert::AreEqual(y, point.Y(), EPSILON);
+			Assert::AreEqual(z, point.Z(), EPSILON);
 			Assert::IsTrue(point.IsPoint());
 		}
 
@@ -69,9 +71,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple vector = RRT::TupleFactory().Vector(4.3f, -4.2f, 3.1f);
 
-			Assert::AreEqual(x, vector.X());
-			Assert::AreEqual(y, vector.Y());
-			Assert::AreEqual(z, vector.Z());
+			Assert::AreEqual(x, vector.X(), EPSILON);
+			Assert::AreEqual(y, vector.Y(), EPSILON);
+			Assert::AreEqual(z, vector.Z(), EPSILON);
 			Assert::IsTrue(vector.IsVector());
 		}
 	};
@@ -90,9 +92,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple resulting_tuple = tuple_one + tuple_two;
 
-			Assert::AreEqual(x, resulting_tuple.X());
-			Assert::AreEqual(y, resulting_tuple.Y());
-			Assert::AreEqual(z, resulting_tuple.Z());
+			Assert::AreEqual(x, resulting_tuple.X(), EPSILON);
+			Assert::AreEqual(y, resulting_tuple.Y(), EPSILON);
+			Assert::AreEqual(z, resulting_tuple.Z(), EPSILON);
 			Assert::IsTrue(resulting_tuple.IsPoint()); // point + vector = point
 		}
 
@@ -107,9 +109,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple resulting_vector = point_one - point_two;
 
-			Assert::AreEqual(x, resulting_vector.X());
-			Assert::AreEqual(y, resulting_vector.Y());
-			Assert::AreEqual(z, resulting_vector.Z());
+			Assert::AreEqual(x, resulting_vector.X(), EPSILON);
+			Assert::AreEqual(y, resulting_vector.Y(), EPSILON);
+			Assert::AreEqual(z, resulting_vector.Z(), EPSILON);
 			Assert::IsTrue(resulting_vector.IsVector());
 		}
 
@@ -124,9 +126,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple resulting_point = point_one - vector_one;
 
-			Assert::AreEqual(x, resulting_point.X());
-			Assert::AreEqual(y, resulting_point.Y());
-			Assert::AreEqual(z, resulting_point.Z());
+			Assert::AreEqual(x, resulting_point.X(), EPSILON);
+			Assert::AreEqual(y, resulting_point.Y(), EPSILON);
+			Assert::AreEqual(z, resulting_point.Z(), EPSILON);
 			Assert::IsTrue(resulting_point.IsPoint());
 		}
 
@@ -141,9 +143,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple resulting_point = point_one + vector_one;
 
-			Assert::AreEqual(x, resulting_point.X());
-			Assert::AreEqual(y, resulting_point.Y());
-			Assert::AreEqual(z, resulting_point.Z());
+			Assert::AreEqual(x, resulting_point.X(), EPSILON);
+			Assert::AreEqual(y, resulting_point.Y(), EPSILON);
+			Assert::AreEqual(z, resulting_point.Z(), EPSILON);
 			Assert::IsTrue(resulting_point.IsPoint());
 		}
 
@@ -158,9 +160,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple resulting_vector = vector_one + vector_two;
 
-			Assert::AreEqual(x, resulting_vector.X());
-			Assert::AreEqual(y, resulting_vector.Y());
-			Assert::AreEqual(z, resulting_vector.Z());
+			Assert::AreEqual(x, resulting_vector.X(), EPSILON);
+			Assert::AreEqual(y, resulting_vector.Y(), EPSILON);
+			Assert::AreEqual(z, resulting_vector.Z(), EPSILON);
 			Assert::IsTrue(resulting_vector.IsVector());
 		}
 
@@ -175,9 +177,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple resulting_vector = vector_one - vector_two;
 
-			Assert::AreEqual(x, resulting_vector.X());
-			Assert::AreEqual(y, resulting_vector.Y());
-			Assert::AreEqual(z, resulting_vector.Z());
+			Assert::AreEqual(x, resulting_vector.X(), EPSILON);
+			Assert::AreEqual(y, resulting_vector.Y(), EPSILON);
+			Assert::AreEqual(z, resulting_vector.Z(), EPSILON);
 			Assert::IsTrue(resulting_vector.IsVector());
 		}
 
@@ -190,9 +192,9 @@ namespace RRT_Point_UnitTests
 			RRT::Tuple tuple_one{ 2.0f, 4.0f, 6.0f, 0.0f };
 			RRT::Tuple tuple_two = -tuple_one;
 
-			Assert::AreEqual(x, tuple_two.X());
-			Assert::AreEqual(y, tuple_two.Y());
-			Assert::AreEqual(z, tuple_two.Z());
+			Assert::AreEqual(x, tuple_two.X(), EPSILON);
+			Assert::AreEqual(y, tuple_two.Y(), EPSILON);
+			Assert::AreEqual(z, tuple_two.Z(), EPSILON);
 			Assert::IsTrue(tuple_two.IsVector());
 		}
 
@@ -205,9 +207,9 @@ namespace RRT_Point_UnitTests
 			RRT::Tuple vector_one = RRT::TupleFactory().Vector(-1.0f, -2.0f, -3.0f);
 			RRT::Tuple vector_two = vector_one * 2;
 
-			Assert::AreEqual(x, vector_two.X());
-			Assert::AreEqual(y, vector_two.Y());
-			Assert::AreEqual(z, vector_two.Z());
+			Assert::AreEqual(x, vector_two.X(), EPSILON);
+			Assert::AreEqual(y, vector_two.Y(), EPSILON);
+			Assert::AreEqual(z, vector_two.Z(), EPSILON);
 			Assert::IsTrue(vector_two.IsVector());
 		}
 
@@ -220,9 +222,9 @@ namespace RRT_Point_UnitTests
 			RRT::Tuple vector_one = RRT::TupleFactory().Vector(-4.0f, -8.0f, -12.0f);
 			RRT::Tuple vector_two = vector_one * 0.5;
 
-			Assert::AreEqual(x, vector_two.X());
-			Assert::AreEqual(y, vector_two.Y());
-			Assert::AreEqual(z, vector_two.Z());
+			Assert::AreEqual(x, vector_two.X(), EPSILON);
+			Assert::AreEqual(y, vector_two.Y(), EPSILON);
+			Assert::AreEqual(z, vector_two.Z(), EPSILON);
 			Assert::IsTrue(vector_two.IsVector());
 		}
 
@@ -235,9 +237,9 @@ namespace RRT_Point_UnitTests
 			RRT::Tuple vector_one = RRT::TupleFactory().Vector(-4.0f, -8.0f, -12.0f);
 			RRT::Tuple vector_two = vector_one / 2;
 
-			Assert::AreEqual(x, vector_two.X());
-			Assert::AreEqual(y, vector_two.Y());
-			Assert::AreEqual(z, vector_two.Z());
+			Assert::AreEqual(x, vector_two.X(), EPSILON);
+			Assert::AreEqual(y, vector_two.Y(), EPSILON);
+			Assert::AreEqual(z, vector_two.Z(), EPSILON);
 			Assert::IsTrue(vector_two.IsVector());
 		}
 
@@ -246,7 +248,7 @@ namespace RRT_Point_UnitTests
 			float expected_magnitude{ 1.0f };
 			RRT::Tuple vector = RRT::TupleFactory().Vector(1.0f, 0.0f, 0.0f);
 
-			Assert::AreEqual(expected_magnitude, vector.magnitude());
+			Assert::AreEqual(expected_magnitude, vector.magnitude(), EPSILON);
 		}
 
 		TEST_METHOD(Magnitude_Of_010_Vector_Should_be_1)
@@ -254,7 +256,7 @@ namespace RRT_Point_UnitTests
 			float expected_magnitude{ 1.0f };
 			RRT::Tuple vector = RRT::TupleFactory().Vector(0.0f, 1.0f, 0.0f);
 
-			Assert::AreEqual(expected_magnitude, vector.magnitude());
+			Assert::AreEqual(expected_magnitude, vector.magnitude(), EPSILON);
 		}
 
 		TEST_METHOD(Magnitude_Of_001_Vector_Should_be_1)
@@ -262,7 +264,7 @@ namespace RRT_Point_UnitTests
 			float expected_magnitude{ 1.0f };
 			RRT::Tuple vector = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
 
-			Assert::AreEqual(expected_magnitude, vector.magnitude());
+			Assert::AreEqual(expected_magnitude, vector.magnitude(), EPSILON);
 		}
 
 		TEST_METHOD(Magnitude_Of_123_Vector_Should_be_sqrt14)
@@ -270,7 +272,7 @@ namespace RRT_Point_UnitTests
 			float expected_magnitude{ sqrtf(14.0f)};
 			RRT::Tuple vector = RRT::TupleFactory().Vector(1.0f, 2.0f, 3.0f);
 
-			Assert::AreEqual(expected_magnitude, vector.magnitude());
+			Assert::AreEqual(expected_magnitude, vector.magnitude(), EPSILON);
 		}	
 
 		TEST_METHOD(Magnitude_Of_neg123_Vector_Should_be_sqrt14)
@@ -278,7 +280,7 @@ namespace RRT_Point_UnitTests
 			float expected_magnitude{ sqrtf(14.0f) };
 			RRT::Tuple vector = RRT::TupleFactory().Vector(-1.0f, -2.0f, -3.0f);
 
-			Assert::AreEqual(expected_magnitude, vector.magnitude());
+			Assert::AreEqual(expected_magnitude, vector.magnitude(), EPSILON);
 		}
 
 		TEST_METHOD(Normalizing_Vector_400_gives_100)
@@ -288,9 +290,9 @@ namespace RRT_Point_UnitTests
 			
 			RRT::Tuple normalized_vector = RRTTupleUtils::Normalize(vector);
 
-			Assert::AreEqual(expected_vector.X(), normalized_vector.X());
-			Assert::AreEqual(expected_vector.Y(), normalized_vector.Y());
-			Assert::AreEqual(expected_vector.Z(), normalized_vector.Z());
+			Assert::AreEqual(expected_vector.X(), normalized_vector.X(), EPSILON);
+			Assert::AreEqual(expected_vector.Y(), normalized_vector.Y(), EPSILON);
+			Assert::AreEqual(expected_vector.Z(), normalized_vector.Z(), EPSILON);
 		}
 
 		TEST_METHOD(Normalizing_Vector_has_1_mag)
@@ -299,7 +301,7 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple normalized_vector = RRTTupleUtils::Normalize(vector);
 
-			Assert::AreEqual(1.0f, normalized_vector.magnitude());
+			Assert::AreEqual(1.0f, normalized_vector.magnitude(), EPSILON);
 		}
 
 		TEST_METHOD(Dot_product_should_be_20)
@@ -310,7 +312,7 @@ namespace RRT_Point_UnitTests
 
 			float actual_dot = RRTTupleUtils::Dot(vector_one, vector_two);
 
-			Assert::AreEqual(expected_dot, actual_dot);
+			Assert::AreEqual(expected_dot, actual_dot, EPSILON);
 		}
 
 		TEST_METHOD(Cross_product_should_equal_expected_one)
@@ -324,9 +326,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple cross_vector = RRTTupleUtils::Cross(vector_one, vector_two);
 
-			Assert::AreEqual(x, cross_vector.X());
-			Assert::AreEqual(y, cross_vector.Y());
-			Assert::AreEqual(z, cross_vector.Z());
+			Assert::AreEqual(x, cross_vector.X(), EPSILON);
+			Assert::AreEqual(y, cross_vector.Y(), EPSILON);
+			Assert::AreEqual(z, cross_vector.Z(), EPSILON);
 			Assert::IsTrue(cross_vector.IsVector());
 		}
 
@@ -341,9 +343,9 @@ namespace RRT_Point_UnitTests
 
 			RRT::Tuple cross_vector = RRTTupleUtils::Cross(vector_two, vector_one);
 
-			Assert::AreEqual(x, cross_vector.X());
-			Assert::AreEqual(y, cross_vector.Y());
-			Assert::AreEqual(z, cross_vector.Z());
+			Assert::AreEqual(x, cross_vector.X(), EPSILON);
+			Assert::AreEqual(y, cross_vector.Y(), EPSILON);
+			Assert::AreEqual(z, cross_vector.Z(), EPSILON);
 			Assert::IsTrue(cross_vector.IsVector());
 		}
 	};

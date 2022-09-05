@@ -139,13 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Tuple.hpp" />
-    <ClInclude Include="TupleFactory.hpp" />
-    <ClInclude Include="TupleUtilities.hpp" />
-    <ClInclude Include="Utilities.hpp" />
+    <ClInclude Include="Canvas.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="FileWriter.h" />
+    <ClInclude Include="Tuple.h" />
+    <ClInclude Include="TupleFactory.h" />
+    <ClInclude Include="TupleUtilities.h" />
+    <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Tuple.cpp" />
+    <ClCompile Include="TupleFactory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
