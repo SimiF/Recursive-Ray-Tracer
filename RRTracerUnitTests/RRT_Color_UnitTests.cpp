@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
-#include "../RRTracer/Color.hpp"
+#include "../RRTracer/Color.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

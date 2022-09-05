@@ -1,7 +1,7 @@
-#ifndef CANVAS
-#define CANVAS
+#ifndef RRT_CANVAS_HPP
+#define RRT_CANVAS_HPP
 
-#include "Color.hpp"
+#include "Color.h"
 
 #include <vector>
 
@@ -21,25 +21,10 @@ namespace RRT
 	private:
 
 		std::vector<std::vector<Color>> pixel_map;
-		
+
 		size_t width = 0;
 		size_t height = 0;
-	};
-
-	Canvas::Canvas(size_t width, size_t height)
-	{
-		pixel_map.resize(height);
-		for (auto& pixel_row : pixel_map)
-		{
-			pixel_row.resize(width);
-
-			for (auto& pixel : pixel_row)
-			{
-				pixel = { 0, 0, 0 };
-			}
-		}		
-	}
+	};	
 }
 
-
-#endif // !CANVAS
+#endif // !RRT_CANVAS_HPP

@@ -1,8 +1,8 @@
 #ifndef PROJECTILE_TEST
 #define PROJECTILE_TEST
 
-#include "../RRTracer/Tuple.hpp"
-#include "../RRTracer/TupleFactory.hpp"
+#include "../RRTracer/Tuple.h"
+#include "../RRTracer/TupleFactory.h"
 
 class Projectile
 {
@@ -19,12 +19,6 @@ private:
 	RRT::Tuple position;
 	RRT::Tuple velocity;
 };
-
-void Projectile::UpdateProjectile(const RRT::Tuple& new_velocity)
-{
-	position = position + new_velocity;
-	velocity = new_velocity;
-}
 
 class Environment
 {

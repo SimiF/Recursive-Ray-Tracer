@@ -1,10 +1,10 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
-#include "../RRTracer/TupleFactory.hpp"
-#include "../RRTracer/Tuple.hpp"
+#include "../RRTracer/TupleFactory.h"
+#include "../RRTracer/Tuple.h"
 
-#include "../RRTracer/TupleUtilities.hpp"
+#include "../RRTracer/TupleUtilities.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

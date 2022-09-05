@@ -1,10 +1,10 @@
 #include <iostream>
 #include <iomanip>
 
-#include "Projectile.hpp"
-#include "../RRTracer/Tuple.hpp"
-#include "../RRTracer/TupleFactory.hpp"
-#include "../RRTracer/TupleUtilities.hpp"
+#include "Projectile.h"
+#include "../RRTracer/Tuple.h"
+#include "../RRTracer/TupleFactory.h"
+#include "../RRTracer/TupleUtilities.h"
 
 void tick(const Environment& e, Projectile& p);
 
