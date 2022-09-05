@@ -121,7 +121,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Canvas.obj;Color.obj;Tuple.obj;TupleFactory.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>FileWriter.obj;Canvas.obj;Color.obj;Tuple.obj;TupleFactory.obj;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)RRTracer\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

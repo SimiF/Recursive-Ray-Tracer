@@ -29,7 +29,7 @@ int main()
 
 void tick(const Environment& e, Projectile& p)
 {
-	RRT::FileWriter ppm_file_writer = RRT::FileWriter();
+	RRT::FileWriter ppm_file_writer("projectile_from_file.ppm");
 	RRT::Canvas canvas = RRT::Canvas(900, 550);
 
 	int time_in_air = 0;
@@ -52,7 +52,7 @@ void tick(const Environment& e, Projectile& p)
 		p.UpdateProjectile(new_velocity);
 	}
 	
-	ppm_file_writer.write("projectile.ppm", canvas.PixelMapPPMFormat());
+	ppm_file_writer.Write(canvas.PixelMapPPMFormat());
 
 	std::cout << "Time in air: " << time_in_air << '\n';
 }
