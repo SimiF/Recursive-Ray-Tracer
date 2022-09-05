@@ -7,6 +7,7 @@
 class Projectile
 {
 public:
+	Projectile() = default;
 	Projectile(const RRT::Tuple& position, const RRT::Tuple& velocity)
 		: position(position), velocity(velocity) {}
 
@@ -16,13 +17,14 @@ public:
 	void UpdateProjectile(const RRT::Tuple& new_velocity);
 
 private:
-	RRT::Tuple position;
-	RRT::Tuple velocity;
+	RRT::Tuple position { 0.0f, 0.0f, 0.0f };
+	RRT::Tuple velocity { 0.0f, 0.0f, 0.0f };
 };
 
 class Environment
 {
 public:
+	Environment() = default;
 	Environment(const RRT::Tuple& gravity, const RRT::Tuple& wind)
 		: gravity(gravity), wind(wind) {}
 
@@ -30,8 +32,8 @@ public:
 	inline RRT::Tuple Wind() const noexcept { return wind; }
 
 private:
-	RRT::Tuple gravity;
-	RRT::Tuple wind;
+	RRT::Tuple gravity{ 0.0f, 0.0f, 0.0f };
+	RRT::Tuple wind{ 0.0f, 0.0f, 0.0f };
 };
 
 #endif // !PROJECTILE_TEST
