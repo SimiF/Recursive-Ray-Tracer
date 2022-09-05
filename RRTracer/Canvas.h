@@ -11,7 +11,7 @@ namespace RRT
 	{
 	public:
 		Canvas() = delete;
-		Canvas(size_t width, size_t height);
+		Canvas(size_t w, size_t h);
 
 		size_t Width() const noexcept { return width; }
 		size_t Height() const noexcept { return height; }
