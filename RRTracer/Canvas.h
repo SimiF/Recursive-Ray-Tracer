@@ -4,6 +4,7 @@
 #include "Color.h"
 
 #include <vector>
+#include <string>
 
 namespace RRT
 {
@@ -18,6 +19,8 @@ namespace RRT
 
 		size_t Width() const noexcept { return width; }
 		size_t Height() const noexcept { return height; }
+
+		bool Write(const std::string& file_name) const;
 
 		std::vector<std::vector<Color>> PixelMap() const noexcept { return pixel_map; }
 

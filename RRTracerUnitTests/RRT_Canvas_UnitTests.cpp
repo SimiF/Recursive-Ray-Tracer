@@ -52,5 +52,7 @@ namespace RRT_Canvas_UnitTests
 			Assert::AreEqual(0.1f, canvas.Pixel(1, 1).Green());
 			Assert::AreEqual(0.9f, canvas.Pixel(1, 1).Blue());
 		}
+
+
 	};
 }
