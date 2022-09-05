@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="FileWriter.h" />
     <ClInclude Include="Tuple.h" />
     <ClInclude Include="TupleFactory.h" />
     <ClInclude Include="TupleUtilities.h" />
@@ -149,6 +150,7 @@
   <ItemGroup>
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Tuple.cpp" />
     <ClCompile Include="TupleFactory.cpp" />

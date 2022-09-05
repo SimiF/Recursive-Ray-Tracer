@@ -7,6 +7,7 @@
 #include "../RRTracer/TupleUtilities.h"
 #include "../RRTracer/Canvas.h"
 #include "../RRTracer/Color.h"
+#include "../RRTracer/FileWriter.h"
 
 void tick(const Environment& e, Projectile& p);
 
@@ -28,19 +29,20 @@ int main()
 
 void tick(const Environment& e, Projectile& p)
 {
+	RRT::FileWriter ppm_file_writer = RRT::FileWriter();
 	RRT::Canvas canvas = RRT::Canvas(900, 550);
 
 	int time_in_air = 0;
 	while (p.Position().Y() >= 0.0f)
 	{
-		size_t x = (unsigned int) p.Position().X();
-		size_t y = canvas.Height() - (unsigned int) p.Position().Y();
+		size_t x = (unsigned int)p.Position().X();
+		size_t y = canvas.Height() - (unsigned int)p.Position().Y();
 
 		if (x < canvas.Width() && x >= 0 && y < canvas.Height() && y >= 0)
 		{
 			canvas.Pixel(x, y) = RRT::Color(1.0f, 1.0f, 1.0f);
 		}
-		
+
 		std::cout << std::setprecision(2);
 		std::cout << std::fixed;
 		std::cout << "{ X: " << p.Position().X() << ",\t Y: " << p.Position().Y() << ",\t Z: " << p.Position().Z() << "}\n";
@@ -48,9 +50,9 @@ void tick(const Environment& e, Projectile& p)
 
 		RRT::Tuple new_velocity = p.Velocity() + e.Gravity() + e.Wind();
 		p.UpdateProjectile(new_velocity);
-	}	
-
-	canvas.Write("projection.ppm");
+	}
+	
+	ppm_file_writer.write("projectile.ppm", canvas.PixelMapPPMFormat());
 
 	std::cout << "Time in air: " << time_in_air << '\n';
 }
