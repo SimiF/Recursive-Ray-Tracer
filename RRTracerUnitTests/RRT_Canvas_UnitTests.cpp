@@ -35,5 +35,22 @@ namespace RRT_Canvas_UnitTests
 				}
 			}
 		}
+
+		TEST_METHOD(Setting_And_Getting_Pixels)
+		{
+			size_t width = 10;
+			size_t height = 20;
+
+			RRT::Canvas canvas = RRT::Canvas(10, 20);
+
+			Assert::AreEqual(width, canvas.Width());
+			Assert::AreEqual(height, canvas.Height());
+
+			canvas.Pixel(1, 1) = RRT::Color(0.2f, 0.1f, 0.9f);
+
+			Assert::AreEqual(0.2f, canvas.Pixel(1, 1).Red());
+			Assert::AreEqual(0.1f, canvas.Pixel(1, 1).Green());
+			Assert::AreEqual(0.9f, canvas.Pixel(1, 1).Blue());
+		}
 	};
 }

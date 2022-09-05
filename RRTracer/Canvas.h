@@ -13,6 +13,9 @@ namespace RRT
 		Canvas() = delete;
 		Canvas(size_t w, size_t h);
 
+		Color& Pixel(size_t x, size_t y) noexcept(false);
+		Color Pixel(size_t x, size_t y) const noexcept(false);
+
 		size_t Width() const noexcept { return width; }
 		size_t Height() const noexcept { return height; }
 

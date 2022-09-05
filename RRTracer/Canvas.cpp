@@ -13,4 +13,14 @@ namespace RRT
 			pixel_row.resize(width);			
 		}
 	}
+
+	Color& Canvas::Pixel(size_t x, size_t y) noexcept(false)
+	{
+		return pixel_map[x][y];
+	}
+
+	Color Canvas::Pixel(size_t x, size_t y) const noexcept(false)
+	{
+		return pixel_map[x][y];
+	}
 }
