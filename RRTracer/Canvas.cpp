@@ -114,6 +114,8 @@ namespace RRT
 			}
 		}
 
+		ppm_stream << '\n';
+
 		return ppm_stream.str();
 	}
 }

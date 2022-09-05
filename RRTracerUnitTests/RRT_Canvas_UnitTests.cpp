@@ -65,5 +65,15 @@ namespace RRT_Canvas_UnitTests
 			bool correct_header = (ppm_format.find(expected_header) != std::string::npos);
 			Assert::IsTrue(correct_header);
 		}
+
+		TEST_METHOD(Last_character_is_new_line)
+		{
+			RRT::Canvas canvas = RRT::Canvas(5, 3);
+
+			std::string ppm_format = canvas.PixelMapPPMFormat();
+
+			// never subtract 1 from size_t but this is a controlled scenario where length always > 0
+			Assert::AreEqual('\n', ppm_format[ppm_format.length() - 1]);
+		}
 	};
 }
