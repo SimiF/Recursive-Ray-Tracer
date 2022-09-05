@@ -19,6 +19,9 @@
     <Filter Include="Color Files">
       <UniqueIdentifier>{48fdb880-aa88-4a1e-92dc-adc986e1edcf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Canvas Files">
+      <UniqueIdentifier>{03cb2e2f-957d-4ccb-8d10-60000590d946}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities.hpp">
@@ -32,6 +35,9 @@
     </ClInclude>
     <ClInclude Include="TupleUtilities.hpp">
       <Filter>Tuple Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Canvas.hpp">
+      <Filter>Canvas Files</Filter>
     </ClInclude>
     <ClInclude Include="Color.hpp">
       <Filter>Color Files</Filter>

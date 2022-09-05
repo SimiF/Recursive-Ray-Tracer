@@ -11,7 +11,7 @@ namespace RRT
 	class Color
 	{
 	public:
-		Color() = delete;
+		Color() {}
 		Color(float red, float green, float blue) : red{ red }, green{ green }, blue{ blue } {}
 		Color(const std::initializer_list<float>& list);
 

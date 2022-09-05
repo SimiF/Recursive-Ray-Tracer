@@ -8,7 +8,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace RRT_Point_UnitTests
+namespace RRT_Tuple_UnitTests
 {
 	constexpr float EPSILON = 0.0001f;
 

@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Canvas.hpp" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="Tuple.hpp" />
     <ClInclude Include="TupleFactory.hpp" />
