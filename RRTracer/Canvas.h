@@ -21,6 +21,7 @@ namespace RRT
 		size_t Height() const noexcept { return height; }
 
 		bool Write(const std::string& file_name) const;
+		std::string PixelMapPPMFormat() const;
 
 		std::vector<std::vector<Color>> PixelMap() const noexcept { return pixel_map; }
 

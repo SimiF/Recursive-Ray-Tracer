@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
+#include <string>
+
 #include "../RRTracer/Canvas.h"
 #include "../RRTracer/Color.h"
 
@@ -53,6 +55,15 @@ namespace RRT_Canvas_UnitTests
 			Assert::AreEqual(0.9f, canvas.Pixel(1, 1).Blue());
 		}
 
+		TEST_METHOD(Header_file_is_correct_for_PPM3_format)
+		{
+			std::string expected_header = {"P3\n5 3\n255"};
+			RRT::Canvas canvas = RRT::Canvas(5, 3);
 
+			std::string ppm_format = canvas.PixelMapPPMFormat();
+			
+			bool correct_header = (ppm_format.find(expected_header) != std::string::npos);
+			Assert::IsTrue(correct_header);
+		}
 	};
 }

@@ -34,7 +34,7 @@ void tick(const Environment& e, Projectile& p)
 	while (p.Position().Y() >= 0.0f)
 	{
 		size_t x = (unsigned int) p.Position().X();
-		size_t y = (unsigned int) canvas.Height() - p.Position().Y();
+		size_t y = canvas.Height() - (unsigned int) p.Position().Y();
 
 		if (x < canvas.Width() && x >= 0 && y < canvas.Height() && y >= 0)
 		{
