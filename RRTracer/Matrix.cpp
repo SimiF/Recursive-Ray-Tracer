@@ -32,7 +32,10 @@ namespace RRT
 		{
 			for (size_t c = 0; c < m1.cols; ++c)
 			{
-				is_same = RRTUtils::s_floats_equal(m1[r][c], m2[r][c]);
+				const int row = (const int)r;
+				const int col = (const int)c;
+
+				is_same = RRTUtils::s_floats_equal(m1[row][col], m2[row][col]);
 			}
 		}
 

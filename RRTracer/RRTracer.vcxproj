@@ -143,6 +143,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="FileWriter.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="RRTException.h" />
     <ClInclude Include="Tuple.h" />
     <ClInclude Include="TupleFactory.h" />
     <ClInclude Include="TupleUtilities.h" />

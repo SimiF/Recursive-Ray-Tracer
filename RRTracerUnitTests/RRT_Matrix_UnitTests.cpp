@@ -55,4 +55,41 @@ namespace RRT_Matrix_UnitTests
 			Assert::AreEqual(1.0f, test_matrix[2][2], EPSILON);
 		}
 	};
+
+	TEST_CLASS(RRT_Matrix_Comparison_Tests)
+	{
+	public:
+		TEST_METHOD(Two_Matrices_Should_Equal_If_Same)
+		{
+			std::vector<std::vector<float>> input_data{ { 1.0f, 2.0f, 3.0f, 4.0f },
+														{ 5.5f, 6.5f, 7.5f, 8.5f },
+														{ 9.0f, 10.0f, 11.0f, 12.0f },
+														{ 13.5f, 14.5f, 15.5f, 16.5f } };
+
+			RRT::Matrix matrix_one(4, 4, input_data);
+			RRT::Matrix matrix_two(4, 4, input_data);
+
+			Assert::IsTrue(matrix_one == matrix_two);
+			Assert::IsFalse(matrix_one != matrix_two);
+		}	
+
+		TEST_METHOD(Two_Matrices_Should_Not_Equal_If_Not_Same)
+		{
+			std::vector<std::vector<float>> input_data_one{ { 1.0f, 2.0f, 3.0f, 4.0f },
+														{ 5.5f, 6.5f, 7.5f, 8.5f },
+														{ 9.0f, 10.0f, 11.0f, 12.0f },
+														{ 13.5f, 14.5f, 15.5f, 16.5f } };
+
+			std::vector<std::vector<float>> input_data_two{ { 2.0f, 2.0f, 3.0f, 4.0f },
+														{ 5.5f, 6.55f, 7.5f, 8.5f },
+														{ 9.0f, 10.0f, 11.6f, 12.0f },
+														{ 13.5f, 14.5f, 15.9f, -8.5f } };
+
+			RRT::Matrix matrix_one(4, 4, input_data_one);
+			RRT::Matrix matrix_two(4, 4, input_data_two);
+
+			Assert::IsTrue(matrix_one != matrix_two);
+			Assert::IsFalse(matrix_one == matrix_two);
+		}
+	};
 }
