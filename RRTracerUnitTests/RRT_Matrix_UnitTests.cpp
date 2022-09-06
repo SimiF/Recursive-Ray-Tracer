@@ -92,4 +92,35 @@ namespace RRT_Matrix_UnitTests
 			Assert::IsFalse(matrix_one == matrix_two);
 		}
 	};
+
+	TEST_CLASS(RRT_Matrix_Multiplication_Tests)
+	{
+	public:
+		TEST_METHOD(Two_Matrices_Should_Equal_If_Same)
+		{
+			std::vector<std::vector<float>> input_data_one{ { 1.0f, 2.0f, 3.0f, 4.0f },
+															{ 5.0f, 6.0f, 7.0f, 8.0f },
+															{ 9.0f, 8.0f, 7.0f, 6.0f },
+															{ 5.0f, 4.0f, 3.0f, 2.0f } };
+
+			std::vector<std::vector<float>> input_data_two{ { -2.0f, 1.0f, 2.0f, 3.0f },
+															{ 3.0f, 2.0f, 1.0f, -1.0f },
+															{ 4.0f, 3.0f, 6.0f, 5.0f },
+															{ 1.0f, 2.0f, 7.0f, 8.0f } };
+
+			std::vector<std::vector<float>> expected_mult{ { 20.0f, 22.0f, 50.0f, 48.0f },
+															{ 44.0f, 54.0f, 114.0f, 108.0f },
+															{ 48.0f, 58.0f, 110.0f, 102.0f },
+															{ 16.0f, 26.0f, 46.0f, 42.0f } };
+
+			RRT::Matrix m_one = RRT::Matrix(4, 4, input_data_one);
+			RRT::Matrix m_two = RRT::Matrix(4, 4, input_data_two);
+			RRT::Matrix expected_matrix = RRT::Matrix(4, 4, expected_mult);
+			
+			RRT::Matrix actual_matrix = m_one * m_two;
+
+			Assert::IsTrue(expected_matrix == actual_matrix);
+			Assert::IsFalse(expected_matrix != actual_matrix);
+		}		
+	};
 }
