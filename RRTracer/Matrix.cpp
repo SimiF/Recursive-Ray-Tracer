@@ -18,4 +18,29 @@ namespace RRT
 	{
 		return matrix[row_index];
 	}
+
+	bool operator==(const Matrix& m1, const Matrix& m2)
+	{
+		bool is_same{ false };
+
+		if (m1.cols != m2.cols && m1.rows != m2.rows)
+		{
+			return false;
+		}
+
+		for (size_t r = 0; r < m1.rows; ++r)
+		{
+			for (size_t c = 0; c < m1.cols; ++c)
+			{
+				is_same = RRTUtils::s_floats_equal(m1[r][c], m2[r][c]);
+			}
+		}
+
+		return is_same;
+	}
+
+	bool operator!=(const Matrix& m1, const Matrix& m2)
+	{
+		return !(m1 == m2);
+	}
 }

@@ -2,6 +2,7 @@
 #define MATRIX_H
 
 #include <vector>
+#include "Utilities.h"
 
 namespace RRT
 {
@@ -13,6 +14,10 @@ namespace RRT
 
 		std::vector<float> operator[](const int& row_index) const noexcept(false);
 		std::vector<float>& operator[](const int& row_index) noexcept(false);
+
+		friend bool operator==(const Matrix& m1, const Matrix& m2);
+		friend bool operator!=(const Matrix& m1, const Matrix& m2);
+
 
 	private:
 		std::vector<std::vector<float>> matrix;
