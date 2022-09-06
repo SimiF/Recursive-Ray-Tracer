@@ -30,5 +30,29 @@ namespace RRT_Matrix_UnitTests
 			Assert::AreEqual(13.5f, test_matrix[3][0], EPSILON);
 			Assert::AreEqual(15.5f, test_matrix[3][2], EPSILON);
 		}
+
+		TEST_METHOD(Matrix_Constructor_2by2_Test)
+		{
+			std::vector<std::vector<float>> input_data{ { -3.0f, 5.0f},
+														{ 1.0f, -2.0f } };
+			RRT::Matrix test_matrix(2, 2, input_data);
+
+			Assert::AreEqual(-3.0f, test_matrix[0][0], EPSILON);
+			Assert::AreEqual(5.0f, test_matrix[0][1], EPSILON);
+			Assert::AreEqual(1.0f, test_matrix[1][0], EPSILON);
+			Assert::AreEqual(-2.0f, test_matrix[1][1], EPSILON);
+		}
+
+		TEST_METHOD(Matrix_Constructor_3by3_Test)
+		{
+			std::vector<std::vector<float>> input_data{ { -3.0f, 5.0f, 0.0f   },
+														{ 1.0f, -2.0f, -7.0f   },
+														{ 0.0f, 1.0f, 1.0f } };
+			RRT::Matrix test_matrix(3, 3, input_data);
+
+			Assert::AreEqual(-3.0f, test_matrix[0][0], EPSILON);
+			Assert::AreEqual(-2.0f, test_matrix[1][1], EPSILON);
+			Assert::AreEqual(1.0f, test_matrix[2][2], EPSILON);
+		}
 	};
 }
