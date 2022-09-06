@@ -5,6 +5,7 @@
 
 #include "../RRTracer/Matrix.h"
 #include "../RRTracer/MatrixFactory.h"
+#include "../RRTracer/MatrixUtilities.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -173,9 +174,7 @@ namespace RRT_Matrix_UnitTests
 		TEST_METHOD(Transpose_of_ID_Matrix_Should_Return_ID_Matrix)
 		{
 			RRT::Matrix id_mat_one = RRT::MatrixFactory().IdentityMatrix();
-			RRT::Matrix id_mat_two = RRT::MatrixFactory().IdentityMatrix();
-
-			id_mat_two.Transpose();
+			RRT::Matrix id_mat_two = RRTMatrixUtils::Transpose(id_mat_one);
 
 			Assert::IsTrue(id_mat_one == id_mat_two);
 			Assert::IsFalse(id_mat_one != id_mat_two);
@@ -192,13 +191,13 @@ namespace RRT_Matrix_UnitTests
 															{ 3.0f, 0.0f, 5.0f, 5.0f },
 															{ 0.0f, 8.0f, 3.0f, 8.0f } };
 
-			RRT::Matrix matrix_one = RRT::Matrix(4, 4, input_data_one);
+			RRT::Matrix original_matrix = RRT::Matrix(4, 4, input_data_one);
 			RRT::Matrix expected_matrix = RRT::Matrix(4, 4, input_data_two);
 
-			matrix_one.Transpose();			
+			RRT::Matrix actual_matrix = RRTMatrixUtils::Transpose(original_matrix);
 
-			Assert::IsTrue(expected_matrix == matrix_one);
-			Assert::IsFalse(expected_matrix != matrix_one);
+			Assert::IsTrue(expected_matrix == actual_matrix);
+			Assert::IsFalse(expected_matrix != actual_matrix);
 		}
 
 		TEST_METHOD(Transpose_Matrix_Twice_Return_Original_Matrix)
@@ -210,8 +209,8 @@ namespace RRT_Matrix_UnitTests
 
 			RRT::Matrix expected_matrix = RRT::Matrix(4, 4, input_data_one);
 			RRT::Matrix actual_matrix = RRT::Matrix(4, 4, input_data_one);
-			actual_matrix.Transpose();
-			actual_matrix.Transpose();						
+			actual_matrix = RRTMatrixUtils::Transpose(actual_matrix);
+			actual_matrix = RRTMatrixUtils::Transpose(actual_matrix);			
 
 			Assert::IsTrue(expected_matrix == actual_matrix);
 			Assert::IsFalse(expected_matrix != actual_matrix);

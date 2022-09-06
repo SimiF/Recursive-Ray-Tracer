@@ -25,8 +25,6 @@ namespace RRT
 		Matrix operator*(const Matrix& m) const;
 		std::vector<float> operator*(const std::vector<float>& v) const;
 
-		void Transpose() noexcept(false);
-
 	private:
 		std::vector<std::vector<float>> matrix;
 		size_t rows = 0;

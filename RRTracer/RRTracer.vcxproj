@@ -144,6 +144,7 @@
     <ClInclude Include="FileWriter.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MatrixFactory.h" />
+    <ClInclude Include="MatrixUtilities.h" />
     <ClInclude Include="RRTException.h" />
     <ClInclude Include="Tuple.h" />
     <ClInclude Include="TupleFactory.h" />
@@ -157,6 +158,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="MatrixFactory.cpp" />
+    <ClCompile Include="MatrixUtilities.cpp" />
     <ClCompile Include="Tuple.cpp" />
     <ClCompile Include="TupleFactory.cpp" />
   </ItemGroup>
