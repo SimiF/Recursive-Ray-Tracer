@@ -8,4 +8,14 @@ namespace RRT
 		cols = c;
 		matrix = m;
 	}
+
+	std::vector<float> Matrix::operator[](const int& row_index) const noexcept(false)
+	{
+		return matrix[row_index];
+	}
+
+	std::vector<float>& Matrix::operator[](const int& row_index) noexcept(false)
+	{
+		return matrix[row_index];
+	}
 }

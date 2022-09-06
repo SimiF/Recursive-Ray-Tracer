@@ -11,6 +11,9 @@ namespace RRT
 		Matrix() = default;
 		Matrix(const size_t& r, const size_t& c, const std::vector<std::vector<float>> m);
 
+		std::vector<float> operator[](const int& row_index) const noexcept(false);
+		std::vector<float>& operator[](const int& row_index) noexcept(false);
+
 	private:
 		std::vector<std::vector<float>> matrix;
 		size_t rows = 0;
