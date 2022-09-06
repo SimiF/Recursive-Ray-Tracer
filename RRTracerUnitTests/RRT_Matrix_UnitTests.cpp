@@ -169,5 +169,52 @@ namespace RRT_Matrix_UnitTests
 				Assert::AreEqual(expected_tuple[i], actual_tuple[i], EPSILON);
 			}
 		}
+
+		TEST_METHOD(Transpose_of_ID_Matrix_Should_Return_ID_Matrix)
+		{
+			RRT::Matrix id_mat_one = RRT::MatrixFactory().IdentityMatrix();
+			RRT::Matrix id_mat_two = RRT::MatrixFactory().IdentityMatrix();
+
+			id_mat_two.Transpose();
+
+			Assert::IsTrue(id_mat_one == id_mat_two);
+			Assert::IsFalse(id_mat_one != id_mat_two);
+		}
+
+		TEST_METHOD(Transpose_Matrix_Should_Return_Transposed_Matrix)
+		{
+			std::vector<std::vector<float>> input_data_one{ { 0.0f, 9.0f, 3.0f, 0.0f },
+															{ 9.0f, 8.0f, 0.0f, 8.0f },
+															{ 1.0f, 8.0f, 5.0f, 3.0f },
+															{ 0.0f, 0.0f, 5.0f, 8.0f } };
+			std::vector<std::vector<float>> input_data_two{ { 0.0f, 9.0f, 1.0f, 0.0f },
+															{ 9.0f, 8.0f, 8.0f, 0.0f },
+															{ 3.0f, 0.0f, 5.0f, 5.0f },
+															{ 0.0f, 8.0f, 3.0f, 8.0f } };
+
+			RRT::Matrix matrix_one = RRT::Matrix(4, 4, input_data_one);
+			RRT::Matrix expected_matrix = RRT::Matrix(4, 4, input_data_two);
+
+			matrix_one.Transpose();			
+
+			Assert::IsTrue(expected_matrix == matrix_one);
+			Assert::IsFalse(expected_matrix != matrix_one);
+		}
+
+		TEST_METHOD(Transpose_Matrix_Twice_Return_Original_Matrix)
+		{
+			std::vector<std::vector<float>> input_data_one{ { 0.0f, 9.0f, 3.0f, 0.0f },
+															{ 9.0f, 8.0f, 0.0f, 8.0f },
+															{ 1.0f, 8.0f, 5.0f, 3.0f },
+															{ 0.0f, 0.0f, 5.0f, 8.0f } };			
+
+			RRT::Matrix expected_matrix = RRT::Matrix(4, 4, input_data_one);
+			RRT::Matrix actual_matrix = RRT::Matrix(4, 4, input_data_one);
+			actual_matrix.Transpose();
+			actual_matrix.Transpose();						
+
+			Assert::IsTrue(expected_matrix == actual_matrix);
+			Assert::IsFalse(expected_matrix != actual_matrix);
+		}
 	};
 }

@@ -96,4 +96,22 @@ namespace RRT
 
 		return resulting_tuple;
 	}
+
+	void Matrix::Transpose() noexcept(false)
+	{
+		std::vector<float> row_one = matrix[0];
+		std::vector<float> row_two = matrix[1];
+		std::vector<float> row_three = matrix[2];
+		std::vector<float> row_four = matrix[3];
+		
+		for (size_t c = 0; c < cols; ++c)
+		{
+			const int col = (const int)c;
+
+			matrix[0][col] = row_one[col];
+			matrix[1][col] = row_two[col];
+			matrix[2][col] = row_three[col];
+			matrix[3][col] = row_four[col];
+		}
+	}
 }
