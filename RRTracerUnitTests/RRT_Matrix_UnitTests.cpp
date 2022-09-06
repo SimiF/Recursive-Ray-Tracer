@@ -155,5 +155,19 @@ namespace RRT_Matrix_UnitTests
 			Assert::IsTrue(matrix == new_matrix);
 			Assert::IsFalse(matrix != new_matrix);
 		}
+
+		TEST_METHOD(Multiplication_of_Tuple_Should_Return_Initial_matrix)
+		{
+			std::vector<float> tuple = { 18, 24, 33, 1 };
+			std::vector<float> expected_tuple = { 18, 24, 33, 1 };
+
+			RRT::Matrix id_matrix = RRT::MatrixFactory().IdentityMatrix();
+			std::vector<float> actual_tuple = id_matrix * tuple;
+
+			for (size_t i = 0; i < 4; ++i)
+			{
+				Assert::AreEqual(expected_tuple[i], actual_tuple[i], EPSILON);
+			}
+		}
 	};
 }
