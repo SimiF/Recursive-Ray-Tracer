@@ -100,7 +100,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;$(SolutionDir)RRTracer\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>FileWriter.obj;Matrix.obj;TupleFactory.obj;Tuple.obj;Color.obj;Canvas.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MatrixFactory.obj;FileWriter.obj;Matrix.obj;TupleFactory.obj;Tuple.obj;Color.obj;Canvas.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

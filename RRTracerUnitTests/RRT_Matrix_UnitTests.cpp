@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "../RRTracer/Matrix.h"
+#include "../RRTracer/MatrixFactory.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -139,6 +140,20 @@ namespace RRT_Matrix_UnitTests
 			{
 				Assert::AreEqual(expected_tuple[i], actual_tuple[i], EPSILON);
 			}
+		}
+
+		TEST_METHOD(Multiplication_of_identity_Matrix_Should_Return_Initial_matrix)
+		{
+			std::vector<std::vector<float>> input_data_one{ { 1.0f, 2.0f, 3.0f, 4.0f },
+															{ 2.0f, 4.0f, 4.0f, 2.0f },
+															{ 8.0f, 6.0f, 4.0f, 1.0f },
+															{ 0.0f, 0.0f, 0.0f, 1.0f } };
+			RRT::Matrix matrix = RRT::Matrix(4, 4, input_data_one);
+			RRT::Matrix id_matrix = RRT::MatrixFactory().IdentityMatrix();
+			RRT::Matrix new_matrix = matrix * id_matrix;
+
+			Assert::IsTrue(matrix == new_matrix);
+			Assert::IsFalse(matrix != new_matrix);
 		}
 	};
 }
