@@ -69,7 +69,7 @@ namespace RRT
 			for (size_t c = 0; c < m.cols; ++c)
 			{
 				const int row = (const int)r;
-				const int col = (const int)c;
+				const int col = (const int)c;				
 
 				resulting_matrix[row][col] = matrix[row][0] * m[0][c] +
 					matrix[row][1] * m[1][col] +
@@ -79,5 +79,21 @@ namespace RRT
 		}
 
 		return resulting_matrix;
+	}
+
+	std::vector<float> Matrix::operator*(const std::vector<float>& v) const
+	{
+		std::vector<float> resulting_tuple;
+		resulting_tuple.resize(4);
+
+		for (size_t i = 0; i < 4; ++i)
+		{
+			std::vector<float> row = matrix[i];
+			float dot_product{ 0.0f };
+
+			resulting_tuple[i] = row[0] * v[0] + row[1] * v[1] + row[2] * v[2] + row[3] * v[3];
+		}
+
+		return resulting_tuple;
 	}
 }

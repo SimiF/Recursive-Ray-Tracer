@@ -23,6 +23,7 @@ namespace RRT
 		friend bool operator!=(const Matrix& m1, const Matrix& m2);
 
 		Matrix operator*(const Matrix& m) const;
+		std::vector<float> operator*(const std::vector<float>& v) const;
 
 	private:
 		std::vector<std::vector<float>> matrix;
