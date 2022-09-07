@@ -215,5 +215,54 @@ namespace RRT_Matrix_UnitTests
 			Assert::IsTrue(expected_matrix == actual_matrix);
 			Assert::IsFalse(expected_matrix != actual_matrix);
 		}
+
+		TEST_METHOD(Determinant_of_2d_matrix_is_right_matrix)
+		{
+			std::vector<std::vector<float>> input_data{ { 1.0f, 5.0f },
+														{ -3.0f, 2.0f } };
+
+			RRT::Matrix matrix = RRT::Matrix(2, 2, input_data);
+			float exp_det = 17.0f;
+
+			Assert::AreEqual(exp_det, RRTMatrixUtils::Determinant(matrix), EPSILON);
+		}
+
+		TEST_METHOD(Submatrix_of_3_by_3_is_proper_matrix)
+		{
+			std::vector<std::vector<float>> input_data{ { 1.0f, 5.0f, 0.0f },
+														{ -3.0f, 2.0f, 7.0f },
+														{ 0.0f, 6.0f, -3.0f } };
+
+			std::vector<std::vector<float>> exp_data{	{ -3.0f, 2.0f },
+														{ 0.0f, 6.0f } };
+
+			RRT::Matrix matrix = RRT::Matrix(3, 3, input_data);
+			RRT::Matrix exp_submat = RRT::Matrix(2, 2, exp_data);
+
+			RRT::Matrix act_submat = RRTMatrixUtils::SubMatrix(matrix, 0, 2);
+
+			Assert::IsTrue(exp_submat == act_submat);
+			Assert::IsFalse(exp_submat != act_submat);
+		}
+
+		TEST_METHOD(Submatrix_of_4_by_4_is_proper_matrix)
+		{
+			std::vector<std::vector<float>> input_data{ { -6.0f, 1.0f, 1.0f, 6.0f },
+														{ -8.0f, 5.0f, 8.0f, 6.0f },
+														{ -1.0f, 0.0f, 8.0f, 2.0f },
+														{ -7.0f, 1.0f, -1.0f, 1.0f } };
+
+			std::vector<std::vector<float>> exp_data{ { -6.0f, 1.0f, 6.0f },
+														{ -8.0f, 8.0f, 6.0f },
+														{ -7.0f, -1.0f, 1.0f } };
+
+			RRT::Matrix matrix = RRT::Matrix(4, 4, input_data);
+			RRT::Matrix exp_submat = RRT::Matrix(3, 3, exp_data);
+
+			RRT::Matrix act_submat = RRTMatrixUtils::SubMatrix(matrix, 2, 1);
+
+			Assert::IsTrue(exp_submat == act_submat);
+			Assert::IsFalse(exp_submat != act_submat);
+		}
 	};
 }

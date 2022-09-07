@@ -23,4 +23,25 @@ namespace RRTMatrixUtils
 
 		return transposed_matrix;
 	}
+
+	RRT::Matrix SubMatrix(const RRT::Matrix& matrix, const size_t& row, const size_t& col)
+	{
+		RRT::Matrix sub_matrix(4, 4);
+
+		
+
+		return sub_matrix;
+	}
+
+	float Determinant(const RRT::Matrix& matrix)
+	{
+		float determinant{ 0.0f };
+
+		if (matrix.Cols() == 2 && matrix.Rows() == 2)
+		{
+			determinant = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+		}
+
+		return determinant;
+	}
 }
