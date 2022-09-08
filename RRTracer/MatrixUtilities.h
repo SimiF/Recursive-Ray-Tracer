@@ -10,6 +10,7 @@ namespace RRTMatrixUtils
 
 	float Cofactor(const RRT::Matrix& matrix, const size_t& row, const size_t& col);
 	float Minor(const RRT::Matrix& matrix, const size_t& row, const size_t& col);
+	bool Invertible(const RRT::Matrix& matrix);
 	float Determinant(const RRT::Matrix& matrix);	
 }
 

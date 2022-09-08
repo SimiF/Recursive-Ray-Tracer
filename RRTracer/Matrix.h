@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <limits.>
+
 #include "Utilities.h"
 
 namespace RRT
@@ -17,7 +18,7 @@ namespace RRT
 		inline size_t Rows() const { return rows; }
 		inline size_t Cols() const { return cols;  }
 
-		void Add(const float& f) noexcept(false);
+		void Add(const float& f) noexcept(false);		
 
 		std::vector<float> operator[](const int& row_index) const noexcept(false);
 		std::vector<float>& operator[](const int& row_index) noexcept(false);

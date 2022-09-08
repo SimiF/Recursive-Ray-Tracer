@@ -82,4 +82,9 @@ namespace RRTMatrixUtils
 
 		return determinant;
 	}
+
+	bool Invertible(const RRT::Matrix& matrix)
+	{
+		return !RRTUtils::s_floats_equal(Determinant(matrix), 0.0f);
+	}
 }

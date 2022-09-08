@@ -50,7 +50,7 @@ namespace RRT
 				}
 			}
 		}
-	}
+	}	
 
 	std::vector<float> Matrix::operator[](const int& row_index) const noexcept(false)
 	{

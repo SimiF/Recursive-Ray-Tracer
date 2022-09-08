@@ -358,5 +358,33 @@ namespace RRT_Matrix_UnitTests
 			Assert::AreEqual(exp_cofactor_four, act_cofactor_four, EPSILON);
 			Assert::AreEqual(exp_determinant, act_determinant, EPSILON);
 		}
+
+		TEST_METHOD(Invertible_4_by_4_matrix_true)
+		{
+			std::vector<std::vector<float>> input_data{ { 6.0, 4.0f, 4.0f, 4.0f },
+														{ 5.0f, 5.0f, 7.0f, 6.0f },
+														{ 4.0f, -9.0f, 3.0f, -7.0f },
+														{ 9.0f, 1.0f, 7.0f, -6.0f } };
+			
+			RRT::Matrix matrix = RRT::Matrix(4, 4, input_data);
+			float exp_det = -2120.0f;
+
+			Assert::AreEqual(exp_det, RRTMatrixUtils::Determinant(matrix), EPSILON);
+			Assert::IsTrue(RRTMatrixUtils::Invertible(matrix));			
+		}
+
+		TEST_METHOD(Invertible_4_by_4_matrix_false)
+		{
+			std::vector<std::vector<float>> input_data{ { -4.0, 2.0f, -2.0f, -3.0f },
+														{ 9.0f, 6.0f, 2.0f, 6.0f },
+														{ 0.0f, -5.0f, 1.0f, -5.0f },
+														{ 0.0f, 0.0f, 0.0f, 0.0f } };
+
+			RRT::Matrix matrix = RRT::Matrix(4, 4, input_data);
+			float exp_det = 0.0f;
+
+			Assert::AreEqual(exp_det, RRTMatrixUtils::Determinant(matrix), EPSILON);
+			Assert::IsFalse(RRTMatrixUtils::Invertible(matrix));			
+		}
 	};
 }
