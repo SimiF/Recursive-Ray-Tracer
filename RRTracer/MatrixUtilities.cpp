@@ -52,6 +52,18 @@ namespace RRTMatrixUtils
 		return Determinant(sub_matrix);
 	}
 
+	float Cofactor(const RRT::Matrix& matrix, const size_t& row, const size_t& col)
+	{	
+		float minor = Minor(matrix, row, col);
+
+		if (row + col % 2 != 0)
+		{
+			minor *= -1;
+		}
+
+		return minor;
+	}
+
 	float Determinant(const RRT::Matrix& matrix)
 	{
 		float determinant{ 0.0f };
