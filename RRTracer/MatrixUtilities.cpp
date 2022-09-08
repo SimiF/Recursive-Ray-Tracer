@@ -26,9 +26,22 @@ namespace RRTMatrixUtils
 
 	RRT::Matrix SubMatrix(const RRT::Matrix& matrix, const size_t& row, const size_t& col)
 	{
-		RRT::Matrix sub_matrix(4, 4);
+		RRT::Matrix sub_matrix(matrix.Rows() - 1, matrix.Cols() - 1);		
 
-		
+		for (size_t r = 0; r < matrix.Rows(); ++r)
+		{
+			for (size_t c = 0; c < matrix.Cols(); ++c)
+			{
+				const int curr_row = (const int)r;
+				const int curr_col = (const int)c;
+
+				if (curr_row != row && curr_col != col)
+				{
+					const float num = matrix[curr_row][curr_col];
+					sub_matrix.Add(num);
+				}
+			}
+		}
 
 		return sub_matrix;
 	}

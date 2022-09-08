@@ -20,6 +20,36 @@ namespace RRT
 		{
 			row.resize(rows);
 		}
+
+		// instantiate matrix with "infinity"
+		for (size_t r = 0; r < rows; ++r)
+		{
+			for (size_t c = 0; c < cols; ++c)
+			{
+				const int curr_row = (const int)r;
+				const int curr_col = (const int)c;
+
+				matrix[curr_row][curr_col] = 1e10;
+			}
+		}
+	}
+
+	void Matrix::Add(const float& f) noexcept(false)
+	{
+		for (size_t r = 0; r < rows; ++r)
+		{
+			for (size_t c = 0; c < cols; ++c)
+			{
+				const int curr_row = (const int)r;
+				const int curr_col = (const int)c;
+
+				if (RRTUtils::s_floats_equal(matrix[curr_row][curr_col], 1e10))
+				{
+					matrix[curr_row][curr_col] = f;
+					return;
+				}
+			}
+		}
 	}
 
 	std::vector<float> Matrix::operator[](const int& row_index) const noexcept(false)
