@@ -112,7 +112,7 @@ namespace RRT_Matrix_UnitTests
 
 			std::vector<std::vector<float>> expected_mult{ { 20.0f, 22.0f, 50.0f, 48.0f },
 															{ 44.0f, 54.0f, 114.0f, 108.0f },
-															{ 48.0f, 58.0f, 110.0f, 102.0f },
+															{ 40.0f, 58.0f, 110.0f, 102.0f },
 															{ 16.0f, 26.0f, 46.0f, 42.0f } };
 
 			RRT::Matrix m_one = RRT::Matrix(4, 4, input_data_one);
@@ -186,6 +186,7 @@ namespace RRT_Matrix_UnitTests
 															{ 9.0f, 8.0f, 0.0f, 8.0f },
 															{ 1.0f, 8.0f, 5.0f, 3.0f },
 															{ 0.0f, 0.0f, 5.0f, 8.0f } };
+
 			std::vector<std::vector<float>> input_data_two{ { 0.0f, 9.0f, 1.0f, 0.0f },
 															{ 9.0f, 8.0f, 8.0f, 0.0f },
 															{ 3.0f, 0.0f, 5.0f, 5.0f },

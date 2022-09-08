@@ -79,6 +79,11 @@ namespace RRT
 				const int col = (const int)c;
 
 				is_same = RRTUtils::s_floats_equal(m1[row][col], m2[row][col]);
+				
+				if (!is_same)
+				{
+					return false;
+				}
 			}
 		}
 

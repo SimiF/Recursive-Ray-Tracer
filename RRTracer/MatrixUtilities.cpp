@@ -6,19 +6,15 @@ namespace RRTMatrixUtils
 	{
 		RRT::Matrix transposed_matrix(4, 4);
 
-		std::vector<float> row_one = matrix[0];
-		std::vector<float> row_two = matrix[1];
-		std::vector<float> row_three = matrix[2];
-		std::vector<float> row_four = matrix[3];
-
-		for (size_t c = 0; c < matrix.Cols(); ++c)
+		for (size_t r = 0; r < matrix.Rows(); ++r)
 		{
-			const int col = (const int)c;
+			for (size_t c = 0; c < matrix.Cols(); ++c)
+			{
+				const int curr_row = (const int)r;
+				const int curr_col = (const int)c;
 
-			transposed_matrix[0][col] = row_one[col];
-			transposed_matrix[1][col] = row_two[col];
-			transposed_matrix[2][col] = row_three[col];
-			transposed_matrix[3][col] = row_four[col];
+				transposed_matrix[curr_col][curr_row] = matrix[curr_row][curr_col];
+			}
 		}
 
 		return transposed_matrix;
@@ -50,9 +46,20 @@ namespace RRTMatrixUtils
 	{
 		RRT::Matrix inv_matrix(matrix.Rows(), matrix.Cols());
 
-		if (Invertible(inv_matrix))
+		if (Invertible(matrix))
 		{
+			const float determinant = Determinant(matrix);
 
+			for (size_t r = 0; r < inv_matrix.Rows(); ++r)
+			{
+				for (size_t c = 0; c < inv_matrix.Cols(); ++c)
+				{
+					const int curr_row = (const int)r;
+					const int curr_col = (const int)c;
+
+					inv_matrix[curr_col][curr_row] = Cofactor(matrix, r, c) / determinant;
+				}
+			}
 		}
 
 		return inv_matrix;
@@ -68,7 +75,8 @@ namespace RRTMatrixUtils
 	{	
 		float minor = Minor(matrix, row, col);
 
-		if (row + col % 2 != 0)
+		size_t num = row + col;
+		if (num % 2 != 0)
 		{
 			minor *= -1;
 		}
