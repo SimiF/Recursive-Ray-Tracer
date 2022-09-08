@@ -264,5 +264,23 @@ namespace RRT_Matrix_UnitTests
 			Assert::IsTrue(exp_submat == act_submat);
 			Assert::IsFalse(exp_submat != act_submat);
 		}
+
+		TEST_METHOD(Minor_of_3_by_3_matrix)
+		{			
+			std::vector<std::vector<float>> input_data{ { 3.0, 5.0f, 0.0f },
+														{ 2.0f, -1.0f, -7.0f },
+														{ 6.0, -1.0f, 5.0f } };
+			
+			float exp_minor = 25.0f;
+
+			RRT::Matrix matrix = RRT::Matrix(3, 3, input_data);	
+			RRT::Matrix sub_matrix = RRTMatrixUtils::SubMatrix(matrix, 1, 0);
+			float determinant = RRTMatrixUtils::Determinant(sub_matrix);
+
+			float minor = RRTMatrixUtils::Minor(matrix, 1, 0);
+
+			Assert::AreEqual(exp_minor, determinant, EPSILON);
+			Assert::AreEqual(exp_minor, minor, EPSILON);
+		}
 	};
 }

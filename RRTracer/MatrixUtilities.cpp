@@ -46,6 +46,12 @@ namespace RRTMatrixUtils
 		return sub_matrix;
 	}
 
+	float Minor(const RRT::Matrix& matrix, const size_t& row, const size_t& col)
+	{
+		RRT::Matrix sub_matrix = SubMatrix(matrix, row, col);
+		return Determinant(sub_matrix);
+	}
+
 	float Determinant(const RRT::Matrix& matrix)
 	{
 		float determinant{ 0.0f };
