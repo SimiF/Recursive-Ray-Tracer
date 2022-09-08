@@ -480,10 +480,11 @@ namespace RRT_Matrix_UnitTests
 			RRT::Matrix matrix_one(4, 4, input_data_one);
 			RRT::Matrix matrix_two(4, 4, input_data_two);
 
-			RRT::Matrix mult_matrix = matrix_one * matrix_two;
+			RRT::Matrix mult_matrix_one = matrix_one * matrix_two;
+			RRT::Matrix mult_matrix_two = matrix_two * matrix_one;
 
-			Assert::IsTrue(matrix_one == mult_matrix * RRTMatrixUtils::Inverse(matrix_two));
-			Assert::IsTrue(matrix_two == mult_matrix * RRTMatrixUtils::Inverse(matrix_one));
+			Assert::IsTrue(matrix_one == (mult_matrix_one * RRTMatrixUtils::Inverse(matrix_two)));
+			Assert::IsTrue(matrix_two == (mult_matrix_two * RRTMatrixUtils::Inverse(matrix_one)));
 		}
 	};
 }
