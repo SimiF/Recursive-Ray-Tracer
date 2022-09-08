@@ -300,6 +300,63 @@ namespace RRT_Matrix_UnitTests
 			float act_cofactor_one = RRTMatrixUtils::Cofactor(matrix, 0, 0);
 			float act_minor_two = RRTMatrixUtils::Minor(matrix, 1, 0);
 			float act_cofactor_two = RRTMatrixUtils::Cofactor(matrix, 1, 0);
+
+			Assert::AreEqual(exp_minor_one, act_minor_one, EPSILON);
+			Assert::AreEqual(exp_cofactor_one, act_cofactor_one, EPSILON);
+			Assert::AreEqual(exp_minor_two, act_minor_two, EPSILON);
+			Assert::AreEqual(exp_cofactor_two, act_cofactor_two, EPSILON);
+		}
+
+		TEST_METHOD(Determinant_of_3_by_3_matrix)
+		{
+			std::vector<std::vector<float>> input_data{ { 1.0, 2.0f, 6.0f },
+														{ -5.0f, 8.0f, -4.0f },
+														{ 2.0, 6.0f, 4.0f } };
+
+			RRT::Matrix matrix = RRT::Matrix(3, 3, input_data);
+
+			float exp_cofactor_one = 56.0f;
+			float exp_cofactor_two = 12.0f;
+			float exp_cofactor_three = -46.0f;
+			float exp_determinant = -196.0;
+
+			float act_cofactor_one = RRTMatrixUtils::Cofactor(matrix, 0, 0);
+			float act_cofactor_two = RRTMatrixUtils::Cofactor(matrix, 0, 1);
+			float act_cofactor_three = RRTMatrixUtils::Cofactor(matrix, 0, 2);
+			float act_determinant = RRTMatrixUtils::Determinant(matrix);
+
+			Assert::AreEqual(exp_cofactor_one, act_cofactor_one, EPSILON);
+			Assert::AreEqual(exp_cofactor_two, act_cofactor_two, EPSILON);
+			Assert::AreEqual(exp_cofactor_three, act_cofactor_three, EPSILON);
+			Assert::AreEqual(exp_determinant, act_determinant, EPSILON);
+		}
+
+		TEST_METHOD(Determinant_of_4_by_4_matrix)
+		{
+			std::vector<std::vector<float>> input_data{ { -2.0, -8.0f, 3.0f, 5.0f },
+														{ -3.0f, 1.0f, 7.0f, 3.0f },
+														{ 1.0f, 2.0f, -9.0f, 6.0f },
+														{ -6.0f, 7.0f, 7.0f, -9.0f } };
+
+			RRT::Matrix matrix = RRT::Matrix(4, 4, input_data);
+
+			float exp_cofactor_one = 690.0f;
+			float exp_cofactor_two = 447.0f;
+			float exp_cofactor_three = 210.0f;
+			float exp_cofactor_four = 51.0f;
+			float exp_determinant = -4071.0f;
+
+			float act_cofactor_one = RRTMatrixUtils::Cofactor(matrix, 0, 0);
+			float act_cofactor_two = RRTMatrixUtils::Cofactor(matrix, 0, 1);
+			float act_cofactor_three = RRTMatrixUtils::Cofactor(matrix, 0, 2);
+			float act_cofactor_four = RRTMatrixUtils::Cofactor(matrix, 0, 3);
+			float act_determinant = RRTMatrixUtils::Determinant(matrix);
+
+			Assert::AreEqual(exp_cofactor_one, act_cofactor_one, EPSILON);
+			Assert::AreEqual(exp_cofactor_two, act_cofactor_two, EPSILON);
+			Assert::AreEqual(exp_cofactor_three, act_cofactor_three, EPSILON);
+			Assert::AreEqual(exp_cofactor_four, act_cofactor_four, EPSILON);
+			Assert::AreEqual(exp_determinant, act_determinant, EPSILON);
 		}
 	};
 }

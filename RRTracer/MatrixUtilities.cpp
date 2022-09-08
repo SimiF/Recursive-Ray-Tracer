@@ -73,6 +73,13 @@ namespace RRTMatrixUtils
 			determinant = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
 		}
 
+		for (size_t c = 0; c < matrix.Cols(); ++c)
+		{			
+			const int curr_col = (const int)c;
+			
+			determinant += matrix[0][c] * Cofactor(matrix, 0, c);
+		}
+
 		return determinant;
 	}
 }
