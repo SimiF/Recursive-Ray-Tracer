@@ -386,5 +386,103 @@ namespace RRT_Matrix_UnitTests
 			Assert::AreEqual(exp_det, RRTMatrixUtils::Determinant(matrix), EPSILON);
 			Assert::IsFalse(RRTMatrixUtils::Invertible(matrix));			
 		}
+
+		TEST_METHOD(Calculation_of_Inverse_Matrix_One)
+		{
+			std::vector<std::vector<float>> input_data{ { -5.0, 2.0f, 6.0f, -8.0f },
+														{ 1.0f, -5.0f, 1.0f, 8.0f },
+														{ 7.0f, 7.0f, -6.0f, -7.0f },
+														{ 1.0f, -3.0f, 7.0f, 4.0f } };
+
+			std::vector<std::vector<float>> inverse_data{	{ 0.21805f, 0.45113f, 0.24060f, -0.04511f },
+															{ -0.80827f, -1.45677f, -0.44361f, 0.52068f },
+															{ -0.07895f, -0.22368f, -0.05263f, 0.19737f },
+															{ -0.52256f, -0.81391f, -0.30075f, 0.30639f } };
+
+			float exp_determ_one = 532.0f;
+			float exp_cofactor_one = -160.0f;
+			float exp_cofactor_two = 105.0f;
+
+			float exp_3_2 = -(160.0f / 532.0f);
+			float exp_2_3 = (105.0f / 532.0f);
+
+			RRT::Matrix matrix(4, 4, input_data);
+			RRT::Matrix exp_inv_matrix(4, 4, inverse_data);
+
+			RRT::Matrix act_inv_matrix = RRTMatrixUtils::Inverse(matrix);
+
+			Assert::AreEqual(exp_determ_one, RRTMatrixUtils::Determinant(matrix), EPSILON);
+			Assert::AreEqual(exp_cofactor_one, RRTMatrixUtils::Cofactor(matrix, 2, 3), EPSILON);
+			Assert::AreEqual(exp_cofactor_two, RRTMatrixUtils::Cofactor(matrix, 3, 2), EPSILON);
+
+			Assert::AreEqual(exp_3_2, act_inv_matrix[3][2], EPSILON);
+			Assert::AreEqual(exp_2_3, act_inv_matrix[2][3], EPSILON);
+			
+			Assert::IsTrue(exp_inv_matrix == act_inv_matrix);
+			Assert::IsFalse(exp_inv_matrix != act_inv_matrix);
+		}
+
+		TEST_METHOD(Calculation_of_Inverse_Matrix_Two)
+		{
+			std::vector<std::vector<float>> input_data{ { 9.0, 3.0f, 0.0f, 9.0f },
+														{ -5.0f, -2.0f, -6.0f, -3.0f },
+														{ -4.0f, 9.0f, 6.0f, 4.0f },
+														{ -7.0f, 6.0f, 6.0f, 2.0f } };
+
+			std::vector<std::vector<float>> inverse_data{ { -0.04074f, -0.07778f, 0.14444f, -0.22222f },
+															{ -0.07778f, 0.03333f, 0.36667f, -0.33333f },
+															{ -0.02901f, -0.14630f, -0.10926f, 0.12963f },
+															{ 0.17778f, 0.06667f, -0.26667f, 0.33333f } };			
+
+			RRT::Matrix matrix(4, 4, input_data);
+			RRT::Matrix exp_inv_matrix(4, 4, inverse_data);
+
+			RRT::Matrix act_inv_matrix = RRTMatrixUtils::Inverse(matrix);
+
+			Assert::IsTrue(exp_inv_matrix == act_inv_matrix);
+			Assert::IsFalse(exp_inv_matrix != act_inv_matrix);
+		}
+
+		TEST_METHOD(Calculation_of_Inverse_Matrix_Three)
+		{
+			std::vector<std::vector<float>> input_data{ { 8.0, -5.0f, 9.0f, 2.0f },
+														{ 7.0f, 5.0f, 6.0f, 1.0f },
+														{ -6.0f, 0.0f, 9.0f, 6.0f },
+														{ -3.0f, 0.0f, -9.0f, -4.0f } };
+
+			std::vector<std::vector<float>> inverse_data{ { -0.15385f, -0.15385f, -0.28205f, -0.53846f },
+															{ -0.07692f, 0.12308f, 0.02564f, 0.03077f },
+															{ 0.35897f, 0.35897f, 0.43590f, 0.92308f },
+															{ -0.69231f, -0.69231f, -0.76923f, -1.92308f } };
+
+			RRT::Matrix matrix(4, 4, input_data);
+			RRT::Matrix exp_inv_matrix(4, 4, inverse_data);
+
+			RRT::Matrix act_inv_matrix = RRTMatrixUtils::Inverse(matrix);
+
+			Assert::IsTrue(exp_inv_matrix == act_inv_matrix);
+			Assert::IsFalse(exp_inv_matrix != act_inv_matrix);
+		}
+
+		TEST_METHOD(Theorem_of_Inversion_of_Matrices_test)
+		{
+			std::vector<std::vector<float>> input_data_one{ { 8.0, -5.0f, 9.0f, 2.0f },
+														{ 7.0f, 5.0f, 6.0f, 1.0f },
+														{ -6.0f, 0.0f, 9.0f, 6.0f },
+														{ -3.0f, 0.0f, -9.0f, -4.0f } };
+
+			std::vector<std::vector<float>> input_data_two{ { 9.0, 3.0f, 0.0f, 9.0f },
+														{ -5.0f, -2.0f, -6.0f, -3.0f },
+														{ -4.0f, 9.0f, 6.0f, 4.0f },
+														{ -7.0f, 6.0f, 6.0f, 2.0f } };
+
+			RRT::Matrix matrix_one(4, 4, input_data_one);
+			RRT::Matrix matrix_two(4, 4, input_data_two);
+
+			RRT::Matrix mult_matrix = matrix_one * matrix_two;
+
+			Assert::IsTrue(matrix_one == mult_matrix * RRTMatrixUtils::Inverse(matrix_two));
+			Assert::IsTrue(matrix_two == mult_matrix * RRTMatrixUtils::Inverse(matrix_one));
+		}
 	};
 }

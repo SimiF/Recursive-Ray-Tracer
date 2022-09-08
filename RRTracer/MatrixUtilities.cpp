@@ -46,6 +46,18 @@ namespace RRTMatrixUtils
 		return sub_matrix;
 	}
 
+	RRT::Matrix Inverse(const RRT::Matrix& matrix)
+	{
+		RRT::Matrix inv_matrix(matrix.Rows(), matrix.Cols());
+
+		if (Invertible(inv_matrix))
+		{
+
+		}
+
+		return inv_matrix;
+	}
+
 	float Minor(const RRT::Matrix& matrix, const size_t& row, const size_t& col)
 	{
 		RRT::Matrix sub_matrix = SubMatrix(matrix, row, col);
