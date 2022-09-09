@@ -142,6 +142,10 @@
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="FileWriter.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="MatrixFactory.h" />
+    <ClInclude Include="MatrixUtilities.h" />
+    <ClInclude Include="RRTException.h" />
     <ClInclude Include="Tuple.h" />
     <ClInclude Include="TupleFactory.h" />
     <ClInclude Include="TupleUtilities.h" />
@@ -152,6 +156,9 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="MatrixFactory.cpp" />
+    <ClCompile Include="MatrixUtilities.cpp" />
     <ClCompile Include="Tuple.cpp" />
     <ClCompile Include="TupleFactory.cpp" />
   </ItemGroup>
