@@ -486,5 +486,40 @@ namespace RRT_Matrix_UnitTests
 			Assert::IsTrue(matrix_one == (mult_matrix_one * RRTMatrixUtils::Inverse(matrix_two)));
 			Assert::IsTrue(matrix_two == (mult_matrix_two * RRTMatrixUtils::Inverse(matrix_one)));
 		}
+
+		TEST_METHOD(Identity_Matrix_Inversed_Is_Identity_Matrix)
+		{
+			RRT::Matrix identity_matrix = RRT::MatrixFactory().IdentityMatrix();
+
+			Assert::IsTrue(identity_matrix == RRTMatrixUtils::Inverse(identity_matrix));
+		}
+
+		TEST_METHOD(Matrix_Times_Inversed_Matrix_Is_Identity_Matrix)
+		{
+			std::vector<std::vector<float>> input_data_one{ { 8.0, -5.0f, 9.0f, 2.0f },
+														{ 7.0f, 5.0f, 6.0f, 1.0f },
+														{ -6.0f, 0.0f, 9.0f, 6.0f },
+														{ -3.0f, 0.0f, -9.0f, -4.0f } };
+
+			RRT::Matrix matrix_one(4, 4, input_data_one);
+			RRT::Matrix identity_matrix = RRT::MatrixFactory().IdentityMatrix();
+
+			Assert::IsTrue(matrix_one * RRTMatrixUtils::Inverse(matrix_one) == identity_matrix);
+		}
+
+		TEST_METHOD(Inverse_of_Transpose_Is_Equal_To_Transpose_Of_Inverse)
+		{
+			std::vector<std::vector<float>> input_data_one{ { 8.0, -5.0f, 9.0f, 2.0f },
+														{ 7.0f, 5.0f, 6.0f, 1.0f },
+														{ -6.0f, 0.0f, 9.0f, 6.0f },
+														{ -3.0f, 0.0f, -9.0f, -4.0f } };
+
+			RRT::Matrix matrix_one(4, 4, input_data_one);
+
+			RRT::Matrix transposed_inverse = RRTMatrixUtils::Inverse(RRTMatrixUtils::Transpose(matrix_one));
+			RRT::Matrix inversed_transpose = RRTMatrixUtils::Transpose(RRTMatrixUtils::Inverse(matrix_one));
+
+			Assert::IsTrue(transposed_inverse == inversed_transpose);
+		}
 	};
 }
