@@ -39,6 +39,24 @@ namespace RRT
 		return { x / f, y / f, z / f, w };
 	}
 
+	bool operator==(const Tuple& t1, const Tuple& t2)
+	{
+		if (RRTUtils::s_floats_equal(t1.X(), t2.X())
+			&& RRTUtils::s_floats_equal(t1.Y(), t2.Y())
+			&& RRTUtils::s_floats_equal(t1.Z(), t2.Z())
+			&& RRTUtils::s_floats_equal(t1.W(), t2.W()))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	bool operator!=(const Tuple& t1, const Tuple& t2)
+	{
+		return t1 != t2;
+	}
+
 	float Tuple::magnitude() const
 	{
 		if (IsVector())

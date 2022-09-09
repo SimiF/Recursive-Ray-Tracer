@@ -30,6 +30,9 @@
     <ClCompile Include="RRT_Matrix_UnitTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RRT_Transforms_UnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
