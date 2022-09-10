@@ -62,5 +62,27 @@ namespace RRT_Transforms_UnitTests
 
 			Assert::IsTrue(exp_scaled_point == scaled_point);
 		}
+
+		TEST_METHOD(Scaling_Transform_Vector_Test_One)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Scaling(2.0f, 3.0f, 4.0f);
+			RRT::Tuple vec = RRT::TupleFactory().Vector(-4.0f, 6.0f, 8.0f);
+			RRT::Tuple exp_scaled_vec = RRT::TupleFactory().Vector(-8.0f, 18.0f, 32.0f);
+
+			RRT::Tuple scaled_vec = transform_matrix * vec;
+
+			Assert::IsTrue(exp_scaled_vec == scaled_vec);
+		}
+
+		TEST_METHOD(Scaling_Transform_Vector_Inverse_Test_One)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixUtils::Inverse(RRTMatrixTransforms::Scaling(2.0f, 3.0f, 4.0f));
+			RRT::Tuple vec = RRT::TupleFactory().Vector(-4.0f, 6.0f, 8.0f);
+			RRT::Tuple exp_scaled_vec = RRT::TupleFactory().Vector(-2.0f, 2.0f, 2.0f);
+
+			RRT::Tuple scaled_vec = transform_matrix * vec;
+
+			Assert::IsTrue(exp_scaled_vec == scaled_vec);
+		}
 	};
 }
