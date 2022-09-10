@@ -12,4 +12,15 @@ namespace RRTMatrixTransforms
 
 		return id_matrix;
 	}
+
+	RRT::Matrix Scaling(const float& x, const float& y, const float& z)
+	{
+		RRT::Matrix id_matrix = RRT::MatrixFactory().IdentityMatrix();
+
+		id_matrix[0][0] = x;
+		id_matrix[1][1] = y;
+		id_matrix[2][2] = z;
+
+		return id_matrix;
+	}	
 }
