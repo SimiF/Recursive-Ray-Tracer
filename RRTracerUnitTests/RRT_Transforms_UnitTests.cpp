@@ -10,11 +10,14 @@
 
 #include "../RRTracer/Transforms.h"
 
+#include <numbers>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace RRT_Transforms_UnitTests
 {
 	constexpr float EPSILON = 0.0001f;
+	constexpr float PI = 3.14159265359f;
 
 	TEST_CLASS(RRT_Transforms_Tests)
 	{
@@ -116,6 +119,17 @@ namespace RRT_Transforms_UnitTests
 			RRT::Tuple refl_point = transform_matrix * point;
 
 			Assert::IsTrue(exp_refl_point == refl_point);
+		}
+
+		TEST_METHOD(Rotation_Half_Quarter_Around_X_Axis)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Rotation_X(PI / 4);
+			RRT::Tuple point = RRT::TupleFactory().Point(0.0f, 1.0f, 0.0f);
+			RRT::Tuple exp_rot_point = RRT::TupleFactory().Point(0.0f, sqrtf(2) / 2.0f, sqrtf(2) / 2.0f);
+
+			RRT::Tuple rot_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_rot_point == rot_point);
 		}
 	};
 }

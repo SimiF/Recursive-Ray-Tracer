@@ -1,7 +1,7 @@
 #include "Transforms.h"
 
 namespace RRTMatrixTransforms
-{
+{	
 	RRT::Matrix Translation(const float& x, const float& y, const float& z)
 	{
 		RRT::Matrix id_matrix = RRT::MatrixFactory().IdentityMatrix();
@@ -35,5 +35,17 @@ namespace RRTMatrixTransforms
 		if (z) { zf = -1.0f; }
 
 		return Scaling(xf, yf, zf);
+	}
+
+	RRT::Matrix Rotation_X(const float& x_rad)
+	{
+		RRT::Matrix id_matrix = RRT::MatrixFactory().IdentityMatrix();
+
+		id_matrix[1][1] = cosf(x_rad);
+		id_matrix[1][2] = -sinf(x_rad);
+		id_matrix[2][1] = sinf(x_rad);
+		id_matrix[2][2] = cos(x_rad);
+
+		return id_matrix;
 	}
 }
