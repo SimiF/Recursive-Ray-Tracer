@@ -187,4 +187,74 @@ namespace RRT_Transforms_UnitTests
 			Assert::IsTrue(exp_rot_point == rot_point);
 		}
 	};
+
+	TEST_CLASS(RRT_Transforms_Searing_UnitTests)
+	{
+	public:
+		TEST_METHOD(Shearing_X_In_Proportion_To_Y)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Shearing(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+			RRT::Tuple point = RRT::TupleFactory().Point(2.0f, 3.0f, 4.0f);
+			RRT::Tuple exp_sheared_point = RRT::TupleFactory().Point(5.0f, 3.0f, 4.0f);
+
+			RRT::Tuple sheared_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_sheared_point == sheared_point);
+		}
+
+		TEST_METHOD(Shearing_X_In_Proportion_To_Z)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Shearing(0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+			RRT::Tuple point = RRT::TupleFactory().Point(2.0f, 3.0f, 4.0f);
+			RRT::Tuple exp_sheared_point = RRT::TupleFactory().Point(6.0f, 3.0f, 4.0f);
+
+			RRT::Tuple sheared_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_sheared_point == sheared_point);
+		}
+
+		TEST_METHOD(Shearing_Y_In_Proportion_To_X)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Shearing(0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f);
+			RRT::Tuple point = RRT::TupleFactory().Point(2.0f, 3.0f, 4.0f);
+			RRT::Tuple exp_sheared_point = RRT::TupleFactory().Point(2.0f, 5.0f, 4.0f);
+
+			RRT::Tuple sheared_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_sheared_point == sheared_point);
+		}
+
+		TEST_METHOD(Shearing_Y_In_Proportion_To_Z)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Shearing(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
+			RRT::Tuple point = RRT::TupleFactory().Point(2.0f, 3.0f, 4.0f);
+			RRT::Tuple exp_sheared_point = RRT::TupleFactory().Point(2.0f, 7.0f, 4.0f);
+
+			RRT::Tuple sheared_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_sheared_point == sheared_point);
+		}
+
+		TEST_METHOD(Shearing_Z_In_Proportion_To_X)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Shearing(0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+			RRT::Tuple point = RRT::TupleFactory().Point(2.0f, 3.0f, 4.0f);
+			RRT::Tuple exp_sheared_point = RRT::TupleFactory().Point(2.0f, 3.0f, 6.0f);
+
+			RRT::Tuple sheared_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_sheared_point == sheared_point);
+		}
+
+		TEST_METHOD(Shearing_Z_In_Proportion_To_Y)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Shearing(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+			RRT::Tuple point = RRT::TupleFactory().Point(2.0f, 3.0f, 4.0f);
+			RRT::Tuple exp_sheared_point = RRT::TupleFactory().Point(2.0f, 3.0f, 7.0f);
+
+			RRT::Tuple sheared_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_sheared_point == sheared_point);
+		}
+	};
 }

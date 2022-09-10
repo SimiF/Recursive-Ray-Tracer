@@ -72,4 +72,13 @@ namespace RRTMatrixTransforms
 
 		return id_matrix;
 	}
+
+	RRT::Matrix Shearing(const float& x_y, const float& x_z, const float& y_x, const float& y_z, const float& z_x, const float& z_y)
+	{
+		RRT::Matrix id_matrix = RRT::MatrixFactory().IdentityMatrix();
+
+		
+
+		return id_matrix;
+	}
 }
