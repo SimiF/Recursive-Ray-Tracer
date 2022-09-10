@@ -11,7 +11,7 @@ namespace RRT
 	class Tuple
 	{
 	public:
-		Tuple() = delete;
+		Tuple() = default;
 		Tuple(float x, float y, float z, float w) : x{ x }, y{ y }, z{ z }, w{ w } {}
 		Tuple(const std::initializer_list<float>& list);
 

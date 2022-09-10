@@ -54,7 +54,7 @@ namespace RRT
 
 	bool operator!=(const Tuple& t1, const Tuple& t2)
 	{
-		return t1 != t2;
+		return !(t1 == t2);
 	}
 
 	float Tuple::magnitude() const
