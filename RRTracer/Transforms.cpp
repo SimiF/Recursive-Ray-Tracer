@@ -77,7 +77,14 @@ namespace RRTMatrixTransforms
 	{
 		RRT::Matrix id_matrix = RRT::MatrixFactory().IdentityMatrix();
 
-		
+		id_matrix[0][1] = x_y;
+		id_matrix[0][2] = x_z;
+
+		id_matrix[1][0] = y_x;
+		id_matrix[1][2] = y_z;
+
+		id_matrix[2][0] = z_x;
+		id_matrix[2][1] = z_y;
 
 		return id_matrix;
 	}
