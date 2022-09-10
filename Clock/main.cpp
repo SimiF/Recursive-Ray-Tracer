@@ -27,7 +27,7 @@ int main()
 
 	for (auto it = p_vec.begin() + 1; it != p_vec.end(); it++)
 	{
-		*it = rot_m * *(it - 1);
+		*it = rot_m * *std::prev(it);		
 	}
 
 	for (const auto& p : p_vec)
