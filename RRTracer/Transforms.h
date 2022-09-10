@@ -13,6 +13,8 @@ namespace RRTMatrixTransforms
 	RRT::Matrix Reflection(const bool& x, const bool& y, const bool& z);
 
 	RRT::Matrix Rotation_X(const float& x_rad);
+	RRT::Matrix Rotation_Y(const float& x_rad);
+	RRT::Matrix Rotation_Z(const float& x_rad);
 }
 
 #endif // !TRANSFORMS_H

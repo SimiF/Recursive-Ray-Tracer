@@ -44,7 +44,31 @@ namespace RRTMatrixTransforms
 		id_matrix[1][1] = cosf(x_rad);
 		id_matrix[1][2] = -sinf(x_rad);
 		id_matrix[2][1] = sinf(x_rad);
-		id_matrix[2][2] = cos(x_rad);
+		id_matrix[2][2] = cosf(x_rad);
+
+		return id_matrix;
+	}
+
+	RRT::Matrix Rotation_Y(const float& x_rad)
+	{
+		RRT::Matrix id_matrix = RRT::MatrixFactory().IdentityMatrix();
+
+		id_matrix[0][0] = cosf(x_rad);
+		id_matrix[2][0] = -sinf(x_rad);
+		id_matrix[0][2] = sinf(x_rad);
+		id_matrix[2][2] = cosf(x_rad);
+
+		return id_matrix;
+	}
+
+	RRT::Matrix Rotation_Z(const float& x_rad)
+	{
+		RRT::Matrix id_matrix = RRT::MatrixFactory().IdentityMatrix();
+
+		id_matrix[0][0] = cosf(x_rad);
+		id_matrix[0][1] = -sinf(x_rad);
+		id_matrix[1][0] = sinf(x_rad);
+		id_matrix[1][1] = cosf(x_rad);
 
 		return id_matrix;
 	}

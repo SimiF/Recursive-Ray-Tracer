@@ -131,5 +131,60 @@ namespace RRT_Transforms_UnitTests
 
 			Assert::IsTrue(exp_rot_point == rot_point);
 		}
+
+		TEST_METHOD(Rotation_Full_Quarter_Around_X_Axis)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Rotation_X(PI / 2);
+			RRT::Tuple point = RRT::TupleFactory().Point(0.0f, 1.0f, 0.0f);
+			RRT::Tuple exp_rot_point = RRT::TupleFactory().Point(0.0f, 0.0f, 1.0f);
+
+			RRT::Tuple rot_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_rot_point == rot_point);
+		}
+
+		TEST_METHOD(Rotation_Half_Quarter_Around_Y_Axis)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Rotation_Y(PI / 4);
+			RRT::Tuple point = RRT::TupleFactory().Point(0.0f, 0.0f, 1.0f);
+			RRT::Tuple exp_rot_point = RRT::TupleFactory().Point(sqrtf(2) / 2.0f, 0.0f, sqrtf(2) / 2.0f);
+
+			RRT::Tuple rot_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_rot_point == rot_point);
+		}
+
+		TEST_METHOD(Rotation_Full_Quarter_Around_Y_Axis)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Rotation_Y(PI / 2);
+			RRT::Tuple point = RRT::TupleFactory().Point(0.0f, 0.0f, 1.0f);
+			RRT::Tuple exp_rot_point = RRT::TupleFactory().Point(1.0f, 0.0f, 0.0f);
+
+			RRT::Tuple rot_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_rot_point == rot_point);
+		}
+
+		TEST_METHOD(Rotation_Half_Quarter_Around_Z_Axis)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Rotation_Z(PI / 4);
+			RRT::Tuple point = RRT::TupleFactory().Point(0.0f, 1.0f, 0.0f);
+			RRT::Tuple exp_rot_point = RRT::TupleFactory().Point(-(sqrtf(2) / 2.0f), sqrtf(2) / 2.0f, 0.0f);
+
+			RRT::Tuple rot_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_rot_point == rot_point);
+		}
+
+		TEST_METHOD(Rotation_Full_Quarter_Around_Z_Axis)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Rotation_Z(PI / 2);
+			RRT::Tuple point = RRT::TupleFactory().Point(0.0f, 1.0f, 0.0f);
+			RRT::Tuple exp_rot_point = RRT::TupleFactory().Point(-1.0f, 0.0f, 0.0f);
+
+			RRT::Tuple rot_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_rot_point == rot_point);
+		}
 	};
 }
