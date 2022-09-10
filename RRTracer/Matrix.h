@@ -5,6 +5,7 @@
 #include <limits.>
 
 #include "Utilities.h"
+#include "Tuple.h"
 
 namespace RRT
 {
@@ -28,6 +29,7 @@ namespace RRT
 
 		Matrix operator*(const Matrix& m) const;
 		std::vector<float> operator*(const std::vector<float>& v) const;
+		Tuple operator*(const Tuple& t) const;
 
 	private:
 		std::vector<std::vector<float>> matrix;
