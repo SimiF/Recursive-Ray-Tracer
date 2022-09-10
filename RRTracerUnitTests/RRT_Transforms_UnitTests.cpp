@@ -257,4 +257,45 @@ namespace RRT_Transforms_UnitTests
 			Assert::IsTrue(exp_sheared_point == sheared_point);
 		}
 	};
+
+	TEST_CLASS(RRT_ChainedTransforms_UnitTests)
+	{
+	public:
+		TEST_METHOD(Sequence_Transformations)
+		{
+			RRT::Tuple point = RRT::TupleFactory().Point(1.0f, 0.0f, 1.0f);
+
+			RRT::Matrix rot_transf = RRTMatrixTransforms::Rotation_X(PI / 2);
+			RRT::Matrix scal_transf = RRTMatrixTransforms::Scaling(5.0f, 5.0f, 5.0f);
+			RRT::Matrix transl_transf = RRTMatrixTransforms::Translation(10.0f, 5.0f, 7.0f);
+
+			RRT::Tuple exp_rot_point = RRT::TupleFactory().Point(1.0f, -1.0f, 0.0f);
+			RRT::Tuple exp_scal_point = RRT::TupleFactory().Point(5.0f, -5.0f, 0.0f);
+			RRT::Tuple exp_transl_point = RRT::TupleFactory().Point(15.0f, 0.0f, 7.0f);
+
+			RRT::Tuple rot_point = rot_transf * point;
+			RRT::Tuple scal_point = scal_transf * rot_point;
+			RRT::Tuple transl_pont = transl_transf * scal_point;
+
+			Assert::IsTrue(rot_point == exp_rot_point);
+			Assert::IsTrue(scal_point == exp_scal_point);
+			Assert::IsTrue(transl_pont == exp_transl_point);
+		}
+
+		TEST_METHOD(Chained_Transforms)
+		{
+			RRT::Tuple point = RRT::TupleFactory().Point(1.0f, 0.0f, 1.0f);
+
+			RRT::Matrix rot_transf = RRTMatrixTransforms::Rotation_X(PI / 2);
+			RRT::Matrix scal_transf = RRTMatrixTransforms::Scaling(5.0f, 5.0f, 5.0f);
+			RRT::Matrix transl_transf = RRTMatrixTransforms::Translation(10.0f, 5.0f, 7.0f);
+			RRT::Matrix transf = transl_transf * scal_transf * rot_transf;
+
+			RRT::Tuple exp_transf_point = RRT::TupleFactory().Point(15.0f, 0.0f, 7.0f);
+
+			RRT::Tuple transf_point = transf * point;
+
+			Assert::IsTrue(transf_point == exp_transf_point);
+		}
+	};
 }
