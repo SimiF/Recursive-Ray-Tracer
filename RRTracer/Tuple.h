@@ -11,9 +11,12 @@ namespace RRT
 	class Tuple
 	{
 	public:
-		Tuple() = delete;
+		Tuple() = default;
 		Tuple(float x, float y, float z, float w) : x{ x }, y{ y }, z{ z }, w{ w } {}
 		Tuple(const std::initializer_list<float>& list);
+
+		friend bool operator==(const Tuple& t1, const Tuple& t2);
+		friend bool operator!=(const Tuple& t1, const Tuple& t2);
 
 		Tuple operator+(const Tuple& tuple) const;
 		Tuple operator-(const Tuple& tuple) const;

@@ -123,12 +123,26 @@ namespace RRT
 
 		for (size_t i = 0; i < 4; ++i)
 		{
-			std::vector<float> row = matrix[i];
-			float dot_product{ 0.0f };
+			std::vector<float> row = matrix[i];		
 
 			resulting_tuple[i] = row[0] * v[0] + row[1] * v[1] + row[2] * v[2] + row[3] * v[3];
 		}
 
 		return resulting_tuple;
 	}	
+
+	Tuple Matrix::operator*(const Tuple& t) const
+	{		
+		std::vector<float> resulting_tuple;
+		resulting_tuple.resize(4);
+
+		for (size_t i = 0; i < 4; ++i)
+		{
+			std::vector<float> row = matrix[i];
+
+			resulting_tuple[i] = row[0] * t.X() + row[1] * t.Y() + row[2] * t.Z() + row[3] * t.W();
+		}
+
+		return { resulting_tuple[0], resulting_tuple[1], resulting_tuple[2], resulting_tuple[3] };
+	}
 }
