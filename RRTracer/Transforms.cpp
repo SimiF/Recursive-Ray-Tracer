@@ -23,4 +23,17 @@ namespace RRTMatrixTransforms
 
 		return id_matrix;
 	}	
+
+	RRT::Matrix Reflection(const bool& x, const bool& y, const bool& z)
+	{
+		float xf = 1.0f;
+		float yf = 1.0f;
+		float zf = 1.0f;
+
+		if (x) { xf = -1.0f; }
+		if (y) { yf = -1.0f; }
+		if (z) { zf = -1.0f; }
+
+		return Scaling(xf, yf, zf);
+	}
 }

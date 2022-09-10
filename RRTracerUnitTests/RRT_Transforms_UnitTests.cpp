@@ -84,5 +84,38 @@ namespace RRT_Transforms_UnitTests
 
 			Assert::IsTrue(exp_scaled_vec == scaled_vec);
 		}
+
+		TEST_METHOD(Reflecton_of_Point_Via_X_Axis)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Reflection(true, false, false);
+			RRT::Tuple point = RRT::TupleFactory().Point(-4.0f, 6.0f, 8.0f);
+			RRT::Tuple exp_refl_point = RRT::TupleFactory().Point(4.0f, 6.0f, 8.0f);
+
+			RRT::Tuple refl_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_refl_point == refl_point);
+		}
+
+		TEST_METHOD(Reflecton_of_Point_Via_X_Y_Axis)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Reflection(true, true, false);
+			RRT::Tuple point = RRT::TupleFactory().Point(-4.0f, 6.0f, 8.0f);
+			RRT::Tuple exp_refl_point = RRT::TupleFactory().Point(4.0f, -6.0f, 8.0f);
+
+			RRT::Tuple refl_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_refl_point == refl_point);
+		}
+
+		TEST_METHOD(Reflecton_of_Point_Via_X_Y_Z_Axis)
+		{
+			RRT::Matrix transform_matrix = RRTMatrixTransforms::Reflection(true, true, true);
+			RRT::Tuple point = RRT::TupleFactory().Point(-4.0f, 6.0f, 8.0f);
+			RRT::Tuple exp_refl_point = RRT::TupleFactory().Point(4.0f, -6.0f, -8.0f);
+
+			RRT::Tuple refl_point = transform_matrix * point;
+
+			Assert::IsTrue(exp_refl_point == refl_point);
+		}
 	};
 }
