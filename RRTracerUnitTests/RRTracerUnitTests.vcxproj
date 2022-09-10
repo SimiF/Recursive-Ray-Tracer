@@ -100,7 +100,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;$(SolutionDir)RRTracer\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Transforms.obj;MatrixUtilities.obj;MatrixFactory.obj;FileWriter.obj;Matrix.obj;TupleFactory.obj;Tuple.obj;Color.obj;Canvas.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Ray.obj;Transforms.obj;MatrixUtilities.obj;MatrixFactory.obj;FileWriter.obj;Matrix.obj;TupleFactory.obj;Tuple.obj;Color.obj;Canvas.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -166,6 +166,7 @@
     <ClCompile Include="RRT_Canvas_UnitTests.cpp" />
     <ClCompile Include="RRT_Color_UnitTests.cpp" />
     <ClCompile Include="RRT_Matrix_UnitTests.cpp" />
+    <ClCompile Include="RRT_Ray_UnitTests.cpp" />
     <ClCompile Include="RRT_Transforms_UnitTests.cpp" />
     <ClCompile Include="RRT_Tuple_UnitTests.cpp" />
   </ItemGroup>
