@@ -22,4 +22,30 @@ namespace RRT_Ray_UnitTests
 			Assert::IsTrue(ray.Direction() == direction);
 		}
 	};	
+
+	TEST_CLASS(RRT_Ray_Functional_Tests)
+	{
+	public:
+		TEST_METHOD(RRT_Ray_Position_Test)
+		{
+			RRT::Tuple origin = RRT::TupleFactory().Point(2.0f, 3.0f, 4.0f);
+			RRT::Tuple direction = RRT::TupleFactory().Vector(1.0f, 0.0f, 0.0f);
+			RRT::Ray ray(origin, direction);
+
+			RRT::Tuple exp_pt_one = RRT::TupleFactory().Point(2.0f, 3.0f, 4.0f);
+			RRT::Tuple exp_pt_two = RRT::TupleFactory().Point(3.0f, 3.0f, 4.0f);
+			RRT::Tuple exp_pt_three = RRT::TupleFactory().Point(1.0f, 3.0f, 4.0f);
+			RRT::Tuple exp_pt_four = RRT::TupleFactory().Point(4.5f, 3.0f, 4.0f);
+
+			RRT::Tuple act_pt_one = ray.Position(0.0f);
+			RRT::Tuple act_pt_two = ray.Position(1.0f);
+			RRT::Tuple act_pt_three = ray.Position(-1.0f);
+			RRT::Tuple act_pt_four = ray.Position(2.5f);
+
+			Assert::IsTrue(exp_pt_one == act_pt_one);
+			Assert::IsTrue(exp_pt_two == act_pt_two);
+			Assert::IsTrue(exp_pt_three == act_pt_three);
+			Assert::IsTrue(exp_pt_four == act_pt_four);
+		}
+	};
 }

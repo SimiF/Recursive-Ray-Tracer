@@ -12,6 +12,8 @@ namespace RRT
 		Ray() = default;
 		Ray(const Tuple& ray_origin, const Tuple& ray_direction) : origin(ray_origin), direction(ray_direction) {}
 
+		Tuple Position(const float& t) const;
+
 		inline Tuple Origin() const { return origin; }
 		inline Tuple Direction() const { return direction; }
 	private:
