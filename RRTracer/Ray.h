@@ -17,8 +17,8 @@ namespace RRT
 		inline Tuple Origin() const { return origin; }
 		inline Tuple Direction() const { return direction; }
 	private:
-		Tuple origin;
-		Tuple direction;
+		Tuple origin = { 0.0f, 0.0f, 0.0f, 1.0f };
+		Tuple direction = { 0.0f, 0.0f, 0.0f, 0.0f };
 	};
 }
 

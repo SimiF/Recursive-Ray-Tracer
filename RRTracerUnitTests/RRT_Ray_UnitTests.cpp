@@ -2,6 +2,8 @@
 #include "CppUnitTest.h"
 
 #include "../RRTracer/Ray.h"
+#include "../RRTracer/Sphere.h"
+#include "../RRTracer/RayUtilities.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -46,6 +48,21 @@ namespace RRT_Ray_UnitTests
 			Assert::IsTrue(exp_pt_two == act_pt_two);
 			Assert::IsTrue(exp_pt_three == act_pt_three);
 			Assert::IsTrue(exp_pt_four == act_pt_four);
+		}
+
+		TEST_METHOD(Ray_Intersects_Sphere)
+		{
+			RRT::Tuple origin = RRT::TupleFactory().Point(0.0f, 0.0f, -5.0f);
+			RRT::Tuple direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
+			
+			RRT::Ray r(origin, direction);
+			RRT::Sphere s;
+
+			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
+
+			Assert::IsTrue(hit);
+			Assert::AreEqual(xs[0], 4.0f, EPSILON);
+			Assert::AreEqual(xs[1], 6.0f, EPSILON);
 		}
 	};
 }
