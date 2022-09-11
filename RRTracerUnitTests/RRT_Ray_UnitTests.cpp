@@ -64,5 +64,63 @@ namespace RRT_Ray_UnitTests
 			Assert::AreEqual(xs[0], 4.0f, EPSILON);
 			Assert::AreEqual(xs[1], 6.0f, EPSILON);
 		}
+
+		TEST_METHOD(Ray_Intersects_Sphere_at_Tangent)
+		{
+			RRT::Tuple origin = RRT::TupleFactory().Point(0.0f, 1.0f, -5.0f);
+			RRT::Tuple direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
+
+			RRT::Ray r(origin, direction);
+			RRT::Sphere s;
+
+			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
+
+			Assert::IsTrue(hit);
+			Assert::AreEqual(xs[0], 5.0f, EPSILON);
+			Assert::AreEqual(xs[1], 5.0f, EPSILON);
+		}
+
+		TEST_METHOD(Ray_Misses_Sphere)
+		{
+			RRT::Tuple origin = RRT::TupleFactory().Point(0.0f, 1.5f, -5.0f);
+			RRT::Tuple direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
+
+			RRT::Ray r(origin, direction);
+			RRT::Sphere s;
+
+			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
+
+			Assert::IsFalse(hit);			
+		}
+
+		TEST_METHOD(Ray_Is_Inside_Sphere)
+		{
+			RRT::Tuple origin = RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
+			RRT::Tuple direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
+
+			RRT::Ray r(origin, direction);
+			RRT::Sphere s;
+
+			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
+
+			Assert::IsTrue(hit);
+			Assert::AreEqual(xs[0], -1.0f, EPSILON);
+			Assert::AreEqual(xs[1], 1.0f, EPSILON);
+		}
+
+		TEST_METHOD(Ray_Is_Behind_Sphere)
+		{
+			RRT::Tuple origin = RRT::TupleFactory().Point(0.0f, 0.0f, 5.0f);
+			RRT::Tuple direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
+
+			RRT::Ray r(origin, direction);
+			RRT::Sphere s;
+
+			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
+
+			Assert::IsTrue(hit);
+			Assert::AreEqual(xs[0], -6.0f, EPSILON);
+			Assert::AreEqual(xs[1], -4.0f, EPSILON);
+		}
 	};
 }
