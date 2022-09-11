@@ -3,9 +3,13 @@
 
 #include "Ray.h"
 #include "Sphere.h"
+#include "Tuple.h"
+#include "TupleFactory.h"
+#include "TupleUtilities.h"
 
 #include <tuple>
-#include <vector>
+#include <vector>]
+#include <cmath>
 
 namespace RRTRayUtils
 {
