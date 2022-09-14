@@ -153,5 +153,82 @@ namespace RRT_Ray_UnitTests
 			Assert::AreEqual(1, intersect_vector[0].Object().Id());
 			Assert::AreEqual(1, intersect_vector[0].Object().Id());
 		}
+
+		TEST_METHOD(Hit_when_all_xs_have_pos_t)
+		{
+			RRT::Sphere s(2);
+
+			RRT::Intersection i1 = RRT::Intersection(1.0f, s);
+			RRT::Intersection i2 = RRT::Intersection(2.0f, s);
+
+			std::vector<RRT::Intersection> xs_vec;
+			xs_vec.push_back(i1);
+			xs_vec.push_back(i2);
+
+			auto [hit, xs_obj] = RRTRayUtils::Hit(xs_vec);
+
+			Assert::IsTrue(hit);
+			Assert::AreEqual(1.0f, xs_obj.Time());
+			Assert::AreEqual(2, xs_obj.Object().Id());
+		}
+
+		TEST_METHOD(Hit_when_some_have_negs_t)
+		{
+			RRT::Sphere s(2);
+
+			RRT::Intersection i1 = RRT::Intersection(-1.0f, s);
+			RRT::Intersection i2 = RRT::Intersection(1.0f, s);
+
+			std::vector<RRT::Intersection> xs_vec;
+			xs_vec.push_back(i1);
+			xs_vec.push_back(i2);
+
+			auto [hit, xs_obj] = RRTRayUtils::Hit(xs_vec);
+
+			Assert::IsTrue(hit);
+			Assert::AreEqual(1.0f, xs_obj.Time());
+			Assert::AreEqual(2, xs_obj.Object().Id());
+		}
+
+		TEST_METHOD(Hit_when_all_have_negs_t)
+		{
+			RRT::Sphere s(2);
+
+			RRT::Intersection i1 = RRT::Intersection(-1.0f, s);
+			RRT::Intersection i2 = RRT::Intersection(-1.0f, s);
+
+			std::vector<RRT::Intersection> xs_vec;
+			xs_vec.push_back(i1);
+			xs_vec.push_back(i2);
+
+			auto [hit, xs_obj] = RRTRayUtils::Hit(xs_vec);
+
+			Assert::IsFalse(hit);
+			Assert::AreEqual(0, xs_obj.Object().Id());
+		}
+
+		TEST_METHOD(Hit_is_always_lowest_non_neg_t)
+		{
+			RRT::Sphere s(2);
+
+			RRT::Intersection i1 = RRT::Intersection(-1.0f, s);
+			RRT::Intersection i2 = RRT::Intersection(5.0f, s);
+			RRT::Intersection i3 = RRT::Intersection(1.0f, s);
+			RRT::Intersection i4 = RRT::Intersection(7.0f, s);
+			RRT::Intersection i5 = RRT::Intersection(-3.0f, s);
+
+			std::vector<RRT::Intersection> xs_vec;
+			xs_vec.push_back(i1);
+			xs_vec.push_back(i2);
+			xs_vec.push_back(i3);
+			xs_vec.push_back(i4);
+			xs_vec.push_back(i5);
+
+			auto [hit, xs_obj] = RRTRayUtils::Hit(xs_vec);
+
+			Assert::IsTrue(hit);
+			Assert::AreEqual(1.0f, xs_obj.Time());
+			Assert::AreEqual(2, xs_obj.Object().Id());
+		}
 	};
 }

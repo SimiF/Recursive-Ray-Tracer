@@ -34,4 +34,14 @@ namespace RRTRayUtils
 
 		return xs_points;
 	}
+
+	std::tuple<bool, RRT::Intersection> Hit(const std::vector<RRT::Intersection>& xs_vec)
+	{
+		bool hit_flag = false;
+		RRT::Intersection xs = RRT::Intersection();
+
+		
+
+		return std::make_tuple(hit_flag, xs);
+	}
 }
