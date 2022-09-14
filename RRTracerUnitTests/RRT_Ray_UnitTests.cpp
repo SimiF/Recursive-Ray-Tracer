@@ -59,11 +59,10 @@ namespace RRT_Ray_UnitTests
 			RRT::Ray r(origin, direction);
 			RRT::Sphere s(0);
 
-			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
+			auto hits = RRTRayUtils::Intersects(s, r);
 
-			Assert::IsTrue(hit);
-			Assert::AreEqual(xs[0], 4.0f, EPSILON);
-			Assert::AreEqual(xs[1], 6.0f, EPSILON);
+			Assert::AreEqual(hits[0].Time(), 4.0f, EPSILON);
+			Assert::AreEqual(hits[1].Time(), 6.0f, EPSILON);
 		}
 
 		TEST_METHOD(Ray_Intersects_Sphere_at_Tangent)
@@ -74,11 +73,10 @@ namespace RRT_Ray_UnitTests
 			RRT::Ray r(origin, direction);
 			RRT::Sphere s(0);
 
-			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
-
-			Assert::IsTrue(hit);
-			Assert::AreEqual(xs[0], 5.0f, EPSILON);
-			Assert::AreEqual(xs[1], 5.0f, EPSILON);
+			auto hits = RRTRayUtils::Intersects(s, r);
+			
+			Assert::AreEqual(hits[0].Time(), 5.0f, EPSILON);
+			Assert::AreEqual(hits[1].Time(), 5.0f, EPSILON);
 		}
 
 		TEST_METHOD(Ray_Misses_Sphere)
@@ -89,9 +87,10 @@ namespace RRT_Ray_UnitTests
 			RRT::Ray r(origin, direction);
 			RRT::Sphere s(0);
 
-			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
+			auto hits = RRTRayUtils::Intersects(s, r);
+			size_t exp_count = 0;
 
-			Assert::IsFalse(hit);			
+			Assert::AreEqual(exp_count, hits.size());			
 		}
 
 		TEST_METHOD(Ray_Is_Inside_Sphere)
@@ -102,11 +101,10 @@ namespace RRT_Ray_UnitTests
 			RRT::Ray r(origin, direction);
 			RRT::Sphere s(0);
 
-			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
-
-			Assert::IsTrue(hit);
-			Assert::AreEqual(xs[0], -1.0f, EPSILON);
-			Assert::AreEqual(xs[1], 1.0f, EPSILON);
+			auto hits = RRTRayUtils::Intersects(s, r);
+			
+			Assert::AreEqual(hits[0].Time(), -1.0f, EPSILON);
+			Assert::AreEqual(hits[1].Time(), 1.0f, EPSILON);
 		}
 
 		TEST_METHOD(Ray_Is_Behind_Sphere)
@@ -117,11 +115,10 @@ namespace RRT_Ray_UnitTests
 			RRT::Ray r(origin, direction);
 			RRT::Sphere s(0);
 
-			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
-
-			Assert::IsTrue(hit);
-			Assert::AreEqual(xs[0], -6.0f, EPSILON);
-			Assert::AreEqual(xs[1], -4.0f, EPSILON);
+			auto hits = RRTRayUtils::Intersects(s, r);
+		
+			Assert::AreEqual(hits[0].Time(), -6.0f, EPSILON);
+			Assert::AreEqual(hits[1].Time(), -4.0f, EPSILON);
 		}
 	};
 
@@ -135,6 +132,26 @@ namespace RRT_Ray_UnitTests
 
 			Assert::AreEqual(3.5f, i.Time(), EPSILON);
 			Assert::AreEqual(0, i.Object().Id());
+		}
+
+		TEST_METHOD(Intersect_Returns_List_Of_Interects_and_Objects)
+		{
+			RRT::Tuple origin = RRT::TupleFactory().Point(0.0f, 0.0f, -5.0f);
+			RRT::Tuple direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
+
+			RRT::Ray r(origin, direction);
+			RRT::Sphere s(1);
+			std::vector<RRT::Intersection> intersect_vector = RRTRayUtils::Intersects(s, r);
+
+			size_t exp_count = 2;
+
+			Assert::AreEqual(exp_count, intersect_vector.size());
+
+			Assert::AreEqual(4.0f, intersect_vector[0].Time(), EPSILON);
+			Assert::AreEqual(6.0f, intersect_vector[1].Time(), EPSILON);
+
+			Assert::AreEqual(1, intersect_vector[0].Object().Id());
+			Assert::AreEqual(1, intersect_vector[0].Object().Id());
 		}
 	};
 }

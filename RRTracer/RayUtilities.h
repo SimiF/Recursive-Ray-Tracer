@@ -6,14 +6,15 @@
 #include "Tuple.h"
 #include "TupleFactory.h"
 #include "TupleUtilities.h"
+#include "Intersection.h"
 
 #include <tuple>
-#include <vector>]
+#include <vector>
 #include <cmath>
 
 namespace RRTRayUtils
 {
-	std::tuple<bool, std::vector<float>> Intersects(const RRT::Sphere& sphere, const RRT::Ray& ray);
+	std::vector<RRT::Intersection> Intersects(const RRT::Sphere& sphere, const RRT::Ray& ray);
 }
 
 #endif // !RAY_UTILITIES_H

@@ -2,10 +2,10 @@
 
 namespace RRTRayUtils
 {
-	std::tuple<bool, std::vector<float>> Intersects(const RRT::Sphere& sphere, const RRT::Ray& ray)
+	std::vector<RRT::Intersection> Intersects(const RRT::Sphere& sphere, const RRT::Ray& ray)
 	{
 		bool hit_flag = false;
-		std::vector<float> xs_points(0);
+		std::vector<RRT::Intersection> xs_points(0);
 
 		RRT::Tuple sphere_to_ray = ray.Origin() - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
 		float a = RRTTupleUtils::Dot(ray.Direction(), ray.Direction());
@@ -22,16 +22,16 @@ namespace RRTRayUtils
 
 			if (t1 <= t2)
 			{
-				xs_points.push_back(t1);
-				xs_points.push_back(t2);
+				xs_points.push_back(RRT::Intersection(t1, sphere));
+				xs_points.push_back(RRT::Intersection(t2, sphere));
 			}
 			else
 			{
-				xs_points.push_back(t2);
-				xs_points.push_back(t1);
+				xs_points.push_back(RRT::Intersection(t2, sphere));
+				xs_points.push_back(RRT::Intersection(t1, sphere));
 			}
 		}
 
-		return std::make_tuple(hit_flag, xs_points);
+		return xs_points;
 	}
 }

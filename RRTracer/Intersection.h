@@ -8,6 +8,7 @@ namespace RRT
 	class Intersection
 	{
 	public:		
+		Intersection() = default;
 		Intersection(const float& time, const Sphere& sphere) : time(time), sphere(sphere) {}
 
 		inline float Time() const { return time; }
