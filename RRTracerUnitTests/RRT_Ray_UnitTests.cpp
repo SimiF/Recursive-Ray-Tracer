@@ -4,6 +4,7 @@
 #include "../RRTracer/Ray.h"
 #include "../RRTracer/Sphere.h"
 #include "../RRTracer/RayUtilities.h"
+#include "../RRTracer/Intersection.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -121,6 +122,18 @@ namespace RRT_Ray_UnitTests
 			Assert::IsTrue(hit);
 			Assert::AreEqual(xs[0], -6.0f, EPSILON);
 			Assert::AreEqual(xs[1], -4.0f, EPSILON);
+		}
+	};
+
+	TEST_CLASS(RRT_Intersection_Tests)
+	{
+	public:
+		TEST_METHOD(Intersect_Constructor)
+		{
+			RRT::Sphere s;
+			RRT::Intersection i(3.5f, s);
+
+			Assert::AreEqual(3.5f, i.Time(), EPSILON);
 		}
 	};
 }

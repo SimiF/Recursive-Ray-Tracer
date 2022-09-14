@@ -142,6 +142,7 @@
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="FileWriter.h" />
+    <ClInclude Include="Intersection.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MatrixFactory.h" />
     <ClInclude Include="MatrixUtilities.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="FileWriter.cpp" />
+    <ClCompile Include="Intersection.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="MatrixFactory.cpp" />
