@@ -57,7 +57,7 @@ namespace RRT_Ray_UnitTests
 			RRT::Tuple direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
 			
 			RRT::Ray r(origin, direction);
-			RRT::Sphere s;
+			RRT::Sphere s(0);
 
 			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
 
@@ -72,7 +72,7 @@ namespace RRT_Ray_UnitTests
 			RRT::Tuple direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
 
 			RRT::Ray r(origin, direction);
-			RRT::Sphere s;
+			RRT::Sphere s(0);
 
 			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
 
@@ -87,7 +87,7 @@ namespace RRT_Ray_UnitTests
 			RRT::Tuple direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
 
 			RRT::Ray r(origin, direction);
-			RRT::Sphere s;
+			RRT::Sphere s(0);
 
 			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
 
@@ -100,7 +100,7 @@ namespace RRT_Ray_UnitTests
 			RRT::Tuple direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
 
 			RRT::Ray r(origin, direction);
-			RRT::Sphere s;
+			RRT::Sphere s(0);
 
 			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
 
@@ -115,7 +115,7 @@ namespace RRT_Ray_UnitTests
 			RRT::Tuple direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
 
 			RRT::Ray r(origin, direction);
-			RRT::Sphere s;
+			RRT::Sphere s(0);
 
 			auto [hit, xs] = RRTRayUtils::Intersects(s, r);
 
@@ -130,10 +130,11 @@ namespace RRT_Ray_UnitTests
 	public:
 		TEST_METHOD(Intersect_Constructor)
 		{
-			RRT::Sphere s;
+			RRT::Sphere s(0);
 			RRT::Intersection i(3.5f, s);
 
 			Assert::AreEqual(3.5f, i.Time(), EPSILON);
+			Assert::AreEqual(0, i.Object().Id());
 		}
 	};
 }

@@ -11,9 +11,10 @@ namespace RRT
 		Intersection(const float& time, const Sphere& sphere) : time(time), sphere(sphere) {}
 
 		inline float Time() const { return time; }
+		inline Sphere Object() const { return sphere; }
 	private:
 		float time = 0.0f;
-		Sphere sphere = Sphere();
+		Sphere sphere = Sphere(0);
 	};
 }
 

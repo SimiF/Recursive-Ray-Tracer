@@ -8,9 +8,12 @@ namespace RRT
 	class Sphere
 	{
 	public:
-		Sphere() = default;
+		Sphere(const int& id) : id(id) {}
+
+		inline int Id() const { return id; }
 
 	private:
+		int id = 0;
 		Tuple origin = { 0.0f, 0.0f, 0.0f, 1.0f };
 		float radius = 0.0f;
 	};
