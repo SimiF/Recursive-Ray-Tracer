@@ -35,23 +35,21 @@ namespace RRTRayUtils
 		return xs_points;
 	}
 
-	std::tuple<bool, RRT::Intersection> Hit(std::vector<RRT::Intersection>& xs_vec)
+	std::tuple<bool, RRT::Intersection> Hit(const std::vector<RRT::Intersection>& xs_vec)
 	{
 		bool hit_flag = false;
-		RRT::Intersection xs = RRT::Intersection();
+		RRT::Sphere s = RRT::Sphere(0);
+		RRT::Intersection final_xs = RRT::Intersection(1e10f, s);
 
-		auto sort_func = [](RRT::Intersection& xs_one, RRT::Intersection& xs_two) {			
-			return (xs_one.Time() > xs_two.Time());
-		};
-
-		std::sort(xs_vec.begin(), xs_vec.end(), sort_func);	
-
-		if (xs_vec[0].Time() >= 0.0f)
+		for (const auto& xs : xs_vec)
 		{
-			hit_flag = true;
-			xs = xs_vec[0];
-		}		
+			if (xs.Time() > 0.0f && xs.Time() < final_xs.Time())
+			{
+				final_xs = xs;
+				hit_flag = true;
+			}
+		}
 
-		return std::make_tuple(hit_flag, xs);
+		return std::make_tuple(hit_flag, final_xs);
 	}
 }
