@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{bd700982-99d0-47b8-81cc-4029b5fc52d2}</ProjectGuid>
-    <RootNamespace>RRTracer</RootNamespace>
+    <ProjectGuid>{bddc9581-2d68-4b96-a52b-c8f92aa79e83}</ProjectGuid>
+    <RootNamespace>SphereRenderer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -116,10 +116,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)RRTracer\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Canvas.obj;Color.obj;FileWriter.obj;Intersection.obj;Matrix.obj;MatrixFactory.obj;MatrixUtilities.obj;Ray.obj;RayUtilities.obj;Sphere.obj;Transforms.obj;Tuple.obj;TupleFactory.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,38 +142,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Canvas.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="FileWriter.h" />
-    <ClInclude Include="Intersection.h" />
-    <ClInclude Include="Matrix.h" />
-    <ClInclude Include="MatrixFactory.h" />
-    <ClInclude Include="MatrixUtilities.h" />
-    <ClInclude Include="Ray.h" />
-    <ClInclude Include="RayUtilities.h" />
-    <ClInclude Include="RRTException.h" />
-    <ClInclude Include="Sphere.h" />
-    <ClInclude Include="Transforms.h" />
-    <ClInclude Include="Tuple.h" />
-    <ClInclude Include="TupleFactory.h" />
-    <ClInclude Include="TupleUtilities.h" />
-    <ClInclude Include="Utilities.h" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Canvas.cpp" />
-    <ClCompile Include="Color.cpp" />
-    <ClCompile Include="FileWriter.cpp" />
-    <ClCompile Include="Intersection.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Matrix.cpp" />
-    <ClCompile Include="MatrixFactory.cpp" />
-    <ClCompile Include="MatrixUtilities.cpp" />
-    <ClCompile Include="Ray.cpp" />
-    <ClCompile Include="RayUtilities.cpp" />
-    <ClCompile Include="Sphere.cpp" />
-    <ClCompile Include="Transforms.cpp" />
-    <ClCompile Include="Tuple.cpp" />
-    <ClCompile Include="TupleFactory.cpp" />
+    <ProjectReference Include="..\RRTracer\RRTracer.vcxproj">
+      <Project>{bd700982-99d0-47b8-81cc-4029b5fc52d2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
