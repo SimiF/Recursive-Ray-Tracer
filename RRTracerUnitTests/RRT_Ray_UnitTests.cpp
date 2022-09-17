@@ -295,8 +295,7 @@ namespace RRT_Ray_UnitTests
 			std::vector<RRT::Intersection> xs_points = RRTRayUtils::Intersects(s, ray);
 
 			size_t exp_count = 2;
-
-			// potential found ERRATTA
+			
 			Assert::AreEqual(exp_count, xs_points.size());
 			Assert::AreEqual(3.0f, xs_points[0].Time(), EPSILON);
 			Assert::AreEqual(7.0f, xs_points[1].Time(), EPSILON);

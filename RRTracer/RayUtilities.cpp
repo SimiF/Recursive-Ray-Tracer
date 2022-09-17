@@ -19,8 +19,8 @@ namespace RRTRayUtils
 		{
 			hit_flag = true;
 
-			float t1 = (-b - sqrtf(discriminant)) / (2 * 1);
-			float t2 = (-b + sqrtf(discriminant)) / (2 * 1);
+			float t1 = (-b - sqrtf(discriminant)) / (2 * a);
+			float t2 = (-b + sqrtf(discriminant)) / (2 * a);
 
 			if (t1 <= t2)
 			{
