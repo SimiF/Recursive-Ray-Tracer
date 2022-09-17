@@ -3,6 +3,9 @@
 
 #include "Tuple.h"
 
+#include "Matrix.h"
+#include "MatrixFactory.h"
+
 namespace RRT
 {
 	class Sphere
@@ -12,10 +15,14 @@ namespace RRT
 
 		inline int Id() const { return id; }
 
+		inline Matrix Transform() const { return transform; }
+		inline void Transform(const Matrix& new_transform) { transform = new_transform; }
+
 	private:
 		int id = 0;
 		Tuple origin = { 0.0f, 0.0f, 0.0f, 1.0f };
-		float radius = 0.0f;
+		Matrix transform = RRT::MatrixFactory().IdentityMatrix();
+		float radius = 0.0f;	
 	};
 }
 

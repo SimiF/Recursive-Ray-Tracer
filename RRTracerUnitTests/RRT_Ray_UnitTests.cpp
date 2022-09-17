@@ -263,5 +263,24 @@ namespace RRT_Ray_UnitTests
 			Assert::IsTrue(exp_point == transformed_ray.Origin());
 			Assert::IsTrue(exp_dir == transformed_ray.Direction());
 		}
+
+		TEST_METHOD(Initial_Sphere_Transform_is_Normal_matrix)
+		{
+			RRT::Sphere s = RRT::Sphere(0);
+			RRT::Matrix exp_matrix = RRT::MatrixFactory().IdentityMatrix();
+
+			Assert::IsTrue(exp_matrix == s.Transform());
+		}
+
+		TEST_METHOD(Able_to_change_Sphere_transform)
+		{
+			RRT::Sphere s = RRT::Sphere(0);
+			RRT::Matrix translation_matrix = RRTMatrixTransforms::Translation(2.0f, 3.0f, 4.0f);
+			s.Transform(translation_matrix);
+
+			RRT::Matrix exp_matrix = RRTMatrixTransforms::Translation(2.0f, 3.0f, 4.0f);
+
+			Assert::IsTrue(exp_matrix == s.Transform());
+		}
 	};
 }
