@@ -52,4 +52,13 @@ namespace RRTRayUtils
 
 		return std::make_tuple(hit_flag, final_xs);
 	}
+
+	RRT::Ray Transform(const RRT::Ray& ray, const RRT::Matrix& matrix)
+	{
+		RRT::Tuple new_origin = matrix * ray.Origin();		
+		RRT::Tuple new_direction = matrix * ray.Direction();
+		RRT::Ray new_ray(new_origin, new_direction);
+
+		return new_ray;
+	}
 }

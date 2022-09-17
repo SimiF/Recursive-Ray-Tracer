@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 
 #include "../RRTracer/Ray.h"
+#include "../RRTracer/Transforms.h"
 #include "../RRTracer/Sphere.h"
 #include "../RRTracer/RayUtilities.h"
 #include "../RRTracer/Intersection.h"
@@ -229,6 +230,38 @@ namespace RRT_Ray_UnitTests
 			Assert::IsTrue(hit);
 			Assert::AreEqual(1.0f, xs_obj.Time());
 			Assert::AreEqual(2, xs_obj.Object().Id());
+		}
+
+		TEST_METHOD(Translating_a_ray)
+		{
+			RRT::Tuple ray_origin = RRT::TupleFactory().Point(1.0f, 2.0f, 3.0f);
+			RRT::Tuple ray_direction = RRT::TupleFactory().Vector(0.0f, 1.0f, 0.0f);
+			RRT::Ray ray(ray_origin, ray_direction);
+
+			RRT::Matrix translation_matrix = RRTMatrixTransforms::Translation(3.0f, 4.0f, 5.0f);
+			RRT::Ray transformed_ray = RRTRayUtils::Transform(ray, translation_matrix);
+
+			RRT::Tuple exp_point = RRT::TupleFactory().Point(4.0f, 6.0f, 8.0f);
+			RRT::Tuple exp_dir = RRT::TupleFactory().Vector(0.0f, 1.0f, 0.0f);
+
+			Assert::IsTrue(exp_point == transformed_ray.Origin());
+			Assert::IsTrue(exp_dir == transformed_ray.Direction());
+		}
+
+		TEST_METHOD(Scaling_a_ray)
+		{
+			RRT::Tuple ray_origin = RRT::TupleFactory().Point(1.0f, 2.0f, 3.0f);
+			RRT::Tuple ray_direction = RRT::TupleFactory().Vector(0.0f, 1.0f, 0.0f);
+			RRT::Ray ray(ray_origin, ray_direction);
+
+			RRT::Matrix scaling_matrix = RRTMatrixTransforms::Scaling(2.0f, 3.0f, 4.0f);
+			RRT::Ray transformed_ray = RRTRayUtils::Transform(ray, scaling_matrix);
+
+			RRT::Tuple exp_point = RRT::TupleFactory().Point(2.0f, 6.0f, 12.0f);
+			RRT::Tuple exp_dir = RRT::TupleFactory().Vector(0.0f, 3.0f, 0.0f);
+
+			Assert::IsTrue(exp_point == transformed_ray.Origin());
+			Assert::IsTrue(exp_dir == transformed_ray.Direction());
 		}
 	};
 }

@@ -8,6 +8,7 @@
 #include "TupleUtilities.h"
 #include "Intersection.h"
 #include "Utilities.h"
+#include "Matrix.h"
 
 #include <algorithm>
 #include <tuple>
@@ -18,6 +19,7 @@ namespace RRTRayUtils
 {
 	std::vector<RRT::Intersection> Intersects(const RRT::Sphere& sphere, const RRT::Ray& ray);
 	std::tuple<bool, RRT::Intersection> Hit(const std::vector<RRT::Intersection>& xs_vec);
+	RRT::Ray Transform(const RRT::Ray& ray, const RRT::Matrix& matrix);
 }
 
 #endif // !RAY_UTILITIES_H
