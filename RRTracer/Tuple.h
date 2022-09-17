@@ -1,4 +1,4 @@
-#ifndef RRT_TUPLE_HPP
+ #ifndef RRT_TUPLE_HPP
 #define RRT_TUPLE_HPP
 
 #include <initializer_list>
