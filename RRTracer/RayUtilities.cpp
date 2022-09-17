@@ -4,12 +4,14 @@ namespace RRTRayUtils
 {
 	std::vector<RRT::Intersection> Intersects(const RRT::Sphere& sphere, const RRT::Ray& ray)
 	{
+		RRT::Ray transformed_ray = Transform(ray, RRTMatrixUtils::Inverse(sphere.Transform()));
+
 		bool hit_flag = false;
 		std::vector<RRT::Intersection> xs_points(0);
 
-		RRT::Tuple sphere_to_ray = ray.Origin() - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
-		float a = RRTTupleUtils::Dot(ray.Direction(), ray.Direction());
-		float b = 2 * RRTTupleUtils::Dot(ray.Direction(), sphere_to_ray);
+		RRT::Tuple sphere_to_ray = transformed_ray.Origin() - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
+		float a = RRTTupleUtils::Dot(transformed_ray.Direction(), transformed_ray.Direction());
+		float b = 2 * RRTTupleUtils::Dot(transformed_ray.Direction(), sphere_to_ray);
 		float c = RRTTupleUtils::Dot(sphere_to_ray, sphere_to_ray) - 1;
 		float discriminant = b * b - (4 * a * c);
 
@@ -54,7 +56,7 @@ namespace RRTRayUtils
 	}
 
 	RRT::Ray Transform(const RRT::Ray& ray, const RRT::Matrix& matrix)
-	{
+	{	
 		RRT::Tuple new_origin = matrix * ray.Origin();		
 		RRT::Tuple new_direction = matrix * ray.Direction();
 		RRT::Ray new_ray(new_origin, new_direction);

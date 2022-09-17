@@ -58,6 +58,11 @@ namespace RRTMatrixUtils
 					const int curr_col = (const int)c;
 
 					inv_matrix[curr_col][curr_row] = Cofactor(matrix, r, c) / determinant;
+
+					if (RRTUtils::s_floats_equal(inv_matrix[curr_col][curr_row], 0.0f))
+					{
+						inv_matrix[curr_col][curr_row] = 0.0f;
+					}
 				}
 			}
 		}

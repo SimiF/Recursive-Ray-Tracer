@@ -9,6 +9,7 @@
 #include "Intersection.h"
 #include "Utilities.h"
 #include "Matrix.h"
+#include "MatrixUtilities.h"
 
 #include <algorithm>
 #include <tuple>

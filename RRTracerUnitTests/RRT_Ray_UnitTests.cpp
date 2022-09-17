@@ -282,5 +282,40 @@ namespace RRT_Ray_UnitTests
 
 			Assert::IsTrue(exp_matrix == s.Transform());
 		}
+
+		TEST_METHOD(Intersect_Func_Automatically_USes_Transform_Method)
+		{
+			RRT::Tuple ray_origin = RRT::TupleFactory().Point(0.0f, 0.0f, -5.0f);
+			RRT::Tuple ray_direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
+			RRT::Ray ray(ray_origin, ray_direction);
+			RRT::Sphere s = RRT::Sphere(0);
+			RRT::Matrix scaling_matrix = RRTMatrixTransforms::Scaling(2.0f, 2.0f, 2.0f);
+			s.Transform(scaling_matrix);
+
+			std::vector<RRT::Intersection> xs_points = RRTRayUtils::Intersects(s, ray);
+
+			size_t exp_count = 2;
+
+			// potential found ERRATTA
+			Assert::AreEqual(exp_count, xs_points.size());
+			Assert::AreEqual(3.0f, xs_points[0].Time(), EPSILON);
+			Assert::AreEqual(7.0f, xs_points[1].Time(), EPSILON);
+		}
+
+		TEST_METHOD(Intersect_Func_Automatically_USes_Transform_Method_Translated_Matrix)
+		{
+			RRT::Tuple ray_origin = RRT::TupleFactory().Point(0.0f, 0.0f, -5.0f);
+			RRT::Tuple ray_direction = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
+			RRT::Ray ray(ray_origin, ray_direction);
+			RRT::Sphere s = RRT::Sphere(0);
+			RRT::Matrix translating_matrix = RRTMatrixTransforms::Translation(5.0f, 0.0f, 0.0f);
+			s.Transform(translating_matrix);
+
+			std::vector<RRT::Intersection> xs_points = RRTRayUtils::Intersects(s, ray);
+
+			size_t exp_count = 0;
+
+			Assert::AreEqual(exp_count, xs_points.size());			
+		}		
 	};
 }
