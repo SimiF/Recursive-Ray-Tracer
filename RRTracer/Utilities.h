@@ -1,6 +1,8 @@
 #ifndef RRTUTILS_UTILITIES_HPP
 #define RRTUTILS_UTILITIES_HPP
 
+#include <iostream>
+
 namespace RRTUtils
 {
 	inline float s_abs(float a, float b)
@@ -19,6 +21,13 @@ namespace RRTUtils
 		}
 
 		return ret;
+	}
+
+	inline void s_display_status(int num, int num_limit)
+	{
+		float perc = (float) num / num_limit;		
+
+		std::cout << 100 * perc << '%' << '\n';
 	}
 }
 
