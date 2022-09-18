@@ -23,6 +23,9 @@ namespace RRT
 		Color operator*(const float& f) const;
 		Color operator/(const float& f) const;
 
+		friend bool operator==(const Color& t1, const Color& t2);
+		friend bool operator!=(const Color& t1, const Color& t2);
+
 		float Red() const noexcept { return red; }
 		float Green() const noexcept { return green; }
 		float Blue() const noexcept { return blue; }

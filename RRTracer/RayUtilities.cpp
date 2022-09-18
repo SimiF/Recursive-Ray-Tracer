@@ -82,4 +82,9 @@ namespace RRTRayUtils
 	{
 		return in_vec - in_norm * 2 * RRTTupleUtils::Dot(in_vec, in_norm);
 	}
+
+	RRT::Color Lighting(const RRT::Material& material, const RRT::Tuple& point_at, const RRT::PointLight& light_source, const RRT::Tuple& eye_vec, const RRT::Tuple& norm_vec)
+	{
+		return { 1.0f, 1.0f, 1.0f };
+	}
 }
