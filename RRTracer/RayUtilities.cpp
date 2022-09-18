@@ -68,9 +68,18 @@ namespace RRTRayUtils
 	{		
 		RRT::Tuple object_point = RRTMatrixUtils::Inverse(sphere.Transform()) * point;
 		RRT::Tuple object_normal = object_point - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
+
+		// vector cannot be multiplied by the inverse of the transform matrix alone as it will not preserve normal vector direction
 		RRT::Tuple world_normal = RRTMatrixUtils::Transpose(RRTMatrixUtils::Inverse(sphere.Transform())) * object_normal;
+
+		// depending on matrix used, the w factor may be changed. Here we hard reset to this being a vector
 		world_normal.W(0.0f);
 
 		return RRTTupleUtils::Normalize(world_normal);
+	}
+
+	RRT::Tuple Reflect(const RRT::Tuple& in_vec, const RRT::Tuple& in_norm)
+	{
+		return RRT::TupleFactory().Vector(0.0f, 0.0f, 0.0f);
 	}
 }

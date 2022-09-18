@@ -389,4 +389,19 @@ namespace RRT_Ray_UnitTests
 			Assert::IsTrue(exp_normal_vec == normal_vec);
 		}
 	};
+
+	TEST_CLASS(RRT_Reflection_Vector_Tests)
+	{
+	public:
+		TEST_METHOD(Reflecting_Vector_Approachng_At_45_deg)
+		{
+			RRT::Tuple in_vec = RRT::TupleFactory().Vector(1.0f, -1.0f, 0.0f);
+			RRT::Tuple norm_vec = RRT::TupleFactory().Vector(0.0f, 1.0f, 0.0f);
+			RRT::Tuple exp_refl_vec = RRT::TupleFactory().Vector(1.0f, 1.0f, 0.0f);
+
+			RRT::Tuple act_refl_vec = RRTRayUtils::Reflect(in_vec, norm_vec);
+
+			Assert::IsTrue(exp_refl_vec == act_refl_vec);
+		}				
+	};
 }
