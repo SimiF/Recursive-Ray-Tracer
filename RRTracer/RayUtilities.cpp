@@ -80,6 +80,6 @@ namespace RRTRayUtils
 
 	RRT::Tuple Reflect(const RRT::Tuple& in_vec, const RRT::Tuple& in_norm)
 	{
-		return RRT::TupleFactory().Vector(0.0f, 0.0f, 0.0f);
+		return in_vec - in_norm * 2 * RRTTupleUtils::Dot(in_vec, in_norm);
 	}
 }

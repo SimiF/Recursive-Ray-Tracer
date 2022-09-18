@@ -380,7 +380,7 @@ namespace RRT_Ray_UnitTests
 		TEST_METHOD(Normal_Vector_Test_Transformed_Sphere)
 		{
 			RRT::Sphere s(0);
-			RRT::Matrix transform = RRTMatrixTransforms::Scaling(1.0f, 0.5f, 1.0f) * RRTMatrixTransforms::Rotation_Z(3.14159265 / 5);
+			RRT::Matrix transform = RRTMatrixTransforms::Scaling(1.0f, 0.5f, 1.0f) * RRTMatrixTransforms::Rotation_Z(3.14159265f / 5.0f);
 			s.Transform(transform);
 			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(0.0f, sqrtf(2.0f) / 2.0f, -sqrtf(2.0f) / 2.0f));
 
@@ -393,7 +393,7 @@ namespace RRT_Ray_UnitTests
 	TEST_CLASS(RRT_Reflection_Vector_Tests)
 	{
 	public:
-		TEST_METHOD(Reflecting_Vector_Approachng_At_45_deg)
+		TEST_METHOD(Reflecting_Vector_Approaching_At_45_deg)
 		{
 			RRT::Tuple in_vec = RRT::TupleFactory().Vector(1.0f, -1.0f, 0.0f);
 			RRT::Tuple norm_vec = RRT::TupleFactory().Vector(0.0f, 1.0f, 0.0f);
@@ -402,6 +402,18 @@ namespace RRT_Ray_UnitTests
 			RRT::Tuple act_refl_vec = RRTRayUtils::Reflect(in_vec, norm_vec);
 
 			Assert::IsTrue(exp_refl_vec == act_refl_vec);
-		}				
+		}	
+
+		TEST_METHOD(Reflecting_Vector_Approaching_At_Slanted_Surface)
+		{
+			RRT::Tuple in_vec = RRT::TupleFactory().Vector(0.0f, -1.0f, 0.0f);
+			float ind_num = sqrtf(2.0f) / 2.0f;
+			RRT::Tuple norm_vec = RRT::TupleFactory().Vector(ind_num, ind_num, 0.0f);
+			RRT::Tuple exp_refl_vec = RRT::TupleFactory().Vector(1.0f, 0.0f, 0.0f);
+
+			RRT::Tuple act_refl_vec = RRTRayUtils::Reflect(in_vec, norm_vec);
+
+			Assert::IsTrue(exp_refl_vec == act_refl_vec);
+		}
 	};
 }
