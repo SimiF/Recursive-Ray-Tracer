@@ -365,5 +365,28 @@ namespace RRT_Ray_UnitTests
 
 			Assert::IsTrue(exp_normal_vec == normal_vec);
 		}
+
+		TEST_METHOD(Normal_Vector_Test_Translated_Sphere)
+		{
+			RRT::Sphere s(0);
+			s.Transform(RRTMatrixTransforms::Translation(0.0f, 1.0f, 0.0f));			
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(0.0f, 1.70711f, -0.70711f));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(0.0f, 0.70711f, -0.70711f);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}
+
+		TEST_METHOD(Normal_Vector_Test_Transformed_Sphere)
+		{
+			RRT::Sphere s(0);
+			RRT::Matrix transform = RRTMatrixTransforms::Scaling(1.0f, 0.5f, 1.0f) * RRTMatrixTransforms::Rotation_Z(3.14159265 / 5);
+			s.Transform(transform);
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(0.0f, sqrtf(2.0f) / 2.0f, -sqrtf(2.0f) / 2.0f));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(0.0f, 0.97014f, -0.24254f);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}
 	};
 }
