@@ -66,6 +66,11 @@ namespace RRTRayUtils
 
 	RRT::Tuple Normal_At(const RRT::Sphere& sphere, const RRT::Tuple& point)
 	{		
-		return RRTTupleUtils::Normalize(point - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f));		
+		RRT::Tuple object_point = RRTMatrixUtils::Inverse(sphere.Transform()) * point;
+		RRT::Tuple object_normal = object_point - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
+		RRT::Tuple world_normal = RRTMatrixUtils::Transpose(RRTMatrixUtils::Inverse(sphere.Transform())) * object_normal;
+		world_normal.W(0.0f);
+
+		return RRTTupleUtils::Normalize(world_normal);
 	}
 }
