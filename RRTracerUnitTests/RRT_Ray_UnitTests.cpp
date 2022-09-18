@@ -16,7 +16,7 @@ namespace RRT_Ray_UnitTests
 	TEST_CLASS(RRT_Ray_Constructor_Tests)
 	{
 	public:
-		TEST_METHOD(Color_Constructor_Test)
+		TEST_METHOD(Ray_Constructor_Test)
 		{
 			RRT::Tuple origin = RRT::TupleFactory().Point(1.0f, 2.0f, 3.0f);
 			RRT::Tuple direction = RRT::TupleFactory().Vector(4.0f, 5.0f, 6.0f);
@@ -330,6 +330,40 @@ namespace RRT_Ray_UnitTests
 			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(1.0f, 0.0f, 0.0f);
 
 			Assert::IsTrue(exp_normal_vec == normal_vec);
-		}				
+		}
+
+		TEST_METHOD(Normal_Vector_Test_Two)
+		{
+			RRT::Sphere s(0);
+
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(0.0f, 1.0f, 0.0f));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(0.0f, 1.0f, 0.0f);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}
+
+		TEST_METHOD(Normal_Vector_Test_Three)
+		{
+			RRT::Sphere s(0);
+
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(0.0f, 0.0f, 1.0f));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}
+
+		TEST_METHOD(Normal_Vector_Test_Four)
+		{
+			RRT::Sphere s(0);
+
+			float ind_point = sqrtf(3.0f) / 3.0f;
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(ind_point, ind_point, ind_point));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(ind_point, ind_point, ind_point);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}
 	};
 }

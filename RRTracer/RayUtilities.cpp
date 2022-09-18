@@ -65,11 +65,7 @@ namespace RRTRayUtils
 	}
 
 	RRT::Tuple Normal_At(const RRT::Sphere& sphere, const RRT::Tuple& point)
-	{
-		float x{ 0.0f };
-		float y{ 0.0f };
-		float z{ 0.0f };
-
-		return RRT::TupleFactory().Vector(x, y, z);
+	{		
+		return RRTTupleUtils::Normalize(point - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f));		
 	}
 }
