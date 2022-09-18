@@ -6,6 +6,8 @@
 #include "../RRTracer/Sphere.h"
 #include "../RRTracer/RayUtilities.h"
 #include "../RRTracer/Intersection.h"
+#include "../RRTracer/PointLight.h"
+#include "../RRTracer/Material.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -414,6 +416,73 @@ namespace RRT_Ray_UnitTests
 			RRT::Tuple act_refl_vec = RRTRayUtils::Reflect(in_vec, norm_vec);
 
 			Assert::IsTrue(exp_refl_vec == act_refl_vec);
+		}
+	};
+
+	TEST_CLASS(RRT_Point_Light_Tests)
+	{
+	public:
+		TEST_METHOD(Point_Light_Creation_Test)
+		{
+			RRT::Color intensity = { 1.0f, 1.0f, 1.0f };
+			RRT::Tuple position = RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
+			RRT::PointLight pl = RRT::PointLight(intensity, position);
+
+			Assert::IsTrue(position == pl.Position());
+
+			Assert::AreEqual(intensity.Red(), pl.Intensity().Red(), EPSILON);
+			Assert::AreEqual(intensity.Blue(), pl.Intensity().Blue(), EPSILON);
+			Assert::AreEqual(intensity.Green(), pl.Intensity().Green(), EPSILON);
+		}	
+	};
+
+	TEST_CLASS(RRT_Material_Tests)
+	{
+	public:
+		TEST_METHOD(Material_Default_Creation)
+		{
+			RRT::Material m = RRT::Material();
+			
+			Assert::AreEqual(1.0f, m.Color().Red(), EPSILON);
+			Assert::AreEqual(1.0f, m.Color().Blue(), EPSILON);
+			Assert::AreEqual(1.0f, m.Color().Green(), EPSILON);
+
+			Assert::AreEqual(0.1f, m.Ambient(), EPSILON);
+			Assert::AreEqual(0.9f, m.Diffuse(), EPSILON);
+			Assert::AreEqual(0.9f, m.Specular(), EPSILON);
+			Assert::AreEqual(200.0f, m.Shininess(), EPSILON);
+		}
+
+		TEST_METHOD(Sphere_has_default_material)
+		{
+			RRT::Sphere s(1);
+			RRT::Material def_material = RRT::Material();
+
+			Assert::AreEqual(s.Material().Color().Red(), def_material.Color().Red(), EPSILON);
+			Assert::AreEqual(s.Material().Color().Blue(), def_material.Color().Blue(), EPSILON);
+			Assert::AreEqual(s.Material().Color().Green(), def_material.Color().Green(), EPSILON);
+
+			Assert::AreEqual(s.Material().Ambient(), def_material.Ambient(), EPSILON);
+			Assert::AreEqual(s.Material().Diffuse(), def_material.Diffuse(), EPSILON);
+			Assert::AreEqual(s.Material().Specular(), def_material.Specular(), EPSILON);
+			Assert::AreEqual(s.Material().Shininess(), def_material.Shininess(), EPSILON);
+		}
+
+		TEST_METHOD(Can_Change_Sphere_Material)
+		{
+			RRT::Sphere s(1);
+			RRT::Material def_material = RRT::Material();
+			def_material.Ambient(1.0f);
+			s.Material() = def_material;
+
+			Assert::AreEqual(s.Material().Color().Red(), def_material.Color().Red(), EPSILON);
+			Assert::AreEqual(s.Material().Color().Blue(), def_material.Color().Blue(), EPSILON);
+			Assert::AreEqual(s.Material().Color().Green(), def_material.Color().Green(), EPSILON);
+
+			Assert::AreEqual(s.Material().Ambient(), def_material.Ambient(), EPSILON);
+			Assert::AreEqual(s.Material().Diffuse(), def_material.Diffuse(), EPSILON);
+			Assert::AreEqual(s.Material().Specular(), def_material.Specular(), EPSILON);
+			Assert::AreEqual(s.Material().Shininess(), def_material.Shininess(), EPSILON);
 		}
 	};
 }
