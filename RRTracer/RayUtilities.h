@@ -21,6 +21,7 @@ namespace RRTRayUtils
 	std::vector<RRT::Intersection> Intersects(const RRT::Sphere& sphere, const RRT::Ray& ray);
 	std::tuple<bool, RRT::Intersection> Hit(const std::vector<RRT::Intersection>& xs_vec);
 	RRT::Ray Transform(const RRT::Ray& ray, const RRT::Matrix& matrix);
+	RRT::Tuple Normal_At(const RRT::Sphere& sphere, const RRT::Tuple& point);
 }
 
 #endif // !RAY_UTILITIES_H

@@ -317,4 +317,19 @@ namespace RRT_Ray_UnitTests
 			Assert::AreEqual(exp_count, xs_points.size());			
 		}		
 	};
+
+	TEST_CLASS(RRT_Normal_Vector_Tests)
+	{
+	public:
+		TEST_METHOD(Normal_Vector_Test_One)
+		{
+			RRT::Sphere s(0);
+			
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(1.0f, 0.0f, 0.0f));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(1.0f, 0.0f, 0.0f);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}				
+	};
 }

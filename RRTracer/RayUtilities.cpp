@@ -63,4 +63,13 @@ namespace RRTRayUtils
 
 		return new_ray;
 	}
+
+	RRT::Tuple Normal_At(const RRT::Sphere& sphere, const RRT::Tuple& point)
+	{
+		float x{ 0.0f };
+		float y{ 0.0f };
+		float z{ 0.0f };
+
+		return RRT::TupleFactory().Vector(x, y, z);
+	}
 }
