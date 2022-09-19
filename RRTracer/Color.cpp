@@ -37,4 +37,16 @@ namespace RRT
 	{
 		return { red / f, green / f, blue / f };
 	}
+
+	bool operator==(const Color& t1, const Color& t2)
+	{
+		return RRTUtils::s_floats_equal(t1.Red(), t2.Red())
+			&& RRTUtils::s_floats_equal(t1.Green(), t2.Green())
+			&& RRTUtils::s_floats_equal(t1.Blue(), t2.Blue());
+	}
+
+	bool operator!=(const Color& t1, const Color& t2)
+	{
+		return !(t1 == t2);
+	}
 }

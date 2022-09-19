@@ -14,12 +14,16 @@
 #include "../RRTracer/RayUtilities.h"
 #include "../RRTracer/Intersection.h"
 
+#include "../RRTracer/PointLight.h"
+
 int main()
 {
-	RRT::Canvas canvas = RRT::Canvas(100, 100);
-	RRT::Color sphere_color = { 1.0f, 0.0f, 0.0f };
+	RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(-10.0f, 10.0f, -10.0f));
+
+	RRT::Canvas canvas = RRT::Canvas(200, 200);	
 	RRT::Sphere s(0);
-	s.Transform(RRTMatrixTransforms::Rotation_Z(3.14159265 / 4) * RRTMatrixTransforms::Scaling(1.0f, 0.5f, 1.0f));
+	s.Transform(RRTMatrixTransforms::Rotation_Z(3.14159265359f / 4.0f) * RRTMatrixTransforms::Scaling(1.0f, 0.5f, 1.0f));
+	s.Material().Color({ 0.274f, 0.705f, 0.705f });
 	RRT::FileWriter fw("shere_render_no_shade.ppm");
 
 	RRT::Tuple ray_origin = RRT::TupleFactory().Point(0.0f, 0.0f, -5.0f);
@@ -40,14 +44,21 @@ int main()
 
 			RRT::Tuple pos = RRT::TupleFactory().Point(world_x, world_y, wall_z);
 			RRT::Ray ray = RRT::Ray(ray_origin, RRTTupleUtils::Normalize(pos - ray_origin));
-			std::vector<RRT::Intersection> xs = RRTRayUtils::Intersects(s, ray);
 
-			auto [hit, xs_pts] = RRTRayUtils::Hit(xs);
-			
-			if (hit)
-			{				
-				canvas.Pixel(x, y) = sphere_color;
-			}
+			std::vector<RRT::Intersection> xs1 = RRTRayUtils::Intersects(s, ray);			
+
+			auto [hit1, xs_pts1] = RRTRayUtils::Hit(xs1);			
+						
+			if (hit1)
+			{			
+				RRT::Tuple hit_point = ray.Position(xs_pts1.Time());
+				RRT::Tuple normal_at_hit = RRTRayUtils::Normal_At(xs_pts1.Object(), hit_point);
+				RRT::Tuple eye_vec = -ray.Direction();
+
+				RRT::Color color = RRTRayUtils::Lighting(xs_pts1.Object().Material(), hit_point, light, eye_vec, normal_at_hit);
+
+				canvas.Pixel(x, y) = color;
+			}			
 		}
 	}
 
