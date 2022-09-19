@@ -20,7 +20,7 @@ int main()
 {
 	RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(10.0f, 10.0f, -10.0f));
 
-	RRT::Canvas canvas = RRT::Canvas(1000, 1000);	
+	RRT::Canvas canvas = RRT::Canvas(500, 500);	
 	RRT::Sphere s(0);
 	s.Material().Color({ 1.0f, 0.0f, 0.0f });
 	s.Transform(RRTMatrixTransforms::Rotation_Z(3.14159265 / 2) * RRTMatrixTransforms::Scaling(1.0f, 0.35f, 1.0f) * RRTMatrixTransforms::Translation(0.0f, 1.5f, 0.0f));
