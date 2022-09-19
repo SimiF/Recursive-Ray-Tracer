@@ -85,6 +85,28 @@ namespace RRTRayUtils
 
 	RRT::Color Lighting(const RRT::Material& material, const RRT::Tuple& point_at, const RRT::PointLight& light_source, const RRT::Tuple& eye_vec, const RRT::Tuple& norm_vec)
 	{
-		return { 1.0f, 1.0f, 1.0f };
+		RRT::Color eff_color = material.Color() * light_source.Intensity();
+		RRT::Tuple light_vec = RRTTupleUtils::Normalize(light_source.Position() - point_at);
+
+		RRT::Color ambient_cont = eff_color * material.Ambient();
+		RRT::Color diffuse_cont = RRT::Color();
+		RRT::Color specular_cont = RRT::Color();
+
+		float dot_normal = RRTTupleUtils::Dot(light_vec, norm_vec);
+		if (dot_normal > 0.0f)
+		{
+			diffuse_cont = eff_color * material.Diffuse() * dot_normal;
+
+			RRT::Tuple reflect_vec = Reflect(-light_vec, norm_vec);
+			float reflect_dot_eye = RRTTupleUtils::Dot(reflect_vec, eye_vec);
+
+			if (reflect_dot_eye > 0.0f)
+			{
+				float spec_factor = powf(reflect_dot_eye, material.Shininess());
+				specular_cont = light_source.Intensity() * material.Specular() * spec_factor;
+			}
+		}
+		
+		return ambient_cont + diffuse_cont + specular_cont;
 	}
 }

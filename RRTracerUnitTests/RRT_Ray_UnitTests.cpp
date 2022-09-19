@@ -528,7 +528,7 @@ namespace RRT_Ray_UnitTests
 
 			RRT::Tuple eye_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, -1.0f);
 			RRT::Tuple normal_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, -1.0f);
-			RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(1.0f, 1.0f, 1.0f));
+			RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(0.0f, 10.0f, -10.0f));
 
 			RRT::Color exp_color = RRT::Color(0.7364f, 0.7364f, 0.7364f);
 			RRT::Color act_color = RRTRayUtils::Lighting(mat, pos, light, eye_vec, normal_vec);
@@ -545,12 +545,14 @@ namespace RRT_Ray_UnitTests
 
 			RRT::Tuple eye_vec = RRT::TupleFactory().Vector(0.0f, -ind_point, -ind_point);
 			RRT::Tuple normal_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, -1.0f);
-			RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(1.0f, 1.0f, 1.0f));
+			RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(0.0f, 10.0f, -10.0f));
 
 			RRT::Color exp_color = RRT::Color(1.6364f, 1.6364f, 1.6364f);
 			RRT::Color act_color = RRTRayUtils::Lighting(mat, pos, light, eye_vec, normal_vec);
 
-			Assert::IsTrue(exp_color == act_color);
+			Assert::AreEqual(exp_color.Red(), act_color.Red(), EPSILON);
+			Assert::AreEqual(exp_color.Green(), act_color.Green(), EPSILON);
+			Assert::AreEqual(exp_color.Blue(), act_color.Blue(), EPSILON);
 		}
 
 		TEST_METHOD(Light_Is_Behind_Surface)
