@@ -9,4 +9,4 @@ RRT uses a matrix based system to move, scale, shear, and rotate objects. Some a
 ### No Transform Applied
 
 
-![alt text](https://github.com/SimiF/Recursive-Ray-Tracer/blob/dev/500%20by%20500%20shade%20rotated%20around%20z%20squash.png)
+
