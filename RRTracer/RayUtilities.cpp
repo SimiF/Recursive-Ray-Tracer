@@ -63,4 +63,50 @@ namespace RRTRayUtils
 
 		return new_ray;
 	}
+
+	RRT::Tuple Normal_At(const RRT::Sphere& sphere, const RRT::Tuple& point)
+	{		
+		RRT::Tuple object_point = RRTMatrixUtils::Inverse(sphere.Transform()) * point;
+		RRT::Tuple object_normal = object_point - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
+
+		// vector cannot be multiplied by the inverse of the transform matrix alone as it will not preserve normal vector direction
+		RRT::Tuple world_normal = RRTMatrixUtils::Transpose(RRTMatrixUtils::Inverse(sphere.Transform())) * object_normal;
+
+		// depending on matrix used, the w factor may be changed. Here we hard reset to this being a vector
+		world_normal.W(0.0f);
+
+		return RRTTupleUtils::Normalize(world_normal);
+	}
+
+	RRT::Tuple Reflect(const RRT::Tuple& in_vec, const RRT::Tuple& in_norm)
+	{
+		return in_vec - in_norm * 2 * RRTTupleUtils::Dot(in_vec, in_norm);
+	}
+
+	RRT::Color Lighting(const RRT::Material& material, const RRT::Tuple& point_at, const RRT::PointLight& light_source, const RRT::Tuple& eye_vec, const RRT::Tuple& norm_vec)
+	{
+		RRT::Color eff_color = material.Color() * light_source.Intensity();
+		RRT::Tuple light_vec = RRTTupleUtils::Normalize(light_source.Position() - point_at);
+
+		RRT::Color ambient_cont = eff_color * material.Ambient();
+		RRT::Color diffuse_cont = RRT::Color();
+		RRT::Color specular_cont = RRT::Color();
+
+		float dot_normal = RRTTupleUtils::Dot(light_vec, norm_vec);
+		if (dot_normal > 0.0f)
+		{
+			diffuse_cont = eff_color * material.Diffuse() * dot_normal;
+
+			RRT::Tuple reflect_vec = Reflect(-light_vec, norm_vec);
+			float reflect_dot_eye = RRTTupleUtils::Dot(reflect_vec, eye_vec);
+
+			if (reflect_dot_eye > 0.0f)
+			{
+				float spec_factor = powf(reflect_dot_eye, material.Shininess());
+				specular_cont = light_source.Intensity() * material.Specular() * spec_factor;
+			}
+		}
+		
+		return ambient_cont + diffuse_cont + specular_cont;
+	}
 }

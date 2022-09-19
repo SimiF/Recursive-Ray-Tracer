@@ -143,9 +143,11 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="FileWriter.h" />
     <ClInclude Include="Intersection.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MatrixFactory.h" />
     <ClInclude Include="MatrixUtilities.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RayUtilities.h" />
     <ClInclude Include="RRTException.h" />
@@ -162,9 +164,11 @@
     <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="Intersection.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="MatrixFactory.cpp" />
     <ClCompile Include="MatrixUtilities.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RayUtilities.cpp" />
     <ClCompile Include="Sphere.cpp" />

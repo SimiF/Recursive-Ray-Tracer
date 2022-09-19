@@ -6,6 +6,8 @@
 #include "../RRTracer/Sphere.h"
 #include "../RRTracer/RayUtilities.h"
 #include "../RRTracer/Intersection.h"
+#include "../RRTracer/PointLight.h"
+#include "../RRTracer/Material.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -16,7 +18,7 @@ namespace RRT_Ray_UnitTests
 	TEST_CLASS(RRT_Ray_Constructor_Tests)
 	{
 	public:
-		TEST_METHOD(Color_Constructor_Test)
+		TEST_METHOD(Ray_Constructor_Test)
 		{
 			RRT::Tuple origin = RRT::TupleFactory().Point(1.0f, 2.0f, 3.0f);
 			RRT::Tuple direction = RRT::TupleFactory().Vector(4.0f, 5.0f, 6.0f);
@@ -316,5 +318,256 @@ namespace RRT_Ray_UnitTests
 
 			Assert::AreEqual(exp_count, xs_points.size());			
 		}		
+	};
+
+	TEST_CLASS(RRT_Normal_Vector_Tests)
+	{
+	public:
+		TEST_METHOD(Normal_Vector_Test_One)
+		{
+			RRT::Sphere s(0);
+			
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(1.0f, 0.0f, 0.0f));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(1.0f, 0.0f, 0.0f);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}
+
+		TEST_METHOD(Normal_Vector_Test_Two)
+		{
+			RRT::Sphere s(0);
+
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(0.0f, 1.0f, 0.0f));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(0.0f, 1.0f, 0.0f);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}
+
+		TEST_METHOD(Normal_Vector_Test_Three)
+		{
+			RRT::Sphere s(0);
+
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(0.0f, 0.0f, 1.0f));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, 1.0f);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}
+
+		TEST_METHOD(Normal_Vector_Test_Four)
+		{
+			RRT::Sphere s(0);
+
+			float ind_point = sqrtf(3.0f) / 3.0f;
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(ind_point, ind_point, ind_point));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(ind_point, ind_point, ind_point);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}
+
+		TEST_METHOD(Normal_Vector_Test_Translated_Sphere)
+		{
+			RRT::Sphere s(0);
+			s.Transform(RRTMatrixTransforms::Translation(0.0f, 1.0f, 0.0f));			
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(0.0f, 1.70711f, -0.70711f));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(0.0f, 0.70711f, -0.70711f);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}
+
+		TEST_METHOD(Normal_Vector_Test_Transformed_Sphere)
+		{
+			RRT::Sphere s(0);
+			RRT::Matrix transform = RRTMatrixTransforms::Scaling(1.0f, 0.5f, 1.0f) * RRTMatrixTransforms::Rotation_Z(3.14159265f / 5.0f);
+			s.Transform(transform);
+			RRT::Tuple normal_vec = RRTRayUtils::Normal_At(s, RRT::TupleFactory().Point(0.0f, sqrtf(2.0f) / 2.0f, -sqrtf(2.0f) / 2.0f));
+
+			RRT::Tuple exp_normal_vec = RRT::TupleFactory().Vector(0.0f, 0.97014f, -0.24254f);
+
+			Assert::IsTrue(exp_normal_vec == normal_vec);
+		}
+	};
+
+	TEST_CLASS(RRT_Reflection_Vector_Tests)
+	{
+	public:
+		TEST_METHOD(Reflecting_Vector_Approaching_At_45_deg)
+		{
+			RRT::Tuple in_vec = RRT::TupleFactory().Vector(1.0f, -1.0f, 0.0f);
+			RRT::Tuple norm_vec = RRT::TupleFactory().Vector(0.0f, 1.0f, 0.0f);
+			RRT::Tuple exp_refl_vec = RRT::TupleFactory().Vector(1.0f, 1.0f, 0.0f);
+
+			RRT::Tuple act_refl_vec = RRTRayUtils::Reflect(in_vec, norm_vec);
+
+			Assert::IsTrue(exp_refl_vec == act_refl_vec);
+		}	
+
+		TEST_METHOD(Reflecting_Vector_Approaching_At_Slanted_Surface)
+		{
+			RRT::Tuple in_vec = RRT::TupleFactory().Vector(0.0f, -1.0f, 0.0f);
+			float ind_num = sqrtf(2.0f) / 2.0f;
+			RRT::Tuple norm_vec = RRT::TupleFactory().Vector(ind_num, ind_num, 0.0f);
+			RRT::Tuple exp_refl_vec = RRT::TupleFactory().Vector(1.0f, 0.0f, 0.0f);
+
+			RRT::Tuple act_refl_vec = RRTRayUtils::Reflect(in_vec, norm_vec);
+
+			Assert::IsTrue(exp_refl_vec == act_refl_vec);
+		}
+	};
+
+	TEST_CLASS(RRT_Point_Light_Tests)
+	{
+	public:
+		TEST_METHOD(Point_Light_Creation_Test)
+		{
+			RRT::Color intensity = { 1.0f, 1.0f, 1.0f };
+			RRT::Tuple position = RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
+			RRT::PointLight pl = RRT::PointLight(intensity, position);
+
+			Assert::IsTrue(position == pl.Position());
+
+			Assert::AreEqual(intensity.Red(), pl.Intensity().Red(), EPSILON);
+			Assert::AreEqual(intensity.Blue(), pl.Intensity().Blue(), EPSILON);
+			Assert::AreEqual(intensity.Green(), pl.Intensity().Green(), EPSILON);
+		}	
+	};
+
+	TEST_CLASS(RRT_Material_Tests)
+	{
+	public:
+		TEST_METHOD(Material_Default_Creation)
+		{
+			RRT::Material m = RRT::Material();
+			
+			Assert::AreEqual(1.0f, m.Color().Red(), EPSILON);
+			Assert::AreEqual(1.0f, m.Color().Blue(), EPSILON);
+			Assert::AreEqual(1.0f, m.Color().Green(), EPSILON);
+
+			Assert::AreEqual(0.1f, m.Ambient(), EPSILON);
+			Assert::AreEqual(0.9f, m.Diffuse(), EPSILON);
+			Assert::AreEqual(0.9f, m.Specular(), EPSILON);
+			Assert::AreEqual(200.0f, m.Shininess(), EPSILON);
+		}
+
+		TEST_METHOD(Sphere_has_default_material)
+		{
+			RRT::Sphere s(1);
+			RRT::Material def_material = RRT::Material();
+
+			Assert::AreEqual(s.Material().Color().Red(), def_material.Color().Red(), EPSILON);
+			Assert::AreEqual(s.Material().Color().Blue(), def_material.Color().Blue(), EPSILON);
+			Assert::AreEqual(s.Material().Color().Green(), def_material.Color().Green(), EPSILON);
+
+			Assert::AreEqual(s.Material().Ambient(), def_material.Ambient(), EPSILON);
+			Assert::AreEqual(s.Material().Diffuse(), def_material.Diffuse(), EPSILON);
+			Assert::AreEqual(s.Material().Specular(), def_material.Specular(), EPSILON);
+			Assert::AreEqual(s.Material().Shininess(), def_material.Shininess(), EPSILON);
+		}
+
+		TEST_METHOD(Can_Change_Sphere_Material)
+		{
+			RRT::Sphere s(1);
+			RRT::Material def_material = RRT::Material();
+			def_material.Ambient(1.0f);
+			s.Material() = def_material;
+
+			Assert::AreEqual(s.Material().Color().Red(), def_material.Color().Red(), EPSILON);
+			Assert::AreEqual(s.Material().Color().Blue(), def_material.Color().Blue(), EPSILON);
+			Assert::AreEqual(s.Material().Color().Green(), def_material.Color().Green(), EPSILON);
+
+			Assert::AreEqual(s.Material().Ambient(), def_material.Ambient(), EPSILON);
+			Assert::AreEqual(s.Material().Diffuse(), def_material.Diffuse(), EPSILON);
+			Assert::AreEqual(s.Material().Specular(), def_material.Specular(), EPSILON);
+			Assert::AreEqual(s.Material().Shininess(), def_material.Shininess(), EPSILON);
+		}
+	};
+
+	TEST_CLASS(RRT_Light_Tests)
+	{
+	public:
+		TEST_METHOD(Eye_Is_Between_Light_And_Surface)
+		{
+			RRT::Material mat = RRT::Material();
+			RRT::Tuple pos = RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
+
+			RRT::Tuple eye_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, -1.0f);
+			RRT::Tuple normal_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, -1.0f);
+			RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(0.0f, 0.0f, -1.0f));
+
+			RRT::Color exp_color = RRT::Color(1.9f, 1.9f, 1.9f);
+			RRT::Color act_color = RRTRayUtils::Lighting(mat, pos, light, eye_vec, normal_vec);
+
+			Assert::IsTrue(exp_color == act_color);
+		}
+
+		TEST_METHOD(Eye_Is_45_deg_Above_Light)
+		{
+			RRT::Material mat = RRT::Material();
+			RRT::Tuple pos = RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
+
+			float ind_point = sqrtf(2.0f) / 2.0f;
+
+			RRT::Tuple eye_vec = RRT::TupleFactory().Vector(0.0f, ind_point, -ind_point);
+			RRT::Tuple normal_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, -1.0f);
+			RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(0.0f, 0.0f, -1.0f));
+
+			RRT::Color exp_color = RRT::Color(1.0f, 1.0f, 1.0f);
+			RRT::Color act_color = RRTRayUtils::Lighting(mat, pos, light, eye_vec, normal_vec);
+
+			Assert::IsTrue(exp_color == act_color);
+		}
+
+		TEST_METHOD(Light_Is_45_deg_Above_Eye)
+		{
+			RRT::Material mat = RRT::Material();
+			RRT::Tuple pos = RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);			
+
+			RRT::Tuple eye_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, -1.0f);
+			RRT::Tuple normal_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, -1.0f);
+			RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(0.0f, 10.0f, -10.0f));
+
+			RRT::Color exp_color = RRT::Color(0.7364f, 0.7364f, 0.7364f);
+			RRT::Color act_color = RRTRayUtils::Lighting(mat, pos, light, eye_vec, normal_vec);
+
+			Assert::IsTrue(exp_color == act_color);
+		}
+
+		TEST_METHOD(Light_Is_90_deg_Above_Eye)
+		{
+			RRT::Material mat = RRT::Material();
+			RRT::Tuple pos = RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
+
+			float ind_point = sqrtf(2.0f) / 2.0f;
+
+			RRT::Tuple eye_vec = RRT::TupleFactory().Vector(0.0f, -ind_point, -ind_point);
+			RRT::Tuple normal_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, -1.0f);
+			RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(0.0f, 10.0f, -10.0f));
+
+			RRT::Color exp_color = RRT::Color(1.6364f, 1.6364f, 1.6364f);
+			RRT::Color act_color = RRTRayUtils::Lighting(mat, pos, light, eye_vec, normal_vec);
+
+			Assert::AreEqual(exp_color.Red(), act_color.Red(), EPSILON);
+			Assert::AreEqual(exp_color.Green(), act_color.Green(), EPSILON);
+			Assert::AreEqual(exp_color.Blue(), act_color.Blue(), EPSILON);
+		}
+
+		TEST_METHOD(Light_Is_Behind_Surface)
+		{
+			RRT::Material mat = RRT::Material();
+			RRT::Tuple pos = RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);			
+
+			RRT::Tuple eye_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, -1.0);
+			RRT::Tuple normal_vec = RRT::TupleFactory().Vector(0.0f, 0.0f, -1.0f);
+			RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(0.0f, 0.0f, 10.0f));
+
+			RRT::Color exp_color = RRT::Color(0.1f, 0.1f, 0.1f);
+			RRT::Color act_color = RRTRayUtils::Lighting(mat, pos, light, eye_vec, normal_vec);
+
+			Assert::IsTrue(exp_color == act_color);
+		}
 	};
 }

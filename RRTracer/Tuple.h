@@ -31,10 +31,12 @@ namespace RRT
 		inline bool IsPoint() const noexcept { return RRTUtils::s_floats_equal(w, 1.0f); }
 		inline bool IsVector() const noexcept { return !IsPoint(); }
 
-		float X() const noexcept { return x; }
-		float Y() const noexcept { return y; }
-		float Z() const noexcept { return z; }
-		float W() const noexcept { return w; }
+		inline float X() const noexcept { return x; }
+		inline float Y() const noexcept { return y; }
+		inline float Z() const noexcept { return z; }
+		inline float W() const noexcept { return w; }
+
+		inline void W(const float& f) { w = f; }
 
 	private:
 		float x = 0.0f;
