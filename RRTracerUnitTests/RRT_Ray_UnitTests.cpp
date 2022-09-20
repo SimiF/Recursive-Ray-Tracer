@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
+#include <optional>
+
 #include "../RRTracer/Ray.h"
 #include "../RRTracer/Transforms.h"
 #include "../RRTracer/Sphere.h"
@@ -168,11 +170,11 @@ namespace RRT_Ray_UnitTests
 			xs_vec.push_back(i1);
 			xs_vec.push_back(i2);
 
-			auto [hit, xs_obj] = RRTRayUtils::Hit(xs_vec);
+			std::optional<RRT::Intersection> result = RRTRayUtils::Hit(xs_vec);
 
-			Assert::IsTrue(hit);
-			Assert::AreEqual(1.0f, xs_obj.Time());
-			Assert::AreEqual(2, xs_obj.Object().Id());
+			Assert::IsTrue(result.has_value());
+			Assert::AreEqual(1.0f, result->Time());
+			Assert::AreEqual(2, result->Object().Id());
 		}
 
 		TEST_METHOD(Hit_when_some_have_negs_t)
@@ -186,11 +188,11 @@ namespace RRT_Ray_UnitTests
 			xs_vec.push_back(i1);
 			xs_vec.push_back(i2);
 
-			auto [hit, xs_obj] = RRTRayUtils::Hit(xs_vec);
+			std::optional<RRT::Intersection> result = RRTRayUtils::Hit(xs_vec);
 
-			Assert::IsTrue(hit);
-			Assert::AreEqual(1.0f, xs_obj.Time());
-			Assert::AreEqual(2, xs_obj.Object().Id());
+			Assert::IsTrue(result.has_value());
+			Assert::AreEqual(1.0f, result->Time());
+			Assert::AreEqual(2, result->Object().Id());
 		}
 
 		TEST_METHOD(Hit_when_all_have_negs_t)
@@ -204,10 +206,9 @@ namespace RRT_Ray_UnitTests
 			xs_vec.push_back(i1);
 			xs_vec.push_back(i2);
 
-			auto [hit, xs_obj] = RRTRayUtils::Hit(xs_vec);
+			std::optional<RRT::Intersection> result = RRTRayUtils::Hit(xs_vec);
 
-			Assert::IsFalse(hit);
-			Assert::AreEqual(0, xs_obj.Object().Id());
+			Assert::IsFalse(result.has_value());			
 		}
 
 		TEST_METHOD(Hit_is_always_lowest_non_neg_t)
@@ -227,11 +228,11 @@ namespace RRT_Ray_UnitTests
 			xs_vec.push_back(i4);
 			xs_vec.push_back(i5);
 
-			auto [hit, xs_obj] = RRTRayUtils::Hit(xs_vec);
+			std::optional<RRT::Intersection> result = RRTRayUtils::Hit(xs_vec);
 
-			Assert::IsTrue(hit);
-			Assert::AreEqual(1.0f, xs_obj.Time());
-			Assert::AreEqual(2, xs_obj.Object().Id());
+			Assert::IsTrue(result.has_value());
+			Assert::AreEqual(1.0f, result->Time());
+			Assert::AreEqual(2, result->Object().Id());
 		}
 
 		TEST_METHOD(Translating_a_ray)

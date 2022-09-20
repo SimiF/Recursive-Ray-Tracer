@@ -4,9 +4,7 @@ namespace RRTRayUtils
 {
 	std::vector<RRT::Intersection> Intersects(const RRT::Sphere& sphere, const RRT::Ray& ray)
 	{
-		RRT::Ray transformed_ray = Transform(ray, sphere.Inverse());
-
-		bool hit_flag = false;
+		RRT::Ray transformed_ray = Transform(ray, sphere.Inverse());	
 		std::vector<RRT::Intersection> xs_points(0);
 
 		RRT::Tuple sphere_to_ray = transformed_ray.Origin() - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
@@ -17,12 +15,13 @@ namespace RRTRayUtils
 
 		if (discriminant >= 0)
 		{
-			xs_points.resize(2); 
+			xs_points.resize(2); 		
+			
+			const float denom = 2 * a;
+			const float sqrt_func = sqrtf(discriminant);
 
-			hit_flag = true;
-
-			float t1 = (-b - sqrtf(discriminant)) / (2 * a);
-			float t2 = (-b + sqrtf(discriminant)) / (2 * a);
+			const float t1 = (-b - sqrt_func) / denom;
+			const float t2 = (-b + sqrt_func) / denom;		
 
 			if (t1 <= t2)
 			{
@@ -39,11 +38,10 @@ namespace RRTRayUtils
 		return xs_points;
 	}
 
-	std::tuple<bool, RRT::Intersection> Hit(const std::vector<RRT::Intersection>& xs_vec)
+	std::optional<RRT::Intersection> Hit(const std::vector<RRT::Intersection>& xs_vec)
 	{
-		bool hit_flag = false;
-		RRT::Sphere s = RRT::Sphere(0);
-		RRT::Intersection final_xs = RRT::Intersection(1e10f, s);
+		bool hit_flag = false;		
+		RRT::Intersection final_xs = RRT::Intersection(1e10f);
 
 		for (const auto& xs : xs_vec)
 		{
@@ -54,7 +52,12 @@ namespace RRTRayUtils
 			}
 		}
 
-		return std::make_tuple(hit_flag, final_xs);
+		if (!RRTUtils::s_floats_equal(final_xs.Time(), 1e10f))
+		{
+			return final_xs;
+		}
+
+		return {};
 	}
 
 	RRT::Ray Transform(const RRT::Ray& ray, const RRT::Matrix& matrix)

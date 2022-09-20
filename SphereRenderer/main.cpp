@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <chrono>
+#include <optional>
 
 #include "../RRTracer/Sphere.h"
 #include "../RRTracer/Transforms.h"
@@ -50,15 +51,15 @@ int main()
 
 			std::vector<RRT::Intersection> xs1 = RRTRayUtils::Intersects(s, ray);			
 
-			auto [hit1, xs_pts1] = RRTRayUtils::Hit(xs1);			
+			std::optional<RRT::Intersection> hit_result = RRTRayUtils::Hit(xs1);			
 						
-			if (hit1)
+			if (hit_result.has_value())
 			{			
-				RRT::Tuple hit_point = ray.Position(xs_pts1.Time());
-				RRT::Tuple normal_at_hit = RRTRayUtils::Normal_At(xs_pts1.Object(), hit_point);
+				RRT::Tuple hit_point = ray.Position(hit_result->Time());
+				RRT::Tuple normal_at_hit = RRTRayUtils::Normal_At(hit_result->Object(), hit_point);
 				RRT::Tuple eye_vec = -ray.Direction();
 
-				RRT::Color color = RRTRayUtils::Lighting(xs_pts1.Object().Material(), hit_point, light, eye_vec, normal_at_hit);
+				RRT::Color color = RRTRayUtils::Lighting(hit_result->Object().Material(), hit_point, light, eye_vec, normal_at_hit);
 
 				canvas.Pixel(x, y) = color;
 			}			

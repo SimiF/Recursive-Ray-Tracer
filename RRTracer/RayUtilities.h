@@ -16,11 +16,12 @@
 #include <tuple>
 #include <vector>
 #include <cmath>
+#include <optional>
 
 namespace RRTRayUtils
 {
 	std::vector<RRT::Intersection> Intersects(const RRT::Sphere& sphere, const RRT::Ray& ray);
-	std::tuple<bool, RRT::Intersection> Hit(const std::vector<RRT::Intersection>& xs_vec);
+	std::optional<RRT::Intersection> Hit(const std::vector<RRT::Intersection>& xs_vec);
 	RRT::Ray Transform(const RRT::Ray& ray, const RRT::Matrix& matrix);
 	RRT::Tuple Normal_At(const RRT::Sphere& sphere, const RRT::Tuple& point);
 	RRT::Tuple Reflect(const RRT::Tuple& in_vec, const RRT::Tuple& in_norm);

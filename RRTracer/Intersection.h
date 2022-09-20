@@ -11,6 +11,7 @@ namespace RRT
 	{
 	public:		
 		Intersection() = default;
+		Intersection(const float& time) : time(time) {}
 		Intersection(const float& time, const Sphere& sphere) : time(time), sphere(sphere) {}
 
 		Intersection(const Intersection& copy) noexcept(false);
