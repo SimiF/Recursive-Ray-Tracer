@@ -22,9 +22,12 @@
 #include "../RRTracer/PointLight.h"
 
 std::mutex canvas_mutex;
+std::condition_variable cv;
 
 void cast_ray(int x, int y, RRT::Canvas& canvas)
 {
+	std::unique_lock lk(canvas_mutex);
+	cv.wait(lk);
 	const RRT::Tuple ray_origin = RRT::TupleFactory().Point(0.0f, 0.0f, -5.0f);
 	const RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(0.0f, 0.0f, -10.0f));
 	const RRT::Sphere s(0);
@@ -52,11 +55,11 @@ void cast_ray(int x, int y, RRT::Canvas& canvas)
 		RRT::Tuple normal_at_hit = RRTRayUtils::Normal_At(hit_result->Object(), hit_point);
 		RRT::Tuple eye_vec = -ray.Direction();
 
-		RRT::Color color = RRTRayUtils::Lighting(hit_result->Object().Material(), hit_point, light, eye_vec, normal_at_hit);
-
-		std::lock_guard<std::mutex> guard(canvas_mutex);
+		RRT::Color color = RRTRayUtils::Lighting(hit_result->Object().Material(), hit_point, light, eye_vec, normal_at_hit);				
 		canvas.Pixel(x, y) = color;
 	}
+
+	cv.notify_one();
 }
 
 int main()
@@ -76,17 +79,10 @@ int main()
 		for (size_t x = 0; x < canvas.Width(); ++x)
 		{		
 			if (i > 7) { 
-				i = 0;  
-
-				for (int j = 0; j < 8; ++j)
-				{
-					worker_threads[j].join();
-				}
-
+				i = 0;			
 			}
 
 			worker_threads[i] = std::thread(cast_ray, x, y, std::ref(canvas));
-			
 
 			++i;
 		}
