@@ -4,9 +4,7 @@ namespace RRTRayUtils
 {
 	std::vector<RRT::Intersection> Intersects(const RRT::Sphere& sphere, const RRT::Ray& ray)
 	{
-		RRT::Ray transformed_ray = Transform(ray, RRTMatrixUtils::Inverse(sphere.Transform()));
-
-		bool hit_flag = false;
+		RRT::Ray transformed_ray = Transform(ray, sphere.Inverse());	
 		std::vector<RRT::Intersection> xs_points(0);
 
 		RRT::Tuple sphere_to_ray = transformed_ray.Origin() - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
@@ -17,31 +15,33 @@ namespace RRTRayUtils
 
 		if (discriminant >= 0)
 		{
-			hit_flag = true;
+			xs_points.resize(2); 		
+			
+			const float denom = 2 * a;
+			const float sqrt_func = sqrtf(discriminant);
 
-			float t1 = (-b - sqrtf(discriminant)) / (2 * a);
-			float t2 = (-b + sqrtf(discriminant)) / (2 * a);
+			const float t1 = (-b - sqrt_func) / denom;
+			const float t2 = (-b + sqrt_func) / denom;		
 
 			if (t1 <= t2)
 			{
-				xs_points.push_back(RRT::Intersection(t1, sphere));
-				xs_points.push_back(RRT::Intersection(t2, sphere));
+				xs_points[0] = (RRT::Intersection(t1, sphere));
+				xs_points[1] = (RRT::Intersection(t2, sphere));
 			}
 			else
 			{
-				xs_points.push_back(RRT::Intersection(t2, sphere));
-				xs_points.push_back(RRT::Intersection(t1, sphere));
+				xs_points[0] = (RRT::Intersection(t2, sphere));
+				xs_points[1] = (RRT::Intersection(t1, sphere));
 			}
 		}
 
 		return xs_points;
 	}
 
-	std::tuple<bool, RRT::Intersection> Hit(const std::vector<RRT::Intersection>& xs_vec)
+	std::optional<RRT::Intersection> Hit(const std::vector<RRT::Intersection>& xs_vec)
 	{
-		bool hit_flag = false;
-		RRT::Sphere s = RRT::Sphere(0);
-		RRT::Intersection final_xs = RRT::Intersection(1e10f, s);
+		bool hit_flag = false;		
+		RRT::Intersection final_xs = RRT::Intersection(1e10f);
 
 		for (const auto& xs : xs_vec)
 		{
@@ -52,7 +52,12 @@ namespace RRTRayUtils
 			}
 		}
 
-		return std::make_tuple(hit_flag, final_xs);
+		if (!RRTUtils::s_floats_equal(final_xs.Time(), 1e10f))
+		{
+			return final_xs;
+		}
+
+		return {};
 	}
 
 	RRT::Ray Transform(const RRT::Ray& ray, const RRT::Matrix& matrix)
@@ -66,11 +71,11 @@ namespace RRTRayUtils
 
 	RRT::Tuple Normal_At(const RRT::Sphere& sphere, const RRT::Tuple& point)
 	{		
-		RRT::Tuple object_point = RRTMatrixUtils::Inverse(sphere.Transform()) * point;
+		RRT::Tuple object_point = sphere.Inverse() * point;
 		RRT::Tuple object_normal = object_point - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
 
 		// vector cannot be multiplied by the inverse of the transform matrix alone as it will not preserve normal vector direction
-		RRT::Tuple world_normal = RRTMatrixUtils::Transpose(RRTMatrixUtils::Inverse(sphere.Transform())) * object_normal;
+		RRT::Tuple world_normal = RRTMatrixUtils::Transpose(sphere.Inverse()) * object_normal;
 
 		// depending on matrix used, the w factor may be changed. Here we hard reset to this being a vector
 		world_normal.W(0.0f);

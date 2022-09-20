@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
+#include <optional>
 
 #include "../RRTracer/Sphere.h"
 #include "../RRTracer/Transforms.h"
@@ -18,12 +20,12 @@
 
 int main()
 {
-	RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(-10.0f, 10.0f, -10.0f));
+	RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(0.0f, 0.0f, -10.0f));
 
-	RRT::Canvas canvas = RRT::Canvas(200, 200);	
+	RRT::Canvas canvas = RRT::Canvas(100, 100);	
 	RRT::Sphere s(0);
-	s.Transform(RRTMatrixTransforms::Rotation_Z(3.14159265359f / 4.0f) * RRTMatrixTransforms::Scaling(1.0f, 0.5f, 1.0f));
-	s.Material().Color({ 0.274f, 0.705f, 0.705f });
+	// s.Transform(RRTMatrixTransforms::Rotation_Z(3.14159265359f / 4.0f) * RRTMatrixTransforms::Scaling(1.0f, 0.5f, 1.0f));
+	s.Material().Color({ 1.0f, 0.0785f, 0.0f });
 	RRT::FileWriter fw("shere_render_no_shade.ppm");
 
 	RRT::Tuple ray_origin = RRT::TupleFactory().Point(0.0f, 0.0f, -5.0f);
@@ -31,6 +33,8 @@ int main()
 	float wall_size = 7.0f;
 	float pixel_size = wall_size / canvas.Height();
 	float half = wall_size / 2;
+
+	auto start_time = std::chrono::high_resolution_clock::now();
 
 	for (size_t y = 0; y < canvas.Height(); ++y)
 	{
@@ -47,20 +51,25 @@ int main()
 
 			std::vector<RRT::Intersection> xs1 = RRTRayUtils::Intersects(s, ray);			
 
-			auto [hit1, xs_pts1] = RRTRayUtils::Hit(xs1);			
+			std::optional<RRT::Intersection> hit_result = RRTRayUtils::Hit(xs1);			
 						
-			if (hit1)
+			if (hit_result.has_value())
 			{			
-				RRT::Tuple hit_point = ray.Position(xs_pts1.Time());
-				RRT::Tuple normal_at_hit = RRTRayUtils::Normal_At(xs_pts1.Object(), hit_point);
+				RRT::Tuple hit_point = ray.Position(hit_result->Time());
+				RRT::Tuple normal_at_hit = RRTRayUtils::Normal_At(hit_result->Object(), hit_point);
 				RRT::Tuple eye_vec = -ray.Direction();
 
-				RRT::Color color = RRTRayUtils::Lighting(xs_pts1.Object().Material(), hit_point, light, eye_vec, normal_at_hit);
+				RRT::Color color = RRTRayUtils::Lighting(hit_result->Object().Material(), hit_point, light, eye_vec, normal_at_hit);
 
 				canvas.Pixel(x, y) = color;
 			}			
 		}
 	}
+
+	auto finish_time = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsed = finish_time - start_time;
+
+	std::cout << "Render Time: " << elapsed.count() << '\n';
 
 	fw.Write(canvas.PixelMapPPMFormat());
 
