@@ -4,7 +4,7 @@ namespace RRTRayUtils
 {
 	std::vector<RRT::Intersection> Intersects(const RRT::Sphere& sphere, const RRT::Ray& ray)
 	{
-		RRT::Ray transformed_ray = Transform(ray, RRTMatrixUtils::Inverse(sphere.Transform()));
+		RRT::Ray transformed_ray = Transform(ray, sphere.Inverse());
 
 		bool hit_flag = false;
 		std::vector<RRT::Intersection> xs_points(0);
@@ -66,11 +66,11 @@ namespace RRTRayUtils
 
 	RRT::Tuple Normal_At(const RRT::Sphere& sphere, const RRT::Tuple& point)
 	{		
-		RRT::Tuple object_point = RRTMatrixUtils::Inverse(sphere.Transform()) * point;
+		RRT::Tuple object_point = sphere.Inverse() * point;
 		RRT::Tuple object_normal = object_point - RRT::TupleFactory().Point(0.0f, 0.0f, 0.0f);
 
 		// vector cannot be multiplied by the inverse of the transform matrix alone as it will not preserve normal vector direction
-		RRT::Tuple world_normal = RRTMatrixUtils::Transpose(RRTMatrixUtils::Inverse(sphere.Transform())) * object_normal;
+		RRT::Tuple world_normal = RRTMatrixUtils::Transpose(sphere.Inverse()) * object_normal;
 
 		// depending on matrix used, the w factor may be changed. Here we hard reset to this being a vector
 		world_normal.W(0.0f);

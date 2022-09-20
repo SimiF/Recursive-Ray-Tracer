@@ -5,6 +5,7 @@
 
 #include "Matrix.h"
 #include "MatrixFactory.h"
+#include "MatrixUtilities.h"
 
 #include "Material.h"
 
@@ -18,7 +19,9 @@ namespace RRT
 		inline int Id() const { return id; }
 
 		inline Matrix Transform() const { return transform; }
-		inline void Transform(const Matrix& new_transform) { transform = new_transform; }
+		inline void Transform(const Matrix& new_transform) { transform = new_transform; inv_transform = RRTMatrixUtils::Inverse(transform); }
+
+		inline Matrix Inverse() const { return inv_transform; }
 
 		inline RRT::Material Material() const { return material; }
 		inline RRT::Material& Material() { return material; }
@@ -27,6 +30,7 @@ namespace RRT
 		int id = 0;
 		Tuple origin = { 0.0f, 0.0f, 0.0f, 1.0f };
 		Matrix transform = RRT::MatrixFactory().IdentityMatrix();
+		Matrix inv_transform = RRTMatrixUtils::Inverse(transform);
 		float radius = 0.0f;	
 		RRT::Material material = RRT::Material();
 	};
