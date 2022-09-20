@@ -17,6 +17,8 @@ namespace RRTRayUtils
 
 		if (discriminant >= 0)
 		{
+			xs_points.resize(2); 
+
 			hit_flag = true;
 
 			float t1 = (-b - sqrtf(discriminant)) / (2 * a);
@@ -24,13 +26,13 @@ namespace RRTRayUtils
 
 			if (t1 <= t2)
 			{
-				xs_points.push_back(RRT::Intersection(t1, sphere));
-				xs_points.push_back(RRT::Intersection(t2, sphere));
+				xs_points[0] = (RRT::Intersection(t1, sphere));
+				xs_points[1] = (RRT::Intersection(t2, sphere));
 			}
 			else
 			{
-				xs_points.push_back(RRT::Intersection(t2, sphere));
-				xs_points.push_back(RRT::Intersection(t1, sphere));
+				xs_points[0] = (RRT::Intersection(t2, sphere));
+				xs_points[1] = (RRT::Intersection(t1, sphere));
 			}
 		}
 
