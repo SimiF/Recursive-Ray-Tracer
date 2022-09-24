@@ -22,9 +22,8 @@ int main()
 {
 	RRT::PointLight light = RRT::PointLight({ 1.0f, 1.0f, 1.0f }, RRT::TupleFactory().Point(0.0f, 0.0f, -10.0f));
 
-	RRT::Canvas canvas = RRT::Canvas(100, 100);	
-	RRT::Sphere s(0);
-	// s.Transform(RRTMatrixTransforms::Rotation_Z(3.14159265359f / 4.0f) * RRTMatrixTransforms::Scaling(1.0f, 0.5f, 1.0f));
+	RRT::Canvas canvas = RRT::Canvas(300, 300);	
+	RRT::Sphere s(0);	
 	s.Material().Color({ 1.0f, 0.0785f, 0.0f });
 	RRT::FileWriter fw("shere_render_no_shade.ppm");
 
